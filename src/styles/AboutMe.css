@@ -1,0 +1,10 @@
+.about {
+    padding: 4rem;
+    background: #f5f5f5;
+    text-align: center;
+  }
+  .tech-stack {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }

@@ -1,0 +1,11 @@
+.achievements {
+    text-align: center;
+    padding: 4rem;
+    background: #f9f9f9;
+  }
+  .achievement-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }

@@ -1,0 +1,55 @@
+.stars-container {
+  position: absolute;
+  width: 98vw;
+  height: 98vh;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Greeting Text */
+.greeting-text {
+  position: absolute;
+  color: white;
+  font-size: 2.5rem;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid white;
+  animation: blinkCursor 0.8s infinite;
+}
+
+/* Dots Animation */
+.dots {
+  font-weight: normal;
+  font-size: 2.5rem;
+  animation: dotsAnimation 1s infinite;
+}
+
+@keyframes dotsAnimation {
+  0% { opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Blinking Cursor */
+@keyframes blinkCursor {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* Hard Blackout Screen */
+.blackout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000; /* Pure Black */
+  z-index: 9999; /* Ensure it's on top */
+}
