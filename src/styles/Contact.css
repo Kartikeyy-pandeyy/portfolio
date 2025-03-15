@@ -1,14 +1,528 @@
+/* =================== CONTACT SECTION =================== */
 .contact {
-    text-align: center;
-    padding: 4rem;
-    background: #222;
-    color: white;
+  width: 100%;
+  padding: clamp(2rem, 4vw, 6rem);
+  background: linear-gradient(145deg, #0A0A14, #141422, #0D0D1A, #12121E); /* Matte, muted tones */
+  background-size: 200% 200%;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+  font-family: "Poppins", sans-serif;
+  height: auto;
+}
+
+/* Cosmic Overlay */
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05), rgba(200, 200, 200, 0.05) 50%, transparent); /* Softer overlay */
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Twinkling Stars */
+.contact::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: 
+    10vw 20vh 1px #FFFFFF, 
+    30vw 50vh 1px #E0E0E0, 
+    70vw 30vh 1px #D0D0D0, 
+    50vw 80vh 1px #FFFFFF; /* Matching particle colors */
+  animation: twinkle 5s ease-in-out infinite;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.9; }
+}
+
+/* Particles Wrapper */
+.particles-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9; /* Slightly reduced opacity for matte contrast */
+}
+
+/* Content Wrapper */
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* Heading */
+.contact h2 {
+  font-size: clamp(2rem, 3rem, 4rem);
+  font-weight: 800;
+  background: linear-gradient(90deg, #00FFFF, #8A2BE2, #FF69B4, #00FFFF);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+  margin-bottom: 1.25rem;
+}
+
+/* Subtext */
+.contact p {
+  font-size: clamp(1rem, 1.4rem, 1.6rem);
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.4);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* Contact Container */
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: clamp(1rem, 2vw, 3rem);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Contact Form */
+.contact-form {
+  flex: 1 1 60%;
+  max-width: clamp(300px, 100%, 600px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(0, 0, 0, 0.65));
+  padding: clamp(1rem, 2rem, 3rem);
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.contact-form:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+}
+
+/* Form Fields */
+.form-field {
+  position: relative;
+  margin: 0.6rem 0;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: clamp(0.8rem, 1rem, 1.2rem);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: clamp(0.9rem, 1.1rem, 1.3rem);
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+  box-shadow: inset 0 2px 4px rgba(0, 255, 255, 0.15);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #00FFFF;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: 2px solid #00FFFF;
+}
+
+.form-field::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #00FFFF;
+  transition: width 0.3s ease;
+}
+
+.form-field:focus-within::after {
+  width: 100%;
+}
+
+.error {
+  color: #FF69B4;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+  text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: clamp(0.8rem, 1rem, 1.2rem);
+  margin-top: 1.25rem;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #00FFFF, #8A2BE2, #FF69B4);
+  color: #fff;
+  font-size: clamp(1rem, 1.2rem, 1.4rem);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.25);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  position: relative;
+  overflow: hidden;
+  min-height: 48px;
+}
+
+.submit-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.submit-btn:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 255, 255, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submit-btn:disabled::after {
+  content: "Submitting…";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #00FFFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Form Status */
+.form-status {
+  margin-top: 1rem;
+  font-size: clamp(0.9rem, 1.1rem, 1.3rem);
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.4);
+  font-weight: 500;
+}
+
+/* Success Modal */
+.success-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  z-index: 1000;
+  text-align: center;
+}
+
+.success-modal p {
+  color: #00FFFF;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.success-modal button {
+  padding: 0.5rem 1rem;
+  background: #00FFFF;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Contact Info */
+.contact-info {
+  flex: 1 1 35%;
+  max-width: clamp(300px, 100%, 600px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(0, 0, 0, 0.65));
+  padding: clamp(1rem, 2rem, 3rem);
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.contact-info:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: clamp(1.2rem, 1.5rem, 1.8rem);
+  color: #00FFFF;
+  text-decoration: none;
+  padding: 0.6rem;
+  border-radius: 10px;
+  background: rgba(0, 255, 255, 0.07);
+  transition: all 0.3s ease-out;
+  box-shadow: 0 3px 8px rgba(0, 255, 255, 0.15);
+  min-height: 48px;
+}
+
+.social-links a:hover {
+  color: #FF69B4;
+  background: rgba(255, 105, 180, 0.2);
+  box-shadow: 0 6px 12px rgba(255, 105, 180, 0.4);
+}
+
+.social-links a span {
+  font-size: clamp(0.9rem, 1.1rem, 1.2rem);
+  font-weight: 500;
+}
+
+/* Email Button */
+.email-btn {
+  display: flex;
+  justify-content: center;
+  padding: clamp(0.8rem, 1rem, 1.2rem) clamp(1.2rem, 1.5rem, 2rem);
+  background: linear-gradient(90deg, #00FFFF, #8A2BE2, #FF69B4);
+  color: #fff;
+  text-decoration: none;
+  font-size: clamp(1rem, 1.2rem, 1.4rem);
+  font-weight: 700;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.25);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  position: sticky;
+  top: 1rem;
+  min-height: 48px;
+}
+
+.email-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.email-btn:hover::before {
+  opacity: 1;
+}
+
+.email-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 255, 255, 0.4);
+}
+
+/* =================== RESPONSIVENESS =================== */
+@media screen and (max-width: 768px) {
+  .contact { padding: clamp(1.5rem, 3vw, 4rem); }
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .contact-form,
+  .contact-info {
+    width: 100%;
+    max-width: 600px;
+    padding: clamp(1rem, 1.5rem, 2rem);
+  }
+  .social-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .contact { padding: clamp(1rem, 2vw, 3rem); }
+  .contact h2 { font-size: clamp(1.8rem, 2.5rem, 3rem); }
+  .contact p {
+    font-size: clamp(0.9rem, 1.2rem, 1.4rem);
+    margin-bottom: 1.5rem;
   }
   .contact-form input,
   .contact-form textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border-radius: 5px;
-    border: none;
+    padding: clamp(0.6rem, 0.8rem, 1rem);
+    font-size: clamp(0.85rem, 1rem, 1.1rem);
   }
+  .social-links { flex-direction: column; gap: 0.5rem; }
+}
+
+@media screen and (max-width: 375px) {
+  .contact-form,
+  .contact-info { padding: clamp(0.8rem, 1.2rem, 1.5rem); }
+  .social-links a { font-size: clamp(1.1rem, 1.3rem, 1.5rem); }
+  .submit-btn,
+  .email-btn {
+    font-size: clamp(0.9rem, 1.1rem, 1.3rem);
+    padding: 0.8rem;
+  }
+}
+
+/* =================== OPTIMIZATION =================== */
+@media (prefers-reduced-motion: reduce) {
+  .contact::after,
+  .contact-form,
+  .contact-info,
+  .submit-btn,
+  .social-links a,
+  .email-btn {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .contact-form,
+  .contact-info { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+  .submit-btn,
+  .email-btn { box-shadow: 0 4px 15px rgba(0, 255, 255, 0.35); }
+}
+/* Back to Top Button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #00FFFF, #8A2BE2, #FF69B4);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.9;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 25px rgba(138, 43, 226, 0.5);
+  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.scroll-top-btn:hover {
+  transform: scale(1.1);
+  opacity: 1;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 30px rgba(138, 43, 226, 0.7);
+}
+
+.scroll-top-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-top-btn:hover::before {
+  opacity: 1;
+}
+
+/* Pulsing animation */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Responsiveness for Scroll Button */
+@media screen and (max-width: 768px) {
+  .scroll-top-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .scroll-top-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .scroll-top-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+}
+
+/* Optimization for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-top-btn {
+    animation: none !important;
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .scroll-top-btn {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 30px rgba(138, 43, 226, 0.6);
+  }
+}
