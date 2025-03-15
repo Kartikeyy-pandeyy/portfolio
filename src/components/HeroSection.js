@@ -18,7 +18,7 @@ const HeroSection = () => {
   useEffect(() => {
     if (!hasFetched.current) {
       hasFetched.current = true;
-      fetch("http://3.110.124.79:5000/api/visitors")
+      fetch("https://3.110.124.79:5000/api/visitors")
         .then((response) => response.json())
         .then((data) => {
           const end = data.count;
