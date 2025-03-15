@@ -51,25 +51,32 @@ export default function StarsBackground() {
 
   // Stars and shooting stars
   useEffect(() => {
+    const container = document.querySelector(".cosmos-container");
+
+    // Ensure the container exists before proceeding
+    if (!container) return;
+
     // Star positioning with subtle entry
     const stars = document.querySelectorAll(".star");
     stars.forEach((star, idx) => {
       const randomX = Math.random() * 100;
       const randomY = Math.random() * 100;
-      const size = 1 + Math.random() * 2;
+      const size = 1 + Math.random() * 2; // Base size
       const delay = idx * 0.02; // Staggered entry
+      const animationDuration = 3 + Math.random() * 3; // Random twinkle speed
       star.style.left = `${randomX}vw`;
       star.style.top = `${randomY}vh`;
       star.style.width = `${size}px`;
       star.style.height = `${size}px`;
       star.style.animationDelay = `${delay}s`;
+      star.style.animationDuration = `${animationDuration}s`;
     });
 
     // Subtle shooting stars
     const createShootingStar = () => {
       const shootingStar = document.createElement("div");
       shootingStar.className = "shooting-star";
-      document.querySelector(".cosmos-container").appendChild(shootingStar);
+      container.appendChild(shootingStar);
       const startX = Math.random() * 80 + 10; // Avoid edges
       const startY = Math.random() * 15;
       const angle = 35 + Math.random() * 20; // Narrower range for subtlety
@@ -84,7 +91,6 @@ export default function StarsBackground() {
 
     // Mouse movement for dynamic glow
     const handleMouseMove = (e) => {
-      const container = document.querySelector(".cosmos-container");
       const x = (e.clientX / window.innerWidth) * 100;
       const y = (e.clientY / window.innerHeight) * 100;
       container.style.setProperty("--mouse-x", `${x}%`);
@@ -92,13 +98,25 @@ export default function StarsBackground() {
     };
     window.addEventListener("mousemove", handleMouseMove);
 
+    // Touch movement for mobile devices
+    const handleTouchMove = (e) => {
+      const touch = e.touches[0];
+      const x = (touch.clientX / window.innerWidth) * 100;
+      const y = (touch.clientY / window.innerHeight) * 100;
+      container.style.setProperty("--mouse-x", `${x}%`);
+      container.style.setProperty("--mouse-y", `${y}%`);
+    };
+    window.addEventListener("touchmove", handleTouchMove);
+
     return () => {
       clearInterval(shootingInterval);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, []);
 
-  const starCount = window.innerWidth < 768 ? 80 : 150;
+  // Dynamic star count based on screen size
+  const starCount = window.innerWidth < 768 ? 150 : 300; // Increased star count
 
   return (
     <div className={`cosmos-container ${blackout ? "warping" : ""}`}>
@@ -110,7 +128,7 @@ export default function StarsBackground() {
       )}
       {blackout && <div className="blackout"></div>}
       {Array.from({ length: starCount }).map((_, index) => (
-        <div key={index} className="star"></div>
+        <div key={index} className={`star star-type-${(index % 10) + 1}`}></div>
       ))}
     </div>
   );

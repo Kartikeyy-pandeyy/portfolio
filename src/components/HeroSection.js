@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/HeroSection.css";
 import profilePic from "../assets/profile.jpg";
 
-const roles = ["Software Engineer", "Cloud Enthusiast", "AI Explorer"];
+const roles = ["Full-Stack Developer 🖥️", "Cloud Strategist ☁️", "Tech Enthusiast 🚀"];
+
 
 const HeroSection = () => {
   const [viewCount, setViewCount] = useState(0);

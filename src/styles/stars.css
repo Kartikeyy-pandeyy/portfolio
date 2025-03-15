@@ -10,8 +10,8 @@
   justify-content: center;
   isolation: isolate;
   z-index: 0;
-  transition: background 1.5s ease, opacity 1s ease; /* Smoother cosmic shift */
-  perspective: 1500px; /* Increased depth for 3D starfield */
+  transition: background 1.5s ease, opacity 1s ease;
+  perspective: 1500px;
 }
 
 /* Nebula Background */
@@ -75,19 +75,17 @@
   transform: translateZ(0);
 }
 
-.star:nth-child(3n) {
-  background: radial-gradient(circle, rgba(255, 245, 200, 1), rgba(255, 245, 200, 0.05));
-  box-shadow: 0 0 4px rgba(255, 245, 200, 0.85),
-              0 0 8px rgba(255, 245, 200, 0.55);
-  animation-duration: 1.3s, 5s;
-}
-
-.star:nth-child(5n) {
-  background: radial-gradient(circle, rgba(173, 216, 230, 1), rgba(173, 216, 230, 0.05));
-  box-shadow: 0 0 5px rgba(173, 216, 230, 0.8),
-              0 0 9px rgba(173, 216, 230, 0.5);
-  animation-duration: 1s, 3.5s;
-}
+/* Different Star Types */
+.star-type-1 { width: 1px; height: 1px; animation-duration: 3s; }
+.star-type-2 { width: 1.2px; height: 1.2px; animation-duration: 4s; }
+.star-type-3 { width: 1.5px; height: 1.5px; animation-duration: 5s; }
+.star-type-4 { width: 1px; height: 1px; animation-duration: 6s; }
+.star-type-5 { width: 1.3px; height: 1.3px; animation-duration: 7s; }
+.star-type-6 { width: 1.1px; height: 1.1px; animation-duration: 8s; }
+.star-type-7 { width: 1.4px; height: 1.4px; animation-duration: 9s; }
+.star-type-8 { width: 1px; height: 1px; animation-duration: 10s; }
+.star-type-9 { width: 1.2px; height: 1.2px; animation-duration: 11s; }
+.star-type-10 { width: 1.5px; height: 1.5px; animation-duration: 12s; }
 
 /* Shooting Stars */
 .shooting-star {
