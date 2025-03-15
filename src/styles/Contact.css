@@ -49,10 +49,13 @@
   50% { opacity: 1; }
 }
 
-/* Particles Wrapper with Enhanced Depth */
+/* Particles Wrapper with Enhanced Depth - Updated to span entire page */
 .particles-wrapper {
-  position: absolute;
-  inset: 0;
+  position: fixed; /* Changed from absolute to fixed */
+  top: 0; /* Replaced inset: 0 with explicit positioning */
+  left: 0;
+  width: 100%; /* Added to ensure full width */
+  height: 100%; /* Added to ensure full height */
   z-index: 0;
   pointer-events: none;
   opacity: 0.95;
@@ -83,9 +86,11 @@
   margin-bottom: 1.5rem;
   animation: gradientShift 8s ease infinite;
 }
+
 .email-btn {
   text-decoration: none;
 }
+
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
