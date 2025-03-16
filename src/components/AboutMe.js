@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/AboutMe.css";
-import { FaReact, FaGamepad, FaMusic, FaGlobe, FaLaptopCode, FaRobot, FaJava, FaHtml5, FaCss3Alt, FaJs, FaServer, FaDatabase } from "react-icons/fa";
+import { FaReact, FaGamepad, FaMusic, FaGlobe, FaLaptopCode, FaRobot, FaJava, FaHtml5, FaCss3Alt, FaJs, FaServer, FaDatabase, FaCamera } from "react-icons/fa";
 import { SiMongodb, SiPostman, SiFlask, SiAmazonec2, SiAmazons3, SiAmazonwebservices, SiAwslambda, SiAmazoniam, SiAwsamplify, SiAmazonapigateway } from "react-icons/si";
 import { motion } from "framer-motion";
 
@@ -92,17 +92,16 @@ const techStack = [
   },
 ];
 
-
 const hobbies = [
   { 
     name: "Gaming", 
     icon: <FaGamepad className="icon gaming" />, 
-    desc: "Love strategy and FPS games, especially Valorant." 
+    desc: "Love strategy and FPS games like Valorant." 
   },
   { 
     name: "Music", 
     icon: <FaMusic className="icon music" />, 
-    desc: "Love listening to Indian music and exploring new genres." 
+    desc: "Love Indian music and exploring new genres." 
   },
   { 
     name: "Traveling", 
@@ -112,14 +111,20 @@ const hobbies = [
   { 
     name: "Coding", 
     icon: <FaLaptopCode className="icon coding" />, 
-    desc: "Enjoy building software products that solve problems." 
+    desc: "Love building software that solves problems." 
   },
   { 
     name: "AI & ML", 
     icon: <FaRobot className="icon aiml" />, 
-    desc: "Love Generative AI and its creative possibilities." 
+    desc: "Generative AI and its uses excite me." 
+  },
+  { 
+    name: "Photography", 
+    icon: <FaCamera className="icon photography" />, 
+    desc: "Love capturing landscapes and moments." 
   },
 ];
+
 
 
 const cardVariants = {
@@ -127,7 +132,7 @@ const cardVariants = {
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.4 } // Slightly faster transition
+    transition: { delay: i * 0.1, duration: 0.4 }
   }),
 };
 
@@ -149,7 +154,7 @@ const AboutMe = () => {
           className="about-bio"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }} // Slightly faster
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
           Turning coffee into code, dreams into deployments, and bugs into 'features.' Passionate about cloud, AI, and full-stack magic!

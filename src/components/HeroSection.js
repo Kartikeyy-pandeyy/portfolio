@@ -84,7 +84,7 @@ const HeroSection = () => {
       <div className="hero-container">
         <div className="hero-content">
           <h1>
-            Hi, I’m <span>Kartikey Pandey</span>
+            Hi there, I’m <span>Kartikey Pandey</span>
           </h1>
           <p className="animated-text">
             {text}

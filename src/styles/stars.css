@@ -37,27 +37,14 @@
 .cosmos-container::after {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 70%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
   opacity: 0.3;
-  filter: blur(10px);
-  animation: dustDrift 120s ease-in-out infinite;
+  filter: blur(20px);
+  transform: translate(var(--mouse-x, 50%), var(--mouse-y, 50%)) translate(-50%, -50%) scale(1) translateZ(5px);
+  transition: transform 0.2s ease, opacity 0.4s ease;
   z-index: 2;
-  will-change: transform;
-}
-
-/* Aurora Glow */
-.aurora {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(0, 191, 255, 0.05), rgba(75, 0, 130, 0.08), transparent 80%);
-  opacity: 0.4;
-  filter: blur(50px);
-  animation: auroraShift 80s ease-in-out infinite;
-  z-index: 3;
-  will-change: opacity, transform;
 }
 
 /* Stars */
@@ -103,16 +90,15 @@
   transform-origin: center;
 }
 
-.shooting-star:nth-child(even) {
-  height: 40px;
-  background: linear-gradient(180deg, rgba(173, 216, 230, 1), rgba(173, 216, 230, 0));
-  box-shadow: 0 0 5px rgba(173, 216, 230, 0.9),
-              0 0 10px rgba(173, 216, 230, 0.6);
+/* Greeting Wrapper */
+.greeting-wrapper {
+  position: absolute;
+  z-index: 20;
+  text-align: center;
 }
 
 /* Greeting Text */
 .greeting-text {
-  position: absolute;
   color: #fff;
   font-size: 3rem;
   font-family: "Courier New", monospace;
@@ -120,16 +106,24 @@
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.95),
                0 0 10px rgba(0, 191, 255, 0.7),
                0 0 15px rgba(75, 0, 130, 0.4);
-  white-space: nowrap;
-  padding-right: 8px;
-  border-right: 2px solid rgba(255, 255, 255, 0.9);
   opacity: 0;
   animation: textFadeIn 1s ease 1s forwards,
-             blinkCursor 0.8s infinite,
              subtleGlow 5s ease-in-out infinite;
-  z-index: 20;
   transition: transform 0.5s ease, text-shadow 0.5s ease, opacity 0.5s ease;
   will-change: opacity, transform, text-shadow;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.greeting-line1,
+.greeting-line2 {
+  display: inline;
+}
+
+.greeting-line1 {
+  margin-right: 0.5rem; /* Space between "Good" and second word on larger screens */
 }
 
 .dots {
@@ -139,6 +133,15 @@
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.8),
                0 0 8px rgba(0, 191, 255, 0.5);
   transition: opacity 0.5s ease;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 3rem;
+  background: rgba(255, 255, 255, 0.9);
+  animation: blinkCursor 0.8s infinite;
+  margin-left: 0.2rem;
 }
 
 /* Blackout */
@@ -161,10 +164,6 @@
   animation: starFadeOut 1.2s ease forwards, twinkle 4s ease-in-out infinite;
 }
 
-.warping .shooting-star {
-  animation: shoot 1.5s ease-out forwards, starFadeOut 0.8s ease forwards;
-}
-
 /* Animations */
 @keyframes starFadeIn {
   0% { opacity: 0; transform: scale(0.6) translateZ(-20px); }
@@ -181,18 +180,6 @@
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(-2%, 2%) scale(1.003); }
   100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes dustDrift {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(1%, -1%); }
-  100% { transform: translate(0, 0); }
-}
-
-@keyframes auroraShift {
-  0% { opacity: 0.4; transform: translateY(0); }
-  50% { opacity: 0.6; transform: translateY(-5%); }
-  100% { opacity: 0.4; transform: translateY(0); }
 }
 
 @keyframes shoot {
@@ -214,92 +201,20 @@
 }
 
 @keyframes blinkCursor {
-  0% { border-color: rgba(255, 255, 255, 0.9); }
-  50% { border-color: transparent; }
-  100% { border-color: rgba(255, 255, 255, 0.9); }
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes fadeOut {
-  0% { opacity: 0; transform: scale(1.02); }
+  0% { opacity: 0; transform: scale(1.05); }
+  50% { opacity: 0.5; transform: scale(1.02); }
   100% { opacity: 1; transform: scale(1); }
 }
 
 @keyframes starFadeOut {
   0% { opacity: 0.95; transform: scale(1) translateZ(0); }
   100% { opacity: 0; transform: scale(0.8) translateZ(-30px) translateY(15vh); }
-}
-
-/* Interactive Effects */
-.cosmos-container:hover {
-  background: linear-gradient(180deg, #0a0a23 0%, #1a1a4d 40%, #000033 70%, #000 100%);
-}
-
-.cosmos-container:hover::before {
-  opacity: 0.85;
-  transform: scale(1.01);
-}
-
-.cosmos-container:hover .aurora {
-  opacity: 0.6;
-}
-
-.cosmos-container:hover .star {
-  opacity: 1;
-  transform: scale(1.15) translateZ(10px);
-  box-shadow: 0 0 5px rgba(255, 255, 255, 1),
-              0 0 10px rgba(255, 255, 255, 0.75),
-              0 0 15px rgba(255, 255, 255, 0.4);
-}
-
-.cosmos-container:hover .greeting-text {
-  transform: translateY(-5px) translateZ(5px);
-  text-shadow: 0 0 8px rgba(255, 255, 255, 1),
-               0 0 14px rgba(0, 191, 255, 0.9),
-               0 0 20px rgba(75, 0, 130, 0.6);
-}
-
-.cosmos-container:hover .dots {
-  opacity: 1;
-}
-
-.star:hover {
-  transform: scale(1.3) translateZ(15px) rotate(20deg);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 1),
-              0 0 16px rgba(255, 255, 255, 0.85),
-              0 0 22px rgba(255, 255, 255, 0.5);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-/* Mouse Glow with Parallax */
-.cosmos-container {
-  --mouse-x: 50%;
-  --mouse-y: 50%;
-}
-
-.cosmos-container::after {
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
-  opacity: 0.3;
-  filter: blur(20px);
-  transform: translate(var(--mouse-x), var(--mouse-y)) translate(-50%, -50%) scale(1) translateZ(5px);
-  transition: transform 0.2s ease, opacity 0.4s ease;
-}
-
-.cosmos-container:hover::after {
-  opacity: 0.4;
-  transform: translate(var(--mouse-x), var(--mouse-y)) translate(-50%, -50%) scale(1.15) translateZ(10px);
-}
-
-/* Parallax Effect */
-.star:nth-child(odd) {
-  animation: starFadeIn 1.2s ease forwards, twinkle 4s ease-in-out infinite, parallax 20s ease-in-out infinite;
-}
-
-@keyframes parallax {
-  0% { transform: translateZ(0) translateY(0); }
-  50% { transform: translateZ(5px) translateY(-2px); }
-  100% { transform: translateZ(0) translateY(0); }
 }
 
 /* Mobile Optimization */
@@ -313,46 +228,26 @@
     height: 140px;
     filter: blur(12px);
   }
-  .aurora {
-    filter: blur(30px);
-    animation-duration: 60s;
-  }
-  .star {
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8),
-                0 0 5px rgba(255, 255, 255, 0.5);
-  }
-  .shooting-star {
-    height: 35px;
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.9),
-                0 0 8px rgba(255, 255, 255, 0.6);
-  }
   .greeting-text {
     font-size: 2rem;
+    flex-direction: column;
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.9),
                  0 0 6px rgba(0, 191, 255, 0.6);
-    border-right: 1.5px solid rgba(255, 255, 255, 0.85);
+  }
+  .greeting-line1,
+  .greeting-line2 {
+    display: block;
+  }
+  .greeting-line1 {
+    margin-right: 0; /* No extra space on mobile */
   }
   .dots {
     font-size: 2rem;
     text-shadow: 0 0 2px rgba(255, 255, 255, 0.7);
   }
-}
-
-/* High-Density Screens */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .star {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.95),
-                0 0 9px rgba(255, 255, 255, 0.65),
-                0 0 14px rgba(255, 255, 255, 0.35);
-  }
-  .shooting-star {
-    box-shadow: 0 0 8px rgba(255, 255, 255, 1),
-                0 0 14px rgba(255, 255, 255, 0.75);
-  }
-  .greeting-text {
-    font-size: 3.2rem;
-    text-shadow: 0 0 7px rgba(255, 255, 255, 1),
-                 0 0 12px rgba(0, 191, 255, 0.8),
-                 0 0 18px rgba(75, 0, 130, 0.5);
+  .cursor {
+    height: 2rem;
+    width: 1.5px;
+    margin-left: 0.1rem;
   }
 }
