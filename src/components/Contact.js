@@ -10,7 +10,7 @@ import { loadSlim } from "@tsparticles/slim";
 const socialLinks = [
   { icon: FaGithub, url: "https://github.com/Kartikeyy-pandeyy", label: "GitHub" },
   { icon: FaLinkedin, url: "https://linkedin.com/in/kartikeyypandeyy", label: "LinkedIn" },
-  { icon: FaInstagram, url: "https://instagram.com/kartikeyypandeyy", label: "Instagram" },
+  { icon: FaInstagram, url: "https://instagram.com/kartikeyy.pandeyy", label: "Instagram" },
   { icon: FaTelegram, url: "https://t.me/kartikeyypandeyy", label: "Telegram" },
   { icon: FaEnvelope, url: "mailto:kartikeyy.pandeyy@gmail.com", label: "Email" },
 ];
