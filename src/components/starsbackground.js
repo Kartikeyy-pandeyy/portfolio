@@ -11,11 +11,19 @@ export default function StarsBackground() {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour >= 5 && hour < 12) return "Good Morning";
-    if (hour >= 12 && hour < 17) return "Good Afternoon";
-    if (hour >= 17 && hour < 20) return "Good Evening";
-    return "Good Night"; // Covers 20:00 to 4:59
-  };
+    if (hour >= 5 && hour < 7) return "Dawn Breaks";     // Early sunrise  
+    if (hour >= 7 && hour < 9) return "Fresh Morn";      // Crisp morning  
+    if (hour >= 9 && hour < 11) return "Day Begins";     // Start of activity  
+    if (hour >= 11 && hour < 13) return "Midday Shine";  // Late morning energy  
+    if (hour >= 13 && hour < 15) return "High Noon";     // Peak sun  
+    if (hour >= 15 && hour < 17) return "Slow Afternoons"; // Soft mellow feel  
+    if (hour >= 17 && hour < 19) return "Fading Light";  // Golden hour  
+    if (hour >= 19 && hour < 21) return "Evening Stirs"; // Settling down  
+    if (hour >= 21 && hour < 23) return "Night’s Here";  // Calm and immersive  
+    return "Midnight Hush";  // Deep night quiet  
+};
+
+
 
   // Greeting sequence
   useEffect(() => {
