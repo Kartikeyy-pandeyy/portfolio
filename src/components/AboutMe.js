@@ -43,17 +43,17 @@ const techStack = [
   { 
     name: "Postman", 
     icon: <SiPostman className="icon postman" />, 
-    desc: "Use it for API testing and debugging." 
+    desc: "I Use it for API testing and debugging." 
   },
   { 
     name: "Flask", 
     icon: <SiFlask className="icon flask" />, 
-    desc: "Built a project connecting a hybrid ML model to frontend." 
+    desc: "I Build a project connecting a hybrid ML model to frontend." 
   },
   { 
     name: "SQL", 
     icon: <FaDatabase className="icon sql" />, 
-    desc: "Okayish. Familiar with relational databases." 
+    desc: "Okayish at it, Familiar with relational databases." 
   },
   { 
     name: "EC2", 
@@ -63,12 +63,12 @@ const techStack = [
   { 
     name: "S3", 
     icon: <SiAmazons3 className="icon s3" />, 
-    desc: "Cloud storage for my projects." 
+    desc: "Go to Cloud storage for my AWS projects." 
   },
   { 
     name: "CloudFront", 
     icon: <SiAmazonwebservices className="icon cloudfront" />, 
-    desc: "Use it for sub-millisecond content delivery." 
+    desc: "I Use it for sub-millisecond content delivery." 
   },
   { 
     name: "Lambda", 
@@ -78,17 +78,17 @@ const techStack = [
   { 
     name: "IAM", 
     icon: <SiAmazoniam className="icon iam" />, 
-    desc: "Understand roles, policies, and user management." 
+    desc: "Well-versed in IAM roles, policies, and secure user management." 
   },
   { 
     name: "Amplify", 
     icon: <SiAwsamplify className="icon amplify" />, 
-    desc: "Prefer hosting here for ease of deployment." 
+    desc: "I Prefer hosting here for ease of deployment." 
   },
   { 
     name: "API Gateway", 
     icon: <SiAmazonapigateway className="icon apigateway" />, 
-    desc: "Use it for cloud-based projects." 
+    desc: "Use it for AWS-based projects." 
   },
 ];
 
@@ -155,7 +155,7 @@ const AboutMe = () => {
           Turning coffee into code, dreams into deployments, and bugs into 'features.' Passionate about cloud, AI, and full-stack magic!
         </motion.p>
 
-        <h3 className="section-title exp">I Have a Bit of Experience On</h3>
+        <h3 className="section-title exp">Tools That Shape My Code</h3>
         <div className="tech-stack">
           {techStack.map((tech, index) => (
             <motion.div
@@ -174,7 +174,7 @@ const AboutMe = () => {
           ))}
         </div>
 
-        <h3 className="section-title">Hobbies & Interests</h3>
+        <h3 className="section-title">Things I Love Doing</h3>
         <div className="hobby-container">
           {hobbies.map((hobby, index) => (
             <motion.div

@@ -10,7 +10,7 @@ const projectsData = [
     title: "Kartikey Care - OPD Ticket Booking",
     category: "Web",
     timeline: "Feb 2025 - Present",
-    location: "Gorakhpur, India",
+    location: "",
     techStack: ["React.js", "CSS", "Node.js", "MongoDB", "AWS Lambda"],
     description: [
       "Designed a modern, responsive UI using React.js and plain CSS, achieving 95+ Lighthouse scores.",
@@ -25,7 +25,7 @@ const projectsData = [
     title: "Microservices Calculator",
     category: "Cloud",
     timeline: "Jan 2025 - Feb 2025",
-    location: "Gorakhpur, India",
+    location: "",
     techStack: ["React.js", "API Gateway", "AWS CloudFront", "Railway"],
     description: [
       "Built an interactive calculator UI using React.js and Material UI, ensuring smooth animations.",
@@ -40,7 +40,7 @@ const projectsData = [
     title: "Landslide Prediction System",
     category: "AI",
     timeline: "Aug 2024 - Oct 2024",
-    location: "Gorakhpur, India",
+    location: "",
     techStack: ["Flask", "React.js", "Python", "AWS Lambda", "EC2", "SNS"],
     description: [
       "Developed a landslide prediction dashboard using React.js, enabling real-time visualization.",
@@ -142,7 +142,7 @@ const Projects = () => {
                 transition={{ duration: 0.5, delay: project.id * 0.1 }}
               >
                 <h3>{project.title}</h3>
-                <p><strong>{project.timeline}</strong> - {project.location}</p>
+                <p><strong>{project.timeline}</strong> {project.location}</p>
                 <ul>
                   {project.description.map((point, index) => (
                     <li key={index}>{point}</li>
