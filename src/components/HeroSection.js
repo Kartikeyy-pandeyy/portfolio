@@ -13,22 +13,21 @@ const HeroSection = () => {
   const [blink, setBlink] = useState(true);
   const hasCounted = useRef(false);
 
-  // Handle view count with localStorage and animation
   useEffect(() => {
     if (!hasCounted.current) {
       hasCounted.current = true;
-
-      // Get initial count from localStorage, default to 0 if not set
-      let storedCount = parseInt(localStorage.getItem("viewCount") || "0", 10);
+  
+      // Get initial count from localStorage, default to 95 if not set
+      let storedCount = parseInt(localStorage.getItem("viewCount") || "95", 10);
       storedCount += 1; // Increment the count
       localStorage.setItem("viewCount", storedCount); // Save updated count
-
+  
       // Animation logic
       const end = storedCount;
       let start = 0;
       const duration = 1500;
       const startTime = performance.now();
-
+  
       const easeOutQuad = (t) => t * (2 - t);
       const animateCount = (currentTime) => {
         const elapsed = currentTime - startTime;
