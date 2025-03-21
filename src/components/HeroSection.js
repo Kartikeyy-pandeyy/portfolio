@@ -4,7 +4,6 @@ import profilePic from "../assets/profile.jpg";
 
 const roles = ["Full-Stack Developer 🖥️", "Cloud Strategist ☁️", "Tech Enthusiast 🚀"];
 
-
 const HeroSection = () => {
   const [viewCount, setViewCount] = useState(0);
   const [text, setText] = useState("");
@@ -12,36 +11,38 @@ const HeroSection = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [blink, setBlink] = useState(true);
-  const hasFetched = useRef(false);
+  const hasCounted = useRef(false);
 
-  // Fetch view count with smooth animation
+  // Handle view count with localStorage and animation
   useEffect(() => {
-    if (!hasFetched.current) {
-      hasFetched.current = true;
-      fetch("https://visitor-counter-backend-production.up.railway.app/api/visitors")
-        .then((response) => response.json())
-        .then((data) => {
-          const end = data.count;
-          let start = 0;
-          const duration = 1500;
-          const startTime = performance.now();
+    if (!hasCounted.current) {
+      hasCounted.current = true;
 
-          const easeOutQuad = (t) => t * (2 - t);
-          const animateCount = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easedProgress = easeOutQuad(progress);
-            start = Math.floor(easedProgress * end);
-            setViewCount(start);
-            if (progress < 1) requestAnimationFrame(animateCount);
-          };
-          requestAnimationFrame(animateCount);
-        })
-        .catch((error) => console.error("Error fetching view count:", error));
+      // Get initial count from localStorage, default to 0 if not set
+      let storedCount = parseInt(localStorage.getItem("viewCount") || "0", 10);
+      storedCount += 1; // Increment the count
+      localStorage.setItem("viewCount", storedCount); // Save updated count
+
+      // Animation logic
+      const end = storedCount;
+      let start = 0;
+      const duration = 1500;
+      const startTime = performance.now();
+
+      const easeOutQuad = (t) => t * (2 - t);
+      const animateCount = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutQuad(progress);
+        start = Math.floor(easedProgress * end);
+        setViewCount(start);
+        if (progress < 1) requestAnimationFrame(animateCount);
+      };
+      requestAnimationFrame(animateCount);
     }
   }, []);
 
-  // Typing animation
+  // Typing animation (unchanged)
   useEffect(() => {
     const currentRole = roles[roleIndex];
     const typingSpeed = isDeleting ? 50 : 100;
@@ -65,13 +66,13 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, roleIndex]);
 
-  // Blinking cursor
+  // Blinking cursor (unchanged)
   useEffect(() => {
     const cursorBlink = setInterval(() => setBlink((prev) => !prev), 500);
     return () => clearInterval(cursorBlink);
   }, []);
 
-  // Scroll to bottom function
+  // Scroll to bottom function (unchanged)
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
