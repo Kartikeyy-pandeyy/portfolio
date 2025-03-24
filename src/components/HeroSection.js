@@ -92,7 +92,7 @@ const HeroSection = () => {
           </p>
           <div className="hero-buttons">
             <a
-              href="https://drive.google.com/file/d/1TtCOg7oCx6b-BBKRu7PtbabLCDHX_LHr/view?usp=sharing"
+              href="https://drive.google.com/file/d/194pMNZF1s6YmScIDe2n_hQGSapceq6Ub/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="btn"

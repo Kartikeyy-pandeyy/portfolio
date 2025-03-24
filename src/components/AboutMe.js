@@ -1,138 +1,48 @@
 import React from "react";
 import "../styles/AboutMe.css";
-import { FaReact, FaGamepad, FaMusic, FaGlobe, FaLaptopCode, FaRobot, FaJava, FaHtml5, FaCss3Alt, FaJs, FaServer, FaDatabase, FaCamera } from "react-icons/fa";
-import { SiMongodb, SiPostman, SiFlask, SiAmazonec2, SiAmazons3, SiAmazonwebservices, SiAwslambda, SiAmazoniam, SiAwsamplify, SiAmazonapigateway } from "react-icons/si";
+import { FaReact, FaGamepad, FaMusic, FaGlobe, FaRobot, FaLaptopCode, FaJava, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaCamera, FaCloud, FaEye, FaCode } from "react-icons/fa";
+import { SiMongodb, SiPostman, SiFlask, SiAmazonec2, SiAmazons3, SiAwslambda, SiAmazoniam, SiAwsamplify, SiAmazonapigateway, SiNetlify, SiRender } from "react-icons/si";
 import { motion } from "framer-motion";
 
 const techStack = [
-  { 
-    name: "Java", 
-    icon: <FaJava className="icon java" />, 
-    desc: "Primary language. Practiced DSA and OOP concepts." 
-  },
-  { 
-    name: "HTML", 
-    icon: <FaHtml5 className="icon html" />, 
-    desc: "Started in school. Comfortable with structuring web pages." 
-  },
-  { 
-    name: "CSS", 
-    icon: <FaCss3Alt className="icon css" />, 
-    desc: "Learned early. Familiar with styling and responsiveness." 
-  },
-  { 
-    name: "JavaScript", 
-    icon: <FaJs className="icon js" />, 
-    desc: "Picked up while building projects. Still improving." 
-  },
-  { 
-    name: "React", 
-    icon: <FaReact className="icon react" />, 
-    desc: "Average skills. Learning while building applications." 
-  },
-  { 
-    name: "MongoDB", 
-    icon: <SiMongodb className="icon mongo" />, 
-    desc: "My go-to database for projects." 
-  },
-  { 
-    name: "REST API", 
-    icon: <FaServer className="icon rest" />, 
-    desc: "Learned while working on a microservice-based project." 
-  },
-  { 
-    name: "Postman", 
-    icon: <SiPostman className="icon postman" />, 
-    desc: "I Use it for API testing and debugging." 
-  },
-  { 
-    name: "Flask", 
-    icon: <SiFlask className="icon flask" />, 
-    desc: "I Build a project connecting a hybrid ML model to frontend." 
-  },
-  { 
-    name: "SQL", 
-    icon: <FaDatabase className="icon sql" />, 
-    desc: "Okayish at it, Familiar with relational databases." 
-  },
-  { 
-    name: "EC2", 
-    icon: <SiAmazonec2 className="icon ec2" />, 
-    desc: "Used for backend hosting. Familiar with ASG & LB." 
-  },
-  { 
-    name: "S3", 
-    icon: <SiAmazons3 className="icon s3" />, 
-    desc: "Go to Cloud storage for my AWS projects." 
-  },
-  { 
-    name: "CloudFront", 
-    icon: <SiAmazonwebservices className="icon cloudfront" />, 
-    desc: "I Use it for sub-millisecond content delivery." 
-  },
-  { 
-    name: "Lambda", 
-    icon: <SiAwslambda className="icon lambda" />, 
-    desc: "Familiar with ARN, layers, and triggers." 
-  },
-  { 
-    name: "IAM", 
-    icon: <SiAmazoniam className="icon iam" />, 
-    desc: "Well-versed in IAM roles, policies, and secure user management." 
-  },
-  { 
-    name: "Amplify", 
-    icon: <SiAwsamplify className="icon amplify" />, 
-    desc: "I Prefer hosting here for ease of deployment." 
-  },
-  { 
-    name: "API Gateway", 
-    icon: <SiAmazonapigateway className="icon apigateway" />, 
-    desc: "Use it for AWS-based projects." 
-  },
+  { name: "Java", icon: <FaJava className="icon java" />, desc: "Core language for DSA and object-oriented programming mastery." },
+  { name: "HTML", icon: <FaHtml5 className="icon html" />, desc: "Foundation for structuring responsive and semantic web pages." },
+  { name: "CSS", icon: <FaCss3Alt className="icon css" />, desc: "Expertise in crafting responsive and visually appealing designs." },
+  { name: "JavaScript", icon: <FaJs className="icon js" />, desc: "Dynamic scripting for interactive and functional web applications." },
+  { name: "React", icon: <FaReact className="icon react" />, desc: "Built reusable components for scalable and interactive UIs." },
+  { name: "MongoDB", icon: <SiMongodb className="icon mongo" />, desc: "NoSQL database for flexible and scalable data storage." },
+  { name: "REST API", icon: <FaCode className="icon rest" />, desc: "Designed microservices for seamless backend-frontend communication." },
+  { name: "Postman", icon: <SiPostman className="icon postman" />, desc: "Streamlined API testing and debugging for robust integrations." },
+  { name: "Flask", icon: <SiFlask className="icon flask" />, desc: "Developed Python backends integrating ML models with frontend." },
+  { name: "SQL", icon: <FaDatabase className="icon sql" />, desc: "Managed relational databases with optimized query performance." },
+  { name: "EC2", icon: <SiAmazonec2 className="icon ec2" />, desc: "Hosted scalable backends with auto-scaling and load balancing." },
+  { name: "S3", icon: <SiAmazons3 className="icon s3" />, desc: "Stored static assets securely for efficient content delivery." },
+  { name: "Lambda", icon: <SiAwslambda className="icon lambda" />, desc: "Implemented serverless functions for cost-effective processing." },
+  { name: "IAM", icon: <SiAmazoniam className="icon iam" />, desc: "Secured AWS resources with role-based access control policies." },
+  { name: "Amplify", icon: <SiAwsamplify className="icon amplify" />, desc: "Simplified frontend hosting with integrated CI/CD pipelines." },
+  { name: "API Gateway", icon: <SiAmazonapigateway className="icon apigateway" />, desc: "Managed scalable APIs for AWS-integrated project workflows." },
+  { name: "Axios", icon: <FaCloud className="icon axios" />, desc: "Facilitated secure HTTP requests for API-driven applications." },
+  { name: "AWS Rekognition", icon: <FaEye className="icon rekognition" />, desc: "Enabled facial recognition for enhanced authentication security." },
+  { name: "Netlify", icon: <SiNetlify className="icon netlify" />, desc: "Deployed frontends with CI/CD for rapid iteration cycles." },
+  { name: "Render.com", icon: <SiRender className="icon render" />, desc: "Hosted backends with free-tier scalability and ease." },
 ];
 
 const hobbies = [
-  { 
-    name: "Gaming", 
-    icon: <FaGamepad className="icon gaming" />, 
-    desc: "Love strategy and FPS games like Valorant." 
-  },
-  { 
-    name: "Music", 
-    icon: <FaMusic className="icon music" />, 
-    desc: "Love Indian music and exploring new genres." 
-  },
-  { 
-    name: "Traveling", 
-    icon: <FaGlobe className="icon traveling" />, 
-    desc: "Mountains and new cultures inspire me." 
-  },
-  { 
-    name: "Coding", 
-    icon: <FaLaptopCode className="icon coding" />, 
-    desc: "Love building software that solves problems." 
-  },
-  { 
-    name: "AI & ML", 
-    icon: <FaRobot className="icon aiml" />, 
-    desc: "Generative AI and its uses excite me." 
-  },
-  { 
-    name: "Photography", 
-    icon: <FaCamera className="icon photography" />, 
-    desc: "Love capturing landscapes and moments." 
-  },
+  { name: "Gaming", icon: <FaGamepad className="icon gaming" />, desc: "Enjoy strategy and FPS games for tactical challenges." },
+  { name: "Music", icon: <FaMusic className="icon music" />, desc: "Explore Indian music and diverse genres passionately." },
+  { name: "Traveling", icon: <FaLaptopCode className="icon traveling" />, desc: "Seek inspiration from mountains and cultural experiences." },
+  { name: "Coding", icon: <FaRobot className="icon coding" />, desc: "Build innovative software solutions with enthusiasm." },
+  { name: "AI & ML", icon: <FaCamera className="icon aiml" />, desc: "Dive into generative AI and its applications." },
+  { name: "Photography", icon: <FaGlobe className="icon photography" />, desc: "Love capturing stunning landscapes" },
 ];
 
-
-
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.4 }
+    scale: 1,
+    transition: { delay: i * 0.15, duration: 0.5, ease: "easeOut" }
   }),
 };
 
@@ -141,7 +51,7 @@ const AboutMe = () => {
     <section className="about-me">
       <div className="about-glass"></div>
       <div className="about-particles">
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: 8 }).map((_, i) => (
           <span
             key={i}
             className="particle"
@@ -152,20 +62,20 @@ const AboutMe = () => {
       <div className="about-content">
         <motion.p
           className="about-bio"
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
         >
           Turning coffee into code, dreams into deployments, and bugs into 'features.' Passionate about cloud, AI, and full-stack magic!
         </motion.p>
 
-        <h3 className="section-title exp">Tools That Shape My Code</h3>
+        <h3 className="section-title">Tools That Shape My Code</h3>
         <div className="tech-stack">
           {techStack.map((tech, index) => (
             <motion.div
               key={index}
-              className="tech-card"
+              className="card tech-card"
               custom={index}
               initial="hidden"
               whileInView="visible"
@@ -184,7 +94,7 @@ const AboutMe = () => {
           {hobbies.map((hobby, index) => (
             <motion.div
               key={index}
-              className="hobby-card"
+              className="card hobby-card"
               custom={index}
               initial="hidden"
               whileInView="visible"

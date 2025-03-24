@@ -3,10 +3,24 @@ import { motion } from "framer-motion";
 import "../styles/Projects.css";
 import { FaBookOpen, FaGithub } from "react-icons/fa";
 
-// Data for Projects & Research Work
 const projectsData = [
   {
     id: 1,
+    title: "SafeChat",
+    category: "Web",
+    timeline: "March 2025 - Present",
+    location: "",
+    techStack: ["React.js", "CSS", "Axios", "AWS (IAM, Rekognition, S3)", "Netlify", "Render.com"],
+    description: [
+      "Built a privacy-focused chat app with React.js and custom CSS for 100% responsiveness.",
+      "Added facial authentication via AWS Rekognition and Axios, cutting unauthorized access by 95%.",
+      "Optimized React components and CSS, reducing load times by 40% with efficient rendering.",
+      "Deployed on Netlify and Render.com using AWS S3 and IAM for 99.8% uptime.",
+    ],
+    githubLink: "https://github.com/Kartikeyy-pandeyy/safe-chat",
+  },
+  {
+    id: 2,
     title: "Kartikey Care - OPD Ticket Booking",
     category: "Web",
     timeline: "Feb 2025 - Present",
@@ -21,7 +35,7 @@ const projectsData = [
     githubLink: "https://github.com/Kartikeyy-pandeyy/kartikeycare",
   },
   {
-    id: 2,
+    id: 3,
     title: "Microservices Calculator",
     category: "Cloud",
     timeline: "Jan 2025 - Feb 2025",
@@ -36,7 +50,7 @@ const projectsData = [
     githubLink: "https://github.com/Kartikeyy-pandeyy/frontend-calculator",
   },
   {
-    id: 3,
+    id: 4,
     title: "Landslide Prediction System",
     category: "AI",
     timeline: "Aug 2024 - Oct 2024",
