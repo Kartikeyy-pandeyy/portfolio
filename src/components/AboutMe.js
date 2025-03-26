@@ -5,13 +5,13 @@ import { SiMongodb, SiPostman, SiFlask, SiAmazonec2, SiAmazons3, SiAwslambda, Si
 import { motion } from "framer-motion";
 
 const techStack = [
-  { name: "Java", icon: <FaJava className="icon java" />, desc: "Core language for DSA and object-oriented programming mastery." },
+  { name: "Java", icon: <FaJava className="icon java" />, desc: "Core language for DSA and OOPs." },
   { name: "HTML", icon: <FaHtml5 className="icon html" />, desc: "Foundation for structuring responsive and semantic web pages." },
   { name: "CSS", icon: <FaCss3Alt className="icon css" />, desc: "Expertise in crafting responsive and visually appealing designs." },
   { name: "JavaScript", icon: <FaJs className="icon js" />, desc: "Dynamic scripting for interactive and functional web applications." },
   { name: "React", icon: <FaReact className="icon react" />, desc: "Built reusable components for scalable and interactive UIs." },
   { name: "MongoDB", icon: <SiMongodb className="icon mongo" />, desc: "NoSQL database for flexible and scalable data storage." },
-  { name: "REST API", icon: <FaCode className="icon rest" />, desc: "Designed microservices for seamless backend-frontend communication." },
+  { name: "REST API", icon: <FaCode className="icon rest" />, desc: "Designed projects for seamless backend-frontend communication." },
   { name: "Postman", icon: <SiPostman className="icon postman" />, desc: "Streamlined API testing and debugging for robust integrations." },
   { name: "Flask", icon: <SiFlask className="icon flask" />, desc: "Developed Python backends integrating ML models with frontend." },
   { name: "SQL", icon: <FaDatabase className="icon sql" />, desc: "Managed relational databases with optimized query performance." },
@@ -22,7 +22,7 @@ const techStack = [
   { name: "Amplify", icon: <SiAwsamplify className="icon amplify" />, desc: "Simplified frontend hosting with integrated CI/CD pipelines." },
   { name: "API Gateway", icon: <SiAmazonapigateway className="icon apigateway" />, desc: "Managed scalable APIs for AWS-integrated project workflows." },
   { name: "Axios", icon: <FaCloud className="icon axios" />, desc: "Facilitated secure HTTP requests for API-driven applications." },
-  { name: "AWS Rekognition", icon: <FaEye className="icon rekognition" />, desc: "Enabled facial recognition for enhanced authentication security." },
+  { name: "Rekognition", icon: <FaEye className="icon rekognition" />, desc: "Enabled facial recognition for enhanced security." },
   { name: "Netlify", icon: <SiNetlify className="icon netlify" />, desc: "Deployed frontends with CI/CD for rapid iteration cycles." },
   { name: "Render.com", icon: <SiRender className="icon render" />, desc: "Hosted backends with free-tier scalability and ease." },
 ];
@@ -44,6 +44,20 @@ const cardVariants = {
     scale: 1,
     transition: { delay: i * 0.15, duration: 0.5, ease: "easeOut" }
   }),
+  hover: {
+    scale: 1.05, // 5% enlargement
+    y: -15, // Slight lift for popup effect
+    zIndex: 20, // Higher z-index for premium layering
+    transition: { duration: 0.35, ease: "easeOut" }
+  }
+};
+
+const innerCardVariants = {
+  hover: {
+    scale: 1.15, // Slightly more pronounced inner card scale
+    rotate: 2, // Subtle tilt for premium feel
+    transition: { duration: 0.35, ease: "easeOut" }
+  }
 };
 
 const AboutMe = () => {
@@ -51,7 +65,7 @@ const AboutMe = () => {
     <section className="about-me">
       <div className="about-glass"></div>
       <div className="about-particles">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 12 }).map((_, i) => ( // Increased particles for premium effect
           <span
             key={i}
             className="particle"
@@ -79,12 +93,20 @@ const AboutMe = () => {
               custom={index}
               initial="hidden"
               whileInView="visible"
+              whileHover="hover"
               variants={cardVariants}
               viewport={{ once: true }}
             >
-              {tech.icon}
-              <h4>{tech.name}</h4>
-              <p>{tech.desc}</p>
+              <motion.div
+                className="inner-card"
+                variants={innerCardVariants}
+              >
+                {tech.icon}
+              </motion.div>
+              <div className="card-content">
+                <h4>{tech.name}</h4>
+                <p>{tech.desc}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -98,12 +120,20 @@ const AboutMe = () => {
               custom={index}
               initial="hidden"
               whileInView="visible"
+              whileHover="hover"
               variants={cardVariants}
               viewport={{ once: true }}
             >
-              {hobby.icon}
-              <h4>{hobby.name}</h4>
-              <p>{hobby.desc}</p>
+              <motion.div
+                className="inner-card"
+                variants={innerCardVariants}
+              >
+                {hobby.icon}
+              </motion.div>
+              <div className="card-content">
+                <h4>{hobby.name}</h4>
+                <p>{hobby.desc}</p>
+              </div>
             </motion.div>
           ))}
         </div>
