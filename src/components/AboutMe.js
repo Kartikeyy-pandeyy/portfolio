@@ -33,39 +33,37 @@ const hobbies = [
   { name: "Traveling", icon: <FaLaptopCode className="icon traveling" />, desc: "Seek inspiration from mountains and cultural experiences." },
   { name: "Coding", icon: <FaRobot className="icon coding" />, desc: "Build innovative software solutions with enthusiasm." },
   { name: "AI & ML", icon: <FaCamera className="icon aiml" />, desc: "Dive into generative AI and its applications." },
-  { name: "Photography", icon: <FaGlobe className="icon photography" />, desc: "Love capturing stunning landscapes" },
+  { name: "Photography", icon: <FaGlobe className="icon photography" />, desc: "Love capturing stunning landscapes." },
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  hidden: { opacity: 0, y: 15, scale: 0.98 },
   visible: (i) => ({
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { delay: i * 0.15, duration: 0.5, ease: "easeOut" }
+    transition: { delay: i * 0.08, duration: 0.35, ease: "easeOut" }
   }),
   hover: {
-    scale: 1.05, // 5% enlargement
-    y: -15, // Slight lift for popup effect
-    zIndex: 20, // Higher z-index for premium layering
-    transition: { duration: 0.35, ease: "easeOut" }
+    scale: 1.05,
+    y: -8,
+    zIndex: 10,
+    transition: { duration: 0.25, ease: "easeOut" }
   }
 };
 
 const innerCardVariants = {
   hover: {
-    scale: 1.15, // Slightly more pronounced inner card scale
-    rotate: 2, // Subtle tilt for premium feel
-    transition: { duration: 0.35, ease: "easeOut" }
+    scale: 1.08,
+    transition: { duration: 0.25, ease: "easeOut" }
   }
 };
 
 const AboutMe = () => {
   return (
     <section className="about-me">
-      <div className="about-glass"></div>
       <div className="about-particles">
-        {Array.from({ length: 12 }).map((_, i) => ( // Increased particles for premium effect
+        {Array.from({ length: 5 }).map((_, i) => ( // Reduced particles for performance
           <span
             key={i}
             className="particle"
@@ -76,9 +74,9 @@ const AboutMe = () => {
       <div className="about-content">
         <motion.p
           className="about-bio"
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           viewport={{ once: true }}
         >
           Turning coffee into code, dreams into deployments, and bugs into 'features.' Passionate about cloud, AI, and full-stack magic!
