@@ -42,20 +42,20 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { delay: i * 0.08, duration: 0.35, ease: "easeOut" }
+    transition: { delay: i * 0.04, duration: 0.175, ease: "easeOut" } // 2x faster: delay 0.08 -> 0.04, duration 0.35 -> 0.175
   }),
   hover: {
     scale: 1.05,
     y: -8,
     zIndex: 10,
-    transition: { duration: 0.25, ease: "easeOut" }
+    transition: { duration: 0.125, ease: "easeOut" } // 2x faster: duration 0.25 -> 0.125
   }
 };
 
 const innerCardVariants = {
   hover: {
     scale: 1.08,
-    transition: { duration: 0.25, ease: "easeOut" }
+    transition: { duration: 0.125, ease: "easeOut" } // 2x faster: duration 0.25 -> 0.125
   }
 };
 
@@ -63,7 +63,7 @@ const AboutMe = () => {
   return (
     <section className="about-me">
       <div className="about-particles">
-        {Array.from({ length: 5 }).map((_, i) => ( // Reduced particles for performance
+        {Array.from({ length: 5 }).map((_, i) => (
           <span
             key={i}
             className="particle"
@@ -76,7 +76,7 @@ const AboutMe = () => {
           className="about-bio"
           initial={{ opacity: 0, y: -15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.25, ease: "easeOut" }} // 2x faster: duration 0.5 -> 0.25
           viewport={{ once: true }}
         >
           Turning coffee into code, dreams into deployments, and bugs into 'features.' Passionate about cloud, AI, and full-stack magic!

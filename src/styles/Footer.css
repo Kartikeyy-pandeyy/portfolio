@@ -1,0 +1,66 @@
+/* Import Handwritten Font */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+
+/* FOOTER SECTION */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(10, 10, 26, 0.9);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(0, 255, 255, 0.1);
+  z-index: 1000;
+  padding: 1rem 0;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-name {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #00FFFF;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.footer-name:hover {
+  text-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+  transform: scale(1.02);
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .footer {
+    top: 0;
+    bottom: auto;
+    border-top: none;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+  }
+
+  body {
+    padding-top: 60px; /* Space for footer */
+    padding-bottom: 60px; /* Space for header */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer-name {
+    font-size: 1.5rem;
+  }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

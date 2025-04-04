@@ -10,42 +10,24 @@ const HeroSection = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [blink, setBlink] = useState(true);
   const hasCounted = useRef(false);
 
+  // Simplified view count animation
   useEffect(() => {
     if (!hasCounted.current) {
       hasCounted.current = true;
-  
-      // Get initial count from localStorage, default to 95 if not set
-      let storedCount = parseInt(localStorage.getItem("viewCount") || "95", 10);
-      storedCount += 1; // Increment the count
-      localStorage.setItem("viewCount", storedCount); // Save updated count
-  
-      // Animation logic
-      const end = storedCount;
-      let start = 0;
-      const duration = 1500;
-      const startTime = performance.now();
-  
-      const easeOutQuad = (t) => t * (2 - t);
-      const animateCount = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easedProgress = easeOutQuad(progress);
-        start = Math.floor(easedProgress * end);
-        setViewCount(start);
-        if (progress < 1) requestAnimationFrame(animateCount);
-      };
-      requestAnimationFrame(animateCount);
+      let storedCount = parseInt(localStorage.getItem("viewCount") || "105", 10);
+      storedCount += 1;
+      localStorage.setItem("viewCount", storedCount);
+      setViewCount(storedCount); // Direct set instead of heavy animation
     }
   }, []);
 
-  // Typing animation (unchanged)
+  // Typing animation (slightly faster)
   useEffect(() => {
     const currentRole = roles[roleIndex];
-    const typingSpeed = isDeleting ? 50 : 100;
-    const pauseBeforeDelete = 1200;
+    const typingSpeed = isDeleting ? 40 : 80; // Increased speed
+    const pauseBeforeDelete = 800; // Reduced pause
     const timeout = setTimeout(() => {
       setText(
         isDeleting
@@ -65,13 +47,7 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, roleIndex]);
 
-  // Blinking cursor (unchanged)
-  useEffect(() => {
-    const cursorBlink = setInterval(() => setBlink((prev) => !prev), 500);
-    return () => clearInterval(cursorBlink);
-  }, []);
-
-  // Scroll to bottom function (unchanged)
+  // Removed blinking cursor effect to reduce overhead
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
@@ -86,10 +62,7 @@ const HeroSection = () => {
           <h1>
             Hi there, I’m <span>Kartikey Pandey</span>
           </h1>
-          <p className="animated-text">
-            {text}
-            <span className={`cursor ${blink ? "blink" : ""}`}>|</span>
-          </p>
+          <p className="animated-text">{text}</p>
           <div className="hero-buttons">
             <a
               href="https://drive.google.com/file/d/194pMNZF1s6YmScIDe2n_hQGSapceq6Ub/view?usp=sharing"
@@ -110,7 +83,7 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="hero-image">
-          <img src={profilePic} alt="Kartikey Pandey" />
+          <img src={profilePic} alt="Kartikey Pandey" loading="lazy" />
         </div>
       </div>
     </section>

@@ -6,61 +6,72 @@ import { FaBookOpen, FaGithub } from "react-icons/fa";
 const projectsData = [
   {
     id: 1,
+    title: "UPSCPath: AI-Powered Study Platform",
+    category: "AI/EdTech",
+    timeline: "March 2025 - Present",
+    techStack: ["React.js", "Node.js", "MongoDB", "Hugging Face", "pdf.js", "AWS S3", "Railway", "Netlify"],
+    description: [
+      "Built an AI-powered study platform for UPSC aspirants using Hugging Face for text summarization with 90% accuracy.",
+      "Integrated Google OAuth for secure login and role-based access control.",
+      "Designed a custom PDF viewer via pdf.js, hosting 20+ eBooks through AWS S3.",
+      "Deployed using Railway and Netlify, ensuring sub-300ms API responses."
+    ],
+    githubLink: "https://github.com/Kartikeyy-pandeyy/UPSCpath.git",
+    liveLink: "https://upscpath.netlify.app/"
+  },
+  {
+    id: 2,
     title: "SafeChat",
     category: "Web",
     timeline: "March 2025 - Present",
-    location: "",
     techStack: ["React.js", "CSS", "Axios", "AWS (IAM, Rekognition, S3)", "Netlify", "Render.com"],
     description: [
       "Built a privacy-focused chat app with React.js and custom CSS for 100% responsiveness.",
-      "Added facial authentication via AWS Rekognition and Axios, cutting unauthorized access by 95%.",
-      "Optimized React components and CSS, reducing load times by 40% with efficient rendering.",
-      "Deployed on Netlify and Render.com using AWS S3 and IAM for 99.8% uptime.",
+      "Added facial authentication via AWS Rekognition, cutting unauthorized access by 95%.",
+      "Optimized components, reducing load times by 40%.",
+      "Deployed on Netlify and Render.com with AWS S3 for 99.8% uptime."
     ],
     githubLink: "https://github.com/Kartikeyy-pandeyy/safe-chat",
   },
   {
-    id: 2,
+    id: 3,
     title: "Kartikey Care - OPD Ticket Booking",
     category: "Web",
     timeline: "Feb 2025 - Present",
-    location: "",
     techStack: ["React.js", "CSS", "Node.js", "MongoDB", "AWS Lambda"],
     description: [
-      "Designed a modern, responsive UI using React.js and plain CSS, achieving 95+ Lighthouse scores.",
-      "Developed an interactive booking system with real-time slot updates, improving user experience by 40%.",
-      "Integrated qrcode.js for O(1) QR generation, optimizing appointment validation efficiency.",
-      "Investigating AWS CloudFront integration for sub-millisecond response times via edge caching.",
+      "Designed a responsive UI with React.js and CSS, achieving 95+ Lighthouse scores.",
+      "Developed a booking system with real-time updates, improving UX by 40%.",
+      "Integrated qrcode.js for O(1) QR generation.",
+      "Exploring AWS CloudFront for sub-millisecond response times."
     ],
     githubLink: "https://github.com/Kartikeyy-pandeyy/kartikeycare",
   },
   {
-    id: 3,
+    id: 4,
     title: "Microservices Calculator",
     category: "Cloud",
     timeline: "Jan 2025 - Feb 2025",
-    location: "",
     techStack: ["React.js", "API Gateway", "AWS CloudFront", "Railway"],
     description: [
-      "Built an interactive calculator UI using React.js and Material UI, ensuring smooth animations.",
-      "Integrated serverless microservices architecture, reducing backend load by 60%.",
-      "Optimized frontend rendering via code-splitting and Webpack, achieving sub-1s load times.",
-      "Deployed on AWS S3 & CloudFront for global availability and 99.9% uptime.",
+      "Built an interactive calculator UI with React.js and Material UI.",
+      "Integrated serverless microservices, reducing backend load by 60%.",
+      "Optimized rendering with code-splitting, achieving sub-1s load times.",
+      "Deployed on AWS S3 & CloudFront for 99.9% uptime."
     ],
     githubLink: "https://github.com/Kartikeyy-pandeyy/frontend-calculator",
   },
   {
-    id: 4,
+    id: 5,
     title: "Landslide Prediction System",
     category: "AI",
     timeline: "Aug 2024 - Oct 2024",
-    location: "",
     techStack: ["Flask", "React.js", "Python", "AWS Lambda", "EC2", "SNS"],
     description: [
-      "Developed a landslide prediction dashboard using React.js, enabling real-time visualization.",
-      "Achieved 86.93% model accuracy using Random Forest with Optuna hyperparameter tuning.",
-      "Integrated AWS SNS for instant disaster alerts, reducing response time by 45%.",
-      "Designed a mobile-responsive UI ensuring accessibility compliance.",
+      "Developed a landslide prediction dashboard with real-time visualization.",
+      "Achieved 86.93% accuracy using Random Forest with Optuna tuning.",
+      "Integrated AWS SNS for instant alerts, reducing response time by 45%.",
+      "Designed a mobile-responsive UI."
     ],
     githubLink: "https://github.com/Kartikeyy-pandeyy/landslide-alert-system",
   },
@@ -72,7 +83,7 @@ const researchData = [
     title: "AI-Driven Predictive Maintenance for Railways Ecosystem (RES)",
     conference: "ICRIC-07, DoSCI 2025, INDIAcom-2025 (Accepted)",
     description:
-      "This research explores how AI and edge computing can transform railway maintenance by predicting and preventing equipment failures. By integrating differential privacy and model pruning, we ensure secure and efficient AI deployment on resource-constrained edge devices. This approach reduces latency, enhances railway efficiency, and provides real-world solutions for equipment failure prevention.",
+      "Explores AI and edge computing for railway maintenance, using differential privacy and model pruning for secure, efficient deployment.",
     githubLink: "https://github.com/Kartikeyy-pandeyy/AI-Driven-Predictive-Maintenance",
   },
   {
@@ -80,7 +91,7 @@ const researchData = [
     title: "Performance Analysis of Docker Containers & VMs",
     conference: "NGISE 2025 (Accepted)",
     description:
-      "This study compares Docker containers and Virtual Machines, analyzing their strengths and trade-offs. Containers offer high performance for CPU and I/O-bound tasks, making them ideal for cloud-native applications, whereas VMs provide better resource isolation and stability under heavy workloads. Understanding these differences helps system administrators optimize performance and resource utilization.",
+      "Compares Docker containers and VMs, highlighting containers' performance for cloud-native apps and VMs' isolation for heavy workloads.",
     githubLink: "https://github.com/Kartikeyy-pandeyy/performance-analysis",
   },
 ];
@@ -91,56 +102,43 @@ const Projects = () => {
   return (
     <section className="projects-research">
       <motion.h2
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.3 }}
       >
         Projects & Research
       </motion.h2>
       <motion.p
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
       >
         Explore my best projects and research publications.
       </motion.p>
 
-      {/* Particles for Cosmic Effect */}
-      <div className="projects-particles">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <span
-            key={i}
-            className="particle"
-            style={{ '--direction-x': Math.random() * 2 - 1, '--direction-y': Math.random() * 2 - 1 }}
-          />
-        ))}
-      </div>
-
-      {/* Tab Navigation */}
       <motion.div
         className="tabs"
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.4 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
       >
         {["Projects", "Research"].map((tab) => (
           <motion.button
             key={tab}
             className={activeTab === tab ? "active" : ""}
             onClick={() => setActiveTab(tab)}
-            whileHover={{ scale: 1.15, boxShadow: "0 0 20px rgba(0, 255, 255, 0.5)" }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300 }}
+            transition={{ duration: 0.2 }}
           >
             {tab}
           </motion.button>
         ))}
       </motion.div>
 
-      {/* Content Based on Active Tab */}
       <div className="content">
         {activeTab === "Projects" ? (
           <div className="projects-grid">
@@ -148,15 +146,15 @@ const Projects = () => {
               <motion.div
                 key={project.id}
                 className="project-card"
-                whileHover={{ scale: 1.05, boxShadow: "0 15px 40px rgba(0, 255, 255, 0.4)" }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: project.id * 0.1 }}
+                transition={{ duration: 0.25, delay: project.id * 0.05 }}
               >
                 <h3>{project.title}</h3>
-                <p><strong>{project.timeline}</strong> {project.location}</p>
+                <p><strong>{project.timeline}</strong></p>
                 <ul>
                   {project.description.map((point, index) => (
                     <li key={index}>{point}</li>
@@ -164,27 +162,19 @@ const Projects = () => {
                 </ul>
                 <div className="tech-stack">
                   {project.techStack.map((tech, index) => (
-                    <motion.span
-                      key={index}
-                      className="tech-badge"
-                      whileHover={{ scale: 1.1, backgroundColor: "#8A2BE2" }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    >
+                    <span key={index} className="tech-badge">
                       {tech}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
-                <motion.a
+                <a
                   href={project.githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="github-button"
-                  whileHover={{ scale: 1.1, boxShadow: "0 0 15px rgba(0, 255, 255, 0.6)" }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <FaGithub /> Check out on GitHub
-                </motion.a>
+                  <FaGithub /> GitHub
+                </a>
               </motion.div>
             ))}
           </div>
@@ -194,27 +184,24 @@ const Projects = () => {
               <motion.div
                 key={paper.id}
                 className="research-card"
-                whileHover={{ scale: 1.05, boxShadow: "0 15px 40px rgba(138, 43, 226, 0.4)" }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: paper.id * 0.1 }}
+                transition={{ duration: 0.25, delay: paper.id * 0.05 }}
               >
                 <h3>{paper.title}</h3>
                 <p><FaBookOpen /> {paper.conference}</p>
                 <p className="research-description">{paper.description}</p>
-                <motion.a
+                <a
                   href={paper.githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="github-button"
-                  whileHover={{ scale: 1.1, boxShadow: "0 0 15px rgba(138, 43, 226, 0.6)" }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <FaGithub /> Check out on GitHub
-                </motion.a>
+                  <FaGithub /> GitHub
+                </a>
               </motion.div>
             ))}
           </div>

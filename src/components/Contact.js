@@ -21,7 +21,6 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const formRef = useRef(null);
   const statusRef = useRef(null);
 
@@ -42,14 +41,8 @@ const Contact = () => {
   };
 
   useEffect(() => {
-    AOS.init({ duration: 800, once: true }); // 'once' prevents re-animation on scroll
+    AOS.init({ duration: 800, once: true });
     loadSlim(window.tsParticles);
-
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true }); // Passive for performance
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -90,8 +83,6 @@ const Contact = () => {
       setFormStatus("Error sending message.");
     }
   };
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <section className="contact" id="contact">
@@ -152,11 +143,6 @@ const Contact = () => {
           <p>Message Sent Successfully!</p>
           <button onClick={() => setShowSuccessModal(false)}>Close</button>
         </div>
-      )}
-      {showScrollTop && (
-        <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Back to top">
-          ↑
-        </button>
       )}
     </section>
   );

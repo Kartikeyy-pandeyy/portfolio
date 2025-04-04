@@ -8,66 +8,71 @@ const GitHubStats = () => {
   const GITHUB_USERNAME = "Kartikeyy-pandeyy";
   const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
-  const fetchGitHubAPI = useCallback(async (url) => {
-    try {
-      const res = await fetch(url, {
-        headers: {
-          Authorization: `token ${GITHUB_TOKEN}`,
-        },
-      });
-      if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
-      return await res.json();
-    } catch (error) {
-      console.error("GitHub API fetch error:", error);
-      return null;
-    }
-  }, [GITHUB_TOKEN]);
+  const fetchGitHubAPI = useCallback(
+    async (url) => {
+      try {
+        const res = await fetch(url, {
+          headers: GITHUB_TOKEN ? { Authorization: `token ${GITHUB_TOKEN}` } : {}, // Fallback if token is missing
+        });
+        if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+        return await res.json();
+      } catch (error) {
+        console.error("GitHub API fetch error:", error);
+        return null;
+      }
+    },
+    [GITHUB_TOKEN]
+  );
 
   useEffect(() => {
-    const fetchAllCommits = async () => {
-      const reposData = await fetchGitHubAPI(`https://api.github.com/users/${GITHUB_USERNAME}/repos`);
-      if (!Array.isArray(reposData)) return;
+    const fetchData = async () => {
+      setIsLoading(true);
 
-      let allCommits = [];
-      for (const repo of reposData) {
-        const commitsData = await fetchGitHubAPI(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/commits`);
-        if (!Array.isArray(commitsData)) continue;
-
-        const repoCommits = commitsData.slice(0, 2).map((commit) => ({
-          message: commit.commit.message,
-          repoName: repo.name,
-          repoUrl: `https://github.com/${GITHUB_USERNAME}/${repo.name}`,
-          author: commit.commit.author.name,
-          timestamp: new Date(commit.commit.author.date).getTime(),
-          timeAgo: getTimeAgo(commit.commit.author.date),
-        }));
-
-        allCommits = [...allCommits, ...repoCommits];
+      // Fetch repos and limit to recent ones
+      const reposData = await fetchGitHubAPI(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=10&sort=updated`);
+      if (!Array.isArray(reposData)) {
+        setIsLoading(false);
+        return;
       }
 
+      // Fetch commits from recent repos
+      const commitPromises = reposData.slice(0, 5).map((repo) =>
+        fetchGitHubAPI(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/commits?per_page=2`)
+          .then((commitsData) => {
+            if (!Array.isArray(commitsData)) return [];
+            return commitsData.map((commit) => ({
+              message: commit.commit.message,
+              repoName: repo.name,
+              repoUrl: `https://github.com/${GITHUB_USERNAME}/${repo.name}`,
+              author: commit.commit.author.name,
+              timestamp: new Date(commit.commit.author.date).getTime(),
+              timeAgo: getTimeAgo(commit.commit.author.date),
+            }));
+          })
+      );
+
+      const allCommits = (await Promise.all(commitPromises)).flat();
       allCommits.sort((a, b) => b.timestamp - a.timestamp);
       setCommits(allCommits.slice(0, 5));
+
+      // Fetch recent activity
+      const activityData = await fetchGitHubAPI(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=5`);
+      if (Array.isArray(activityData)) {
+        const formattedActivity = activityData.map((event) => ({
+          type: event.type.replace("Event", ""),
+          repoName: event.repo.name,
+          repoUrl: `https://github.com/${event.repo.name}`,
+          timestamp: new Date(event.created_at).getTime(),
+          timeAgo: getTimeAgo(event.created_at),
+        }));
+        setActivity(formattedActivity);
+      }
+
       setIsLoading(false);
     };
 
-    const fetchRecentActivity = async () => {
-      const activityData = await fetchGitHubAPI(`https://api.github.com/users/${GITHUB_USERNAME}/events`);
-      if (!Array.isArray(activityData)) return;
-
-      const formattedActivity = activityData.slice(0, 5).map((event) => ({
-        type: event.type.replace("Event", ""),
-        repoName: event.repo.name,
-        repoUrl: `https://github.com/${event.repo.name}`,
-        timestamp: new Date(event.created_at).getTime(),
-        timeAgo: getTimeAgo(event.created_at),
-      }));
-
-      setActivity(formattedActivity);
-    };
-
-    fetchAllCommits();
-    fetchRecentActivity();
-  }, [fetchGitHubAPI]); // Now the dependency array includes fetchGitHubAPI
+    fetchData();
+  }, [fetchGitHubAPI]);
 
   const getTimeAgo = (timestamp) => {
     const timeDifference = Date.now() - new Date(timestamp).getTime();
@@ -89,8 +94,8 @@ const GitHubStats = () => {
         <div className="github-section">
           <h3>📌 Latest Commits</h3>
           {isLoading ? (
-            <p>Loading...</p>
-          ) : (
+            <div className="skeleton-loader" />
+          ) : commits.length ? (
             <ul className="commit-list">
               {commits.map((commit, index) => (
                 <li key={index} className="commit-item" onClick={() => window.open(commit.repoUrl, "_blank")}>
@@ -98,25 +103,24 @@ const GitHubStats = () => {
                   <div className="commit-info">
                     <strong>{commit.message}</strong>
                     <p>
-                      in{" "}
-                      <a href={commit.repoUrl} target="_blank" rel="noopener noreferrer">
-                        {commit.repoName}
-                      </a>{" "}
-                      by <span className="author">{commit.author}</span>
+                      in <a href={commit.repoUrl} target="_blank" rel="noopener noreferrer">{commit.repoName}</a> by{" "}
+                      <span className="author">{commit.author}</span>
                     </p>
                     <small>{commit.timeAgo}</small>
                   </div>
                 </li>
               ))}
             </ul>
+          ) : (
+            <p>No recent commits found.</p>
           )}
         </div>
 
         <div className="github-section">
           <h3>🔥 Recent Activity</h3>
           {isLoading ? (
-            <p>Loading...</p>
-          ) : (
+            <div className="skeleton-loader" />
+          ) : activity.length ? (
             <ul className="activity-list">
               {activity.map((event, index) => (
                 <li key={index} className="activity-item" onClick={() => window.open(event.repoUrl, "_blank")}>
@@ -124,16 +128,15 @@ const GitHubStats = () => {
                   <div className="activity-info">
                     <strong>{event.type}</strong>
                     <p>
-                      in{" "}
-                      <a href={event.repoUrl} target="_blank" rel="noopener noreferrer">
-                        {event.repoName}
-                      </a>
+                      in <a href={event.repoUrl} target="_blank" rel="noopener noreferrer">{event.repoName}</a>
                     </p>
                     <small>{event.timeAgo}</small>
                   </div>
                 </li>
               ))}
             </ul>
+          ) : (
+            <p>No recent activity found.</p>
           )}
         </div>
       </div>

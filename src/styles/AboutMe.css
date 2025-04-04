@@ -41,7 +41,7 @@ body {
   background: rgba(0, 255, 255, 0.4);
   border-radius: 50%;
   box-shadow: 0 0 3px rgba(0, 255, 255, 0.2);
-  animation: twinkle 5s ease-in-out infinite; /* Slower for performance */
+  animation: twinkle 5s ease-in-out infinite;
 }
 
 .particle:nth-child(odd) {
@@ -125,64 +125,30 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(138, 43, 226, 0.2)) 1;
+  background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(40, 40, 60, 0.7)); /* Subtle gradient */
+  border-radius: 16px; /* Softer corners */
+  border: 1px solid rgba(0, 255, 255, 0.2);
   padding: 0.8rem;
-  transition: transform 0.3s ease, border-image 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
-  will-change: transform; /* Optimize for animations */
-}
-
-/* Shine Effect */
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transform: skewX(-20deg);
-  transition: left 0.5s ease;
-}
-
-.card:hover::before {
-  left: 100%;
-}
-
-/* Pulsing Glow Effect */
-.card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  border: 1px solid transparent;
-  border-image: linear-gradient(45deg, rgba(0, 255, 255, 0.3), rgba(138, 43, 226, 0.3)) 1;
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-  0% { border-image: linear-gradient(45deg, rgba(0, 255, 255, 0.3), rgba(138, 43, 226, 0.3)) 1; }
-  50% { border-image: linear-gradient(45deg, rgba(0, 255, 255, 0.5), rgba(138, 43, 226, 0.5)) 1; }
-  100% { border-image: linear-gradient(45deg, rgba(0, 255, 255, 0.3), rgba(138, 43, 226, 0.3)) 1; }
 }
 
 .card:hover {
   transform: translateY(-8px) scale(1.05);
-  border-image: linear-gradient(45deg, #00FFFF, #8A2BE2) 1;
+  box-shadow: 0 6px 18px rgba(0, 255, 255, 0.3);
+  border: 1px solid rgba(0, 255, 255, 0.5);
 }
 
 .inner-card {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px; /* Slightly larger for harmony */
   padding: 0.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.25s ease;
 }
 
 .card-content {
@@ -198,8 +164,8 @@ body {
 .card .icon {
   font-size: clamp(1.4rem, 1.8rem, 2rem);
   margin: 0;
-  filter: drop-shadow(0 0 3px currentColor);
-  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 2px currentColor); /* Reduced shadow for performance */
+  transition: transform 0.25s ease;
 }
 
 .card:hover .icon {
@@ -215,7 +181,7 @@ body {
   font-weight: 600;
   color: #00FFFF;
   margin-bottom: 0.3rem;
-  text-shadow: 0 0 3px rgba(0, 255, 255, 0.15);
+  text-shadow: 0 0 2px rgba(0, 255, 255, 0.15); /* Lighter shadow */
 }
 
 .card p {
@@ -226,7 +192,7 @@ body {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  transition: color 0.3s ease;
+  transition: color 0.25s ease;
 }
 
 .card:hover p {
@@ -279,18 +245,10 @@ body {
     gap: clamp(0.4rem, 0.8vw, 1rem);
     padding: 0.8rem;
   }
-  .about-content { 
-    padding: 0.8rem; 
-    margin-top: 1.5%; 
-  }
+  .about-content { padding: 0.8rem; margin-top: 1.5%; }
   .section-title { font-size: 1.8rem; }
   .about-bio { max-width: 95%; font-size: 0.9rem; }
-  .card { 
-    max-width: 110px; 
-    min-height: 120px; 
-    max-height: 160px; 
-    padding: 0.6rem; 
-  }
+  .card { max-width: 110px; min-height: 120px; max-height: 160px; padding: 0.6rem; }
   .inner-card { padding: 0.4rem; }
   .card .icon { font-size: clamp(1.3rem, 1.7rem, 1.9rem); }
   .card h4 { font-size: clamp(0.75rem, 0.85rem, 0.95rem); }
@@ -307,12 +265,7 @@ body {
   }
   .section-title { font-size: 1.6rem; }
   .about-bio { font-size: 0.85rem; padding: 0.5rem; }
-  .card { 
-    max-width: 100px; 
-    min-height: 110px; 
-    max-height: 150px; 
-    padding: 0.5rem; 
-  }
+  .card { max-width: 100px; min-height: 110px; max-height: 150px; padding: 0.5rem; }
   .inner-card { padding: 0.3rem; }
   .card .icon { font-size: clamp(1.2rem, 1.6rem, 1.8rem); }
   .card h4 { font-size: clamp(0.7rem, 0.8rem, 0.9rem); }
@@ -325,12 +278,7 @@ body {
     gap: 0.5rem;
     padding: 0.4rem;
   }
-  .card { 
-    max-width: 90px; 
-    min-height: 100px; 
-    max-height: 140px; 
-    padding: 0.4rem; 
-  }
+  .card { max-width: 90px; min-height: 100px; max-height: 140px; padding: 0.4rem; }
   .inner-card { padding: 0.2rem; }
   .card .icon { font-size: clamp(1.1rem, 1.5rem, 1.7rem); }
   .card h4 { font-size: clamp(0.65rem, 0.75rem, 0.85rem); }
@@ -339,11 +287,12 @@ body {
 
 /* High-DPI Optimization */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .card::after { animation: pulse-glow 2s ease-in-out infinite; }
+  .card { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25); }
+  .card:hover { box-shadow: 0 8px 20px rgba(0, 255, 255, 0.35); }
 }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .about-me, .particle, .card::before, .card::after { animation: none !important; }
+  .about-me, .particle, .card { animation: none !important; }
   .card, .inner-card, .card .icon { transition: transform 0.2s ease; }
 }
