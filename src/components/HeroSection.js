@@ -56,7 +56,7 @@ const HeroSection = () => {
           <p className="animated-text">{text}</p>
           <div className="hero-buttons">
             <a
-              href="https://drive.google.com/file/d/194pMNZF1s6YmScIDe2n_hQGSapceq6Ub/view?usp=sharing"
+              href="https://drive.google.com/file/d/1lVgd3Cl_LIk0x23lflgeBK6rzWg8ZWaU/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="btn"
