@@ -1,52 +1,13 @@
-/* =================== EXPERIENCE & EDUCATION SECTION =================== */
+/* EXPERIENCE & EDUCATION SECTION */
 .experience-education {
-  padding: 5rem 10%;
-  background: linear-gradient(145deg, #0a0a1a 0%, #1a1a2e 40%, #0f0f23 80%, #12122a 100%);
-  background-size: 200% 200%;
-  animation: gradientFlow 5s ease infinite;
+  padding: 4rem 10%;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  box-shadow: 
-    0 0 30px rgba(0, 255, 255, 0.06),
-    inset 0 0 15px rgba(138, 43, 226, 0.04);
-  z-index: -1;
-  margin-top: -6%;
-  margin-bottom: -6%;
-  will-change: background-position;
-  -webkit-font-smoothing: antialiased; /* Smoother text rendering */
-  -moz-osx-font-smoothing: grayscale;
+  z-index: 1;
 }
 
-/* Optimized Gradient Animation */
-@keyframes gradientFlow {
-  0% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
-  100% { background-position: 0% 0%; }
-}
-
-/* Cosmic Overlay - Subtle and Optimized */
-.experience-education::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(0, 255, 255, 0.01) 0%, rgba(138, 43, 226, 0.01) 50%, transparent 100%);
-  opacity: 0.25;
-  z-index: -100;
-  animation: shimmer 8s ease infinite;
-  will-change: transform, opacity;
-}
-
-/* Optimized Shimmer Animation */
-@keyframes shimmer {
-  0%, 100% { transform: scale(1); opacity: 0.25; }
-  50% { transform: scale(1.01); opacity: 0.4; }
-}
-
-/* Particles - Optimized and Dynamic */
+/* Particles */
 .timeline-particles {
   position: absolute;
   width: 100%;
@@ -57,396 +18,233 @@
 
 .particle {
   position: absolute;
-  width: 1.5px;
-  height: 1.5px;
-  background: rgba(0, 255, 255, 0.5);
+  width: 1.2px;
+  height: 1.2px;
+  background: rgba(0, 255, 255, 0.6);
   border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
-  animation: twinkle 1.8s ease-in-out infinite;
-  will-change: transform, opacity;
+  box-shadow: 0 0 4px rgba(0, 255, 255, 0.2);
+  animation: twinkle 2s ease-in-out infinite;
 }
 
 .particle:nth-child(odd) {
-  background: rgba(138, 43, 226, 0.5);
-  box-shadow: 0 0 5px rgba(138, 43, 226, 0.3);
-  animation-duration: 2.2s;
+  background: rgba(138, 43, 226, 0.6);
+  box-shadow: 0 0 4px rgba(138, 43, 226, 0.2);
+  animation-duration: 2.5s;
 }
 
-.particle:nth-child(3n) {
-  width: 1px;
-  height: 1px;
-  animation-duration: 2s;
-}
-
-.particle:nth-child(5n) {
-  width: 0.8px;
-  height: 0.8px;
-  animation: twinkleFast 1.5s ease-in-out infinite;
-}
-
-/* Optimized Twinkle Animations */
 @keyframes twinkle {
-  0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
-  50% { transform: translate(calc(10vw * var(--direction-x)), calc(10vh * var(--direction-y))) scale(1.05); opacity: 0.8; }
-  100% { transform: translate(calc(12vw * var(--direction-x)), calc(12vh * var(--direction-y))) scale(1); opacity: 0.6; }
+  0% { transform: translate(0, 0); opacity: 0.6; }
+  50% { transform: translate(calc(6vw * var(--direction-x)), calc(6vh * var(--direction-y))); opacity: 0.8; }
+  100% { transform: translate(calc(8vw * var(--direction-x)), calc(8vh * var(--direction-y))); opacity: 0.6; }
 }
 
-@keyframes twinkleFast {
-  0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-  50% { transform: translate(calc(5vw * var(--direction-x)), calc(5vh * var(--direction-y))) scale(1.05); opacity: 0.9; }
-  100% { transform: translate(calc(8vw * var(--direction-x)), calc(8vh * var(--direction-y))) scale(1); opacity: 0.7; }
-}
-
-/* Vertical Timeline Line - Sleek and Dynamic */
+/* Vertical Timeline Line */
 .vertical-timeline::before {
-  background: linear-gradient(180deg, #00FFFF 0%, #8A2BE2 100%);
-  width: 3px;
-  box-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
-  animation: linePulse 0.8s ease infinite;
-  border-radius: 1px;
-  will-change: box-shadow;
-}
-
-/* Optimized Line Pulse */
-@keyframes linePulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(0, 255, 255, 0.25); }
-  50% { box-shadow: 0 0 12px rgba(138, 43, 226, 0.35); }
+  background: linear-gradient(180deg, #00FFFF, #8A2BE2);
+  width: 2px;
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.2);
 }
 
 /* Timeline Elements */
 .vertical-timeline-element {
-  transition: opacity 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-bottom: 2.5rem;
-  will-change: opacity;
+  margin-bottom: 2rem;
 }
 
+/* Content */
 .vertical-timeline-element-content {
-  padding: 1.2rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
-  box-shadow: 
-    0 2px 10px rgba(0, 255, 255, 0.08),
-    inset 0 0 6px rgba(138, 43, 226, 0.02);
-  backdrop-filter: blur(6px);
+  padding: 1rem;
+  background: transparent;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 255, 255, 0.1);
   position: relative;
   width: 70%;
-  transition: box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: box-shadow 0.2s ease-out;
 }
 
 .vertical-timeline-element-content:hover {
-  box-shadow: 
-    0 4px 15px rgba(0, 255, 255, 0.12),
-    inset 0 0 8px rgba(138, 43, 226, 0.04); /* Subtle hover effect */
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.15);
 }
 
-/* Left and Right Content Positioning */
-.vertical-timeline-element--left .vertical-timeline-element-content {
-  margin-left: 12%;
-  text-align: left;
-}
-
+/* Left and Right Positioning (Laptop) */
+.vertical-timeline-element--left .vertical-timeline-element-content,
 .vertical-timeline-element--right .vertical-timeline-element-content {
   margin-left: 12%;
   text-align: left;
 }
 
-/* Arrow Styling - Subtle and Dynamic */
+/* Arrow Styling (Laptop) */
 .vertical-timeline-element--left .vertical-timeline-element-content-arrow {
-  left: -5px;
-  border-right: 5px solid rgba(0, 255, 255, 0.35);
+  left: -8px;
+  border-right: 8px solid rgba(0, 255, 255, 0.4);
 }
 
 .vertical-timeline-element--right .vertical-timeline-element-content-arrow {
-  left: -5px;
-  border-right: 5px solid rgba(138, 43, 226, 0.35);
+  left: -8px;
+  border-right: 8px solid rgba(138, 43, 226, 0.4);
 }
 
-/* Date Styling - Positioned Right of Node */
+/* Date Styling */
 .vertical-timeline-element-date {
   font-size: 1rem;
   font-weight: 500;
   color: #00FFFF;
-  text-shadow: 0 0 3px rgba(0, 255, 255, 0.35);
   position: absolute;
-  top: 50%;
+  top: 30%!important;
   transform: translateY(-50%);
-  margin: 0;
   padding: 0.3rem 0.6rem;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
+  display: inline-block; /* Ensure proper flow */
 }
 
-/* Dynamic Date Positioning */
-.vertical-timeline-element--left .vertical-timeline-element-date {
-  margin-top: 5%;
-  left: 40px;
-  text-align: left;
-}
-
+.vertical-timeline-element--left .vertical-timeline-element-date,
 .vertical-timeline-element--right .vertical-timeline-element-date {
   left: 40px;
   text-align: left;
-  margin-top: 5%;
 }
 
-/* Title Styling - Refined and Dynamic */
+/* Title Styling */
 .vertical-timeline-element-title {
   font-size: 1.5rem;
   font-weight: 700;
-  font-family: 'Georgia', serif;
+  font-family: "Georgia", serif;
   background: linear-gradient(90deg, #00FFFF, #8A2BE2);
-  background-size: 200% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 5px rgba(0, 255, 255, 0.35);
-  animation: textGlow 1.2s ease infinite;
-  letter-spacing: 0.5px;
-  will-change: background-position;
+  margin-bottom: 0.5rem;
 }
 
-/* Optimized Text Glow */
-@keyframes textGlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Description Text - Polished with Spacing */
+/* Description Text */
 .vertical-timeline-element-description {
   font-size: 0.9rem;
   color: #E0E0E0;
-  margin-top: 0.5rem;
-  margin-bottom: 1.2rem;
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.15);
   line-height: 1.4;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .extra-info {
-  display: block;
   color: #C0C0C0;
   font-style: italic;
-  margin-top: 0.3rem;
   opacity: 0.75;
 }
 
-/* Icon Styling - Dynamic Hover */
+/* Icon Styling */
 .vertical-timeline-element-icon {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.6rem;
-  background: linear-gradient(135deg, #00FFFF, #8A2BE2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 5px rgba(0, 255, 255, 0.15);
   border-radius: 50%;
-  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, box-shadow;
+  transition: transform 0.2s ease-out;
 }
 
 .vertical-timeline-element-icon:hover {
-  transform: scale(1.08) rotate(5deg);
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 15px rgba(138, 43, 226, 0.3);
+  transform: scale(1.1);
 }
 
-/* =================== RESPONSIVENESS =================== */
+/* Responsiveness */
 @media screen and (max-width: 1200px) {
-  .experience-education {
-    padding: 4rem 8%;
-  }
-  .vertical-timeline-element-content {
-    width: 65%;
-  }
+  .experience-education { padding: 3rem 8%; }
+  .vertical-timeline-element-content { width: 65%; }
   .vertical-timeline-element--left .vertical-timeline-element-content,
-  .vertical-timeline-element--right .vertical-timeline-element-content {
-    margin-left: 10%;
-  }
-  .vertical-timeline-element-title {
-    font-size: 1.4rem;
-  }
-  .vertical-timeline-element-description {
-    font-size: 0.85rem;
-  }
-  .vertical-timeline-element-icon {
-    font-size: 1.5rem;
-  }
+  .vertical-timeline-element--right .vertical-timeline-element-content { margin-left: 10%; }
+  .vertical-timeline-element-title { font-size: 1.4rem; }
+  .vertical-timeline-element-description { font-size: 0.85rem; }
+  .vertical-timeline-element-icon { font-size: 1.5rem; }
 }
 
 @media screen and (max-width: 1024px) {
-  .experience-education {
-    padding: 3rem 6%;
-  }
-  .vertical-timeline-element-content {
-    width: 60%;
-  }
-  .vertical-timeline-element-date {
-    font-size: 0.95rem;
-    padding: 0.25rem 0.5rem;
-  }
+  .experience-education { padding: 2.5rem 6%; }
+  .vertical-timeline-element-content { width: 60%; }
+  .vertical-timeline-element-date { font-size: 0.95rem; padding: 0.25rem 0.5rem; }
 }
 
 @media screen and (max-width: 768px) {
-  .experience-education {
-    padding: 2rem 1%;
-    margin-top: -22% !important;
-    z-index: 0;
-    
-  }
+  .experience-education { padding: 2rem 4%; }
   .vertical-timeline::before {
     width: 2px;
     left: 20px;
-    margin-top: 20%;
   }
   .vertical-timeline-element {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     padding-left: 40px;
-    margin-top: 19% !important;
-  }
-  .vertical-timeline-element-date {
-    margin-left: 69% !important;
   }
   .vertical-timeline-element-content {
-    width: 100%;
+    width: calc(100% - 50px);
     margin-left: 0;
-    padding: 1rem;
-    text-align: left;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 255, 255, 0.06);
-    backdrop-filter: blur(4px); /* Reduced blur */
+    padding: 0.8rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 255, 255, 0.08);
+    display: flex; /* Flexbox for horizontal layout */
+    flex-wrap: wrap; /* Wrap if needed */
+    gap: 1rem; /* Horizontal gap between date and content */
   }
   .vertical-timeline-element--left .vertical-timeline-element-content,
   .vertical-timeline-element--right .vertical-timeline-element-content {
     margin-left: 0;
   }
-  .vertical-timeline-element-content-arrow {
-    display: none;
-  }
+  .vertical-timeline-element-content-arrow { display: none; }
   .vertical-timeline-element-date {
-    position: absolute;
-    left: 45px;
-    top: 10px;
-    transform: none;
-    margin: 0;
+    position: static;
+    margin: 0; /* Reset margin */
     font-size: 0.9rem;
     padding: 0.2rem 0.5rem;
-    background: rgba(0, 0, 0, 0.2);
-    width: auto;
+    background: rgba(0, 0, 0, 0.3);
     text-align: left;
+    flex: 0 0 auto; /* Fixed width for date */
   }
   .vertical-timeline-element-title {
     font-size: 1.3rem;
-    letter-spacing: 0.3px;
+    flex: 1; /* Grow to fill space */
+    margin-bottom: 0.3rem; /* Reduced gap */
   }
   .vertical-timeline-element-description {
     font-size: 0.8rem;
-    margin-bottom: 0.8rem;
+    flex: 1 1 100%; /* Full width below date/title */
   }
   .vertical-timeline-element-icon {
     font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
     left: 0;
-    z-index: 1000;
   }
-  .particle {
-    width: 1px;
-    height: 1px;
-  }
+  .particle { width: 1px; height: 1px; animation: twinkle 1.5s ease-in-out infinite; }
 }
 
 @media screen and (max-width: 480px) {
-  .experience-education {
-    padding: 1.5rem 3%;
-    animation: gradientFlow 4s ease infinite; /* Faster for small screens */
-  }
+  .experience-education { padding: 1.5rem 3%; }
   .vertical-timeline::before {
     width: 1.5px;
     left: 15px;
   }
   .vertical-timeline-element {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
     padding-left: 30px;
   }
   .vertical-timeline-element-content {
-    padding: 0.8rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 6px rgba(0, 255, 255, 0.04); /* Lighter shadow */
-    backdrop-filter: blur(3px); /* Further reduced blur */
+    width: calc(100% - 40px);
+    padding: 0.6rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 255, 255, 0.06);
+    gap: 0.8rem; /* Slightly smaller gap */
   }
-  .vertical-timeline-element-date {
-    left: 35px;
-    top: 8px;
-    font-size: 0.85rem;
-    padding: 0.15rem 0.4rem;
-  }
-  .vertical-timeline-element-title {
-    font-size: 1.2rem;
-    text-shadow: 0 0 3px rgba(0, 255, 255, 0.25); /* Lighter shadow */
-  }
-  .vertical-timeline-element-description {
-    font-size: 0.75rem;
-    margin-bottom: 0.6rem;
-  }
+  .vertical-timeline-element-date { font-size: 0.85rem; padding: 0.15rem 0.4rem; }
+  .vertical-timeline-element-title { font-size: 1.2rem; }
+  .vertical-timeline-element-description { font-size: 0.75rem; }
   .vertical-timeline-element-icon {
     font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
   }
-  .particle {
-    width: 0.8px;
-    height: 0.8px;
-    animation: twinkle 1.2s ease-in-out infinite; /* Faster */
-  }
-  .particle:nth-child(odd) { animation-duration: 1.5s; }
-  .particle:nth-child(5n) { animation: twinkleFast 1s ease-in-out infinite; }
+  .particle { width: 0.8px; height: 0.8px; animation: twinkle 1.2s ease-in-out infinite; }
 }
 
-/* PERFORMANCE OPTIMIZATION FOR SMALL SCREENS */
-@media (max-width: 480px) and (max-height: 600px) {
-  .experience-education::before { 
-    background: none; /* Remove radial gradient for performance */
-    animation: none;
-  }
-  .vertical-timeline-element-content { 
-    backdrop-filter: none; /* Remove blur */
-    background: rgba(0, 0, 0, 0.1); /* Fallback */
-  }
-  .particle { animation: twinkle 1s ease-in-out infinite; } /* Even faster */
-  .particle:nth-child(odd) { animation-duration: 1.2s; }
-}
-
-/* =================== OPTIMIZATION =================== */
+/* Performance Optimization */
 @media (prefers-reduced-motion: reduce) {
-  .experience-education,
-  .vertical-timeline::before,
-  .particle,
-  .vertical-timeline-element-title,
-  .vertical-timeline-element-icon {
+  .experience-education, .vertical-timeline::before, .particle,
+  .vertical-timeline-element-content, .vertical-timeline-element-icon {
     animation: none !important;
-  }
-  .vertical-timeline-element,
-  .vertical-timeline-element-content,
-  .vertical-timeline-element-icon,
-  .vertical-timeline-element-date {
     transition: none !important;
-  }
-}
-
-/* High-DPI Optimization */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .vertical-timeline-element-content {
-    backdrop-filter: blur(8px);
-    box-shadow: 
-      0 3px 12px rgba(0, 255, 255, 0.12),
-      inset 0 0 8px rgba(138, 43, 226, 0.03);
-  }
-  .vertical-timeline::before {
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
-  }
-  .vertical-timeline-element-icon {
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-  }
-  .vertical-timeline-element-title {
-    text-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
   }
 }

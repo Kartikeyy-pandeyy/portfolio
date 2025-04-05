@@ -12,22 +12,21 @@ const HeroSection = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const hasCounted = useRef(false);
 
-  // Simplified view count animation
+  // View count logic (optimized)
   useEffect(() => {
     if (!hasCounted.current) {
       hasCounted.current = true;
-      let storedCount = parseInt(localStorage.getItem("viewCount") || "105", 10);
-      storedCount += 1;
+      const storedCount = parseInt(localStorage.getItem("viewCount") || "105", 10) + 1;
       localStorage.setItem("viewCount", storedCount);
-      setViewCount(storedCount); // Direct set instead of heavy animation
+      setViewCount(storedCount);
     }
   }, []);
 
-  // Typing animation (slightly faster)
+  // Typing animation (faster and smoother)
   useEffect(() => {
     const currentRole = roles[roleIndex];
-    const typingSpeed = isDeleting ? 40 : 80; // Increased speed
-    const pauseBeforeDelete = 800; // Reduced pause
+    const typingSpeed = isDeleting ? 50 : 100; // Slightly faster
+    const pauseBeforeDelete = 1000; // Subtle pause
     const timeout = setTimeout(() => {
       setText(
         isDeleting
@@ -47,16 +46,8 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, roleIndex]);
 
-  // Removed blinking cursor effect to reduce overhead
-  const scrollToBottom = () => {
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <section className="hero">
+    <section className="hero" id="hero">
       <div className="hero-container">
         <div className="hero-content">
           <h1>
@@ -72,9 +63,6 @@ const HeroSection = () => {
             >
               📜 Resume
             </a>
-            <button onClick={scrollToBottom} className="btn">
-              📩 Contact
-            </button>
           </div>
           <div className="hero-stats">
             <p>

@@ -38,7 +38,7 @@ const projectsData = [
     title: "Kartikey Care - OPD Ticket Booking",
     category: "Web",
     timeline: "Feb 2025 - Present",
-    techStack: ["React.js", "CSS", "Node.js", "MongoDB", "AWS Lambda"],
+    techStack: ["React.js", "CSS", "Node.js", "MongoDB"],
     description: [
       "Designed a responsive UI with React.js and CSS, achieving 95+ Lighthouse scores.",
       "Developed a booking system with real-time updates, improving UX by 40%.",
@@ -52,7 +52,7 @@ const projectsData = [
     title: "Microservices Calculator",
     category: "Cloud",
     timeline: "Jan 2025 - Feb 2025",
-    techStack: ["React.js", "API Gateway", "AWS CloudFront", "Railway"],
+    techStack: ["React.js", "AWS CloudFront", "Railway"],
     description: [
       "Built an interactive calculator UI with React.js and Material UI.",
       "Integrated serverless microservices, reducing backend load by 60%.",

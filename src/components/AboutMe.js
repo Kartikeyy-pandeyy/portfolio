@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/AboutMe.css";
 import { FaReact, FaGamepad, FaMusic, FaGlobe, FaRobot, FaLaptopCode, FaJava, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaCamera, FaCloud, FaEye, FaCode } from "react-icons/fa";
-import { SiMongodb, SiPostman, SiFlask, SiAmazonec2, SiAmazons3, SiAwslambda, SiAmazoniam, SiAwsamplify, SiAmazonapigateway, SiNetlify, SiRender } from "react-icons/si";
+import { SiMongodb, SiPostman,  SiAmazonec2, SiAmazons3, SiAwslambda, SiAmazoniam, SiAwsamplify, SiAmazonapigateway, SiNetlify, SiRender } from "react-icons/si";
 import { motion } from "framer-motion";
 
 const techStack = [
@@ -13,7 +13,6 @@ const techStack = [
   { name: "MongoDB", icon: <SiMongodb className="icon mongo" />, desc: "NoSQL database for flexible and scalable data storage." },
   { name: "REST API", icon: <FaCode className="icon rest" />, desc: "Designed projects for seamless backend-frontend communication." },
   { name: "Postman", icon: <SiPostman className="icon postman" />, desc: "Streamlined API testing and debugging for robust integrations." },
-  { name: "Flask", icon: <SiFlask className="icon flask" />, desc: "Developed Python backends integrating ML models with frontend." },
   { name: "SQL", icon: <FaDatabase className="icon sql" />, desc: "Managed relational databases with optimized query performance." },
   { name: "EC2", icon: <SiAmazonec2 className="icon ec2" />, desc: "Hosted scalable backends with auto-scaling and load balancing." },
   { name: "S3", icon: <SiAmazons3 className="icon s3" />, desc: "Stored static assets securely for efficient content delivery." },

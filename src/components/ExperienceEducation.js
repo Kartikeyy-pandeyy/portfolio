@@ -3,7 +3,7 @@ import "../styles/ExperienceEducation.css";
 import { FaSchool, FaUniversity, FaBaby, FaGraduationCap } from "react-icons/fa";
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 const timelineData = [
   {
@@ -38,21 +38,13 @@ const timelineData = [
   },
 ];
 
-
 const ExperienceEducation = () => {
   const [expanded, setExpanded] = useState(null);
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [0.95, 1]); // Subtle scale for performance
 
   return (
-    <motion.section
-      id="experience-education"
-      className="experience-education"
-      style={{ opacity, scale }}
-    >
+    <section id="experience-education" className="experience-education">
       <div className="timeline-particles">
-        {Array.from({ length: 6 }).map((_, i) => ( // Reduced particles for performance
+        {Array.from({ length: 4 }).map((_, i) => (
           <span
             key={i}
             className="particle"
@@ -64,32 +56,33 @@ const ExperienceEducation = () => {
         {timelineData.map((item, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 30 }} // Reduced y offset for faster animation
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.1 }} // Faster and snappier
+            whileHover={{ scale: 1.02 }} // Subtle hover animation for laptop
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <VerticalTimelineElement
               date={item.date}
               icon={item.icon}
               position={index % 2 === 0 ? "left" : "right"}
               contentStyle={{
-                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2))",
+                background: "transparent", // No solid background
                 color: "#EAEAEA",
-                borderRadius: "15px",
-                boxShadow: "0 5px 20px rgba(0, 255, 255, 0.2)", // Slightly reduced shadow
-                backdropFilter: "blur(12px)", // Reduced blur for performance
-                border: index % 2 === 0 ? "1px solid rgba(0, 255, 255, 0.3)" : "1px solid rgba(138, 43, 226, 0.3)",
+                borderRadius: "10px",
+                boxShadow: "0 2px 8px rgba(0, 255, 255, 0.1)",
+                border: index % 2 === 0 ? "1px solid rgba(0, 255, 255, 0.2)" : "1px solid rgba(138, 43, 226, 0.2)",
+                padding: "1rem",
               }}
               contentArrowStyle={{
-                borderRight: index % 2 === 0 ? "10px solid rgba(0, 255, 255, 0.5)" : "10px solid rgba(138, 43, 226, 0.5)",
+                borderRight: index % 2 === 0 ? "8px solid rgba(0, 255, 255, 0.4)" : "8px solid rgba(138, 43, 226, 0.4)",
               }}
               iconStyle={{
                 background: index % 2 === 0
                   ? "linear-gradient(135deg, #00FFFF, #8A2BE2)"
                   : "linear-gradient(135deg, #8A2BE2, #00FFFF)",
                 color: "#fff",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease", // Transition moved to CSS
+                boxShadow: "0 0 6px rgba(0, 255, 255, 0.3)",
               }}
               onClick={() => setExpanded(expanded === index ? null : index)}
             >
@@ -97,16 +90,14 @@ const ExperienceEducation = () => {
               <p className="vertical-timeline-element-description">
                 {item.description}
                 {expanded === index && (
-                  <span className="extra-info">
-                    {" "} - More details could be added here!
-                  </span>
+                  <span className="extra-info"> - More details could be added here!</span>
                 )}
               </p>
             </VerticalTimelineElement>
           </motion.div>
         ))}
       </VerticalTimeline>
-    </motion.section>
+    </section>
   );
 };
 

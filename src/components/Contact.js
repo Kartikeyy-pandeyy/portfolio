@@ -20,28 +20,25 @@ const Contact = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const formRef = useRef(null);
-  const statusRef = useRef(null);
 
   const particleOptions = {
     particles: {
-      number: { value: window.innerWidth < 768 ? 30 : 60, density: { enable: true, value_area: 1000 } },
-      color: { value: ["#FFFFFF", "#E0E0E0", "#D0D0D0"] },
-      shape: { type: "star" },
-      opacity: { value: 0.8, random: { enable: true, minimumValue: 0.4 } },
+      number: { value: window.innerWidth < 768 ? 40 : 70, density: { enable: true, value_area: 1000 } }, // 40 mobile, 70 laptop
+      color: { value: ["#00FFFF", "#8A2BE2"] }, // Simplified colors
+      shape: { type: "circle" }, // Faster than star
+      opacity: { value: 0.7, random: { enable: true, minimumValue: 0.4 } },
       size: { value: 1.5, random: { enable: true, minimumValue: 0.5 } },
-      move: { enable: true, speed: 0.5, direction: "none", random: true },
+      move: { enable: true, speed: 0.4, direction: "none", random: true, outModes: "out" }, // Autonomous movement
     },
     interactivity: {
-      events: { onHover: { enable: true, mode: "repulse" }, onClick: { enable: true, mode: "push" } },
-      modes: { repulse: { distance: 80 }, push: { quantity: 3 } },
+      events: {}, // Removed all interactivity
     },
     background: { color: "transparent" },
   };
 
   useEffect(() => {
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ duration: 600, once: true }); // Faster AOS
     loadSlim(window.tsParticles);
   }, []);
 
@@ -52,7 +49,7 @@ const Contact = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      setFormErrors({ email: "Invalid email format" });
+      setFormErrors({ email: "Invalid email" });
       return;
     }
 
@@ -69,18 +66,16 @@ const Contact = () => {
 
       setIsSubmitting(false);
       if (response.ok) {
-        setFormStatus("Message Sent!");
+        setFormStatus("Sent!");
         setShowConfetti(true);
-        setShowSuccessModal(true);
-        setTimeout(() => setShowConfetti(false), 3000);
+        setTimeout(() => setShowConfetti(false), 2000);
         e.target.reset();
-        statusRef.current?.focus();
       } else {
-        setFormStatus("Error sending message.");
+        setFormStatus("Error!");
       }
     } catch {
       setIsSubmitting(false);
-      setFormStatus("Error sending message.");
+      setFormStatus("Error!");
     }
   };
 
@@ -89,8 +84,8 @@ const Contact = () => {
       <Particles id="tsparticles" options={particleOptions} className="particles-wrapper" />
       <div className="content-wrapper">
         <h2 data-aos="fade-up">Get in Touch</h2>
-        <p data-aos="fade-up" data-aos-delay="200">Let’s launch something cosmic together!</p>
-        <div className="contact-container" data-aos="fade-up" data-aos-delay="400">
+        <p data-aos="fade-up" data-aos-delay="100">Let’s launch something cosmic together!</p>
+        <div className="contact-container" data-aos="fade-up" data-aos-delay="200">
           <form ref={formRef} onSubmit={handleSubmit} className="contact-card contact-form">
             <div className="form-fields">
               <div className="form-field">
@@ -115,7 +110,7 @@ const Contact = () => {
               <button type="submit" className="submit-btn" disabled={isSubmitting}>
                 {isSubmitting ? <span className="spinner" /> : "Send Message"}
               </button>
-              <p ref={statusRef} className="form-status" aria-live="polite" role="alert">{formStatus}</p>
+              <p className="form-status" aria-live="polite">{formStatus}</p>
             </div>
           </form>
           <div className="contact-card contact-info">
@@ -131,19 +126,13 @@ const Contact = () => {
                 href="mailto:kartikeyy.pandeyy@gmail.com?subject=Let's Connect!&body=Hi Kartikey, I’d love to discuss..."
                 className="email-btn"
               >
-                Drop Me a Cosmic Note!
+                Drop a note
               </a>
             </div>
           </div>
         </div>
       </div>
-      {showConfetti && <Confetti numberOfPieces={100} colors={["#00FFFF", "#8A2BE2", "#FF69B4"]} />}
-      {showSuccessModal && (
-        <div className="success-modal">
-          <p>Message Sent Successfully!</p>
-          <button onClick={() => setShowSuccessModal(false)}>Close</button>
-        </div>
-      )}
+      {showConfetti && <Confetti numberOfPieces={500} colors={["#00FFFF", "#8A2BE2"]} />}
     </section>
   );
 };
