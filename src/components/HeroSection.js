@@ -4,37 +4,41 @@ import profilePic from "../assets/profile.jpg";
 
 const roles = ["Full-Stack Developer 🖥️", "Cloud Strategist ☁️", "Tech Enthusiast 🚀"];
 
-/**
- * Read env vars in both Vite and CRA.
- */
-function getEnv(keyVite, keyCRA) {
-  // Vite
-  if (typeof import.meta !== "undefined" && import.meta.env && keyVite in import.meta.env) {
-    return import.meta.env[keyVite];
-  }
-  // CRA
-  if (typeof process !== "undefined" && process.env && keyCRA in process.env) {
-    return process.env[keyCRA];
-  }
-  return undefined;
+/** ====== CRA-only env helpers ====== */
+function getCRAEnv(key) {
+  return (typeof process !== "undefined" && process.env && process.env[key]) || undefined;
 }
 
-function isDevEnv() {
-  const viteDev =
-    typeof import.meta !== "undefined" && import.meta.env && !!import.meta.env.DEV;
-  const craDev =
-    typeof process !== "undefined" && process.env && process.env.NODE_ENV !== "production";
-  const host = typeof window !== "undefined" ? window.location.hostname : "";
-  const hostLooksLocal =
-    host === "localhost" || host === "127.0.0.1" || host.endsWith(".local");
-  return viteDev || craDev || hostLooksLocal;
+function isLocalHost() {
+  if (typeof window === "undefined") return false;
+  const h = window.location.hostname;
+  return h === "localhost" || h === "127.0.0.1";
 }
 
 function getApiBase() {
-  const local =
-    getEnv("VITE_API_BASE_LOCAL", "REACT_APP_API_BASE_LOCAL") || "http://localhost:5000";
-  const prod = getEnv("VITE_API_BASE_PROD", "REACT_APP_API_BASE_PROD") || local;
-  const base = isDevEnv() ? local : prod;
+  const local = getCRAEnv("REACT_APP_API_BASE_LOCAL") || "http://localhost:5000";
+  const prod  = getCRAEnv("REACT_APP_API_BASE_PROD"); // <-- must be set on Netlify
+
+  // If running on localhost, always use local; otherwise require prod (fallback to local if missing)
+  const base = isLocalHost() ? local : (prod || local);
+
+  // One-time runtime debug
+  if (typeof window !== "undefined" && !window.__API_BASE_LOGGED__) {
+    if (process.env.NODE_ENV !== "production") {
+      // eslint-disable-next-line no-console
+      console.log("[HeroSection] API_BASE resolved:", base, {
+        local,
+        prod,
+        hostname: window.location.hostname,
+        NODE_ENV: process.env.NODE_ENV,
+      });
+    } else if (!prod) {
+      // eslint-disable-next-line no-console
+      console.warn("[HeroSection] REACT_APP_API_BASE_PROD is missing; using local in prod:", base);
+    }
+    window.__API_BASE_LOGGED__ = true;
+  }
+
   return base.replace(/\/+$/, "");
 }
 
@@ -54,26 +58,23 @@ const HeroSection = () => {
     hasIncremented.current = true;
 
     const setSafely = (n) => {
-      if (isDevEnv()) {
-        console.log("[HeroSection] setSafely called with:", n, "typeof:", typeof n);
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[HeroSection] setSafely:", n, "typeof:", typeof n);
       }
-      if (typeof n === "number") {
-        if (isDevEnv()) {
-          console.log("[HeroSection] Setting viewCount to:", n);
-        }
-        setViewCount(n);
-      }
+      if (typeof n === "number") setViewCount(n);
     };
 
     const url = `${API_BASE}/api/views`;
 
-    if (isDevEnv()) {
-      console.log("[HeroSection] API_BASE =", API_BASE);
-      console.log("[HeroSection] POST", url, "(increment visitor count)");
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[HeroSection] POST", url, "(increment)");
     }
 
-    // First, POST to increment the visitor count
-    fetch(url, { method: "POST" })
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      // credentials: "include", // <-- only if your server needs cookies
+    })
       .then(async (r) => {
         if (!r.ok) {
           const text = await r.text().catch(() => "");
@@ -81,16 +82,12 @@ const HeroSection = () => {
         }
         return r.json();
       })
-      .then((data) => {
-        if (isDevEnv()) {
-          console.log("[HeroSection] POST response:", data);
-        }
-        setSafely(data?.total ?? 0);
-      })
+      .then((data) => setSafely(data?.total ?? 0))
       .catch((err) => {
-        if (isDevEnv()) console.error("[HeroSection] POST /api/views failed:", err);
-        // Fallback: GET current count if POST fails
-        if (isDevEnv()) console.log("[HeroSection] GET", url, "(fallback)");
+        if (process.env.NODE_ENV !== "production") {
+          console.error("[HeroSection] POST /api/views failed:", err);
+          console.log("[HeroSection] GET", url, "(fallback)");
+        }
         fetch(url)
           .then(async (r) => {
             if (!r.ok) {
@@ -101,7 +98,9 @@ const HeroSection = () => {
           })
           .then((data) => setSafely(data?.total ?? 0))
           .catch((err2) => {
-            if (isDevEnv()) console.error("[HeroSection] GET /api/views failed:", err2);
+            if (process.env.NODE_ENV !== "production") {
+              console.error("[HeroSection] GET /api/views failed:", err2);
+            }
             setSafely(0);
           });
       });
@@ -109,8 +108,8 @@ const HeroSection = () => {
 
   // Debug: Track viewCount changes
   useEffect(() => {
-    if (isDevEnv()) {
-      console.log("[HeroSection] viewCount state changed to:", viewCount);
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[HeroSection] viewCount changed:", viewCount);
     }
   }, [viewCount]);
 
