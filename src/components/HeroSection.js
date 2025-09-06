@@ -2,104 +2,53 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/HeroSection.css";
 import profilePic from "../assets/profile.jpg";
 
+// 🔴 Replace this with your backend URL
+const API_BASE = "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app"; 
+
 const roles = ["Full-Stack Developer 🖥️", "Cloud Strategist ☁️", "Tech Enthusiast 🚀"];
 
-/** ====== CRA-only env helpers (STRICT, no fallbacks) ====== */
-function getEnv(key) {
-  return (typeof process !== "undefined" && process.env && process.env[key]) || undefined;
-}
-function resolveApiBaseStrict() {
-  const envMode = getEnv("REACT_APP_ENVIRONMENT") || "prod"; // default → prod
-  const local = getEnv("REACT_APP_API_BASE_LOCAL");
-  const prod = getEnv("REACT_APP_API_BASE_PROD");
-
-  if (envMode !== "local" && envMode !== "prod") {
-    throw new Error(
-      `[HeroSection] REACT_APP_ENVIRONMENT must be 'local' or 'prod', got '${envMode}'.`
-    );
-  }
-  if (envMode === "local" && !local) {
-    throw new Error("[HeroSection] REACT_APP_API_BASE_LOCAL is missing.");
-  }
-  if (envMode === "prod" && !prod) {
-    throw new Error("[HeroSection] REACT_APP_API_BASE_PROD is missing.");
+async function hitViews(url) {
+  // First try POST (increment)
+  let r = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (r.ok) {
+    const data = await r.json();
+    return data?.total ?? 0;
   }
 
-  const base = envMode === "local" ? local : prod;
-
-  if (typeof window !== "undefined" && !window.__API_BASE_LOGGED__) {
-    // eslint-disable-next-line no-console
-    console.log("[HeroSection] API_BASE resolved (strict):", {
-      REACT_APP_ENVIRONMENT: envMode,
-      base,
-    });
-    window.__API_BASE_LOGGED__ = true;
-  }
-
-  return String(base).replace(/\/+$/, "");
+  // Fallback: GET (just read current total)
+  r = await fetch(url);
+  if (!r.ok) throw new Error(`GET ${url} -> ${r.status}`);
+  const data = await r.json();
+  return data?.total ?? 0;
 }
 
-let API_BASE;
-try {
-  API_BASE = resolveApiBaseStrict();
-} catch (e) {
-  // eslint-disable-next-line no-console
-  console.error(e?.message || e);
-  API_BASE = undefined;
-}
 const HeroSection = () => {
   const [viewCount, setViewCount] = useState(0);
   const [text, setText] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const hasIncremented = useRef(false);
+  const triedOnce = useRef(false);
 
-  // 👀 Increment visitor count and fetch total on mount
+  // 👀 Increment visitor count once on mount
   useEffect(() => {
-    if (hasIncremented.current) return;
-    hasIncremented.current = true;
+    if (triedOnce.current) return;
+    triedOnce.current = true;
 
-    if (!API_BASE) {
-      // Env misconfigured; do not attempt any network calls
-      return;
-    }
+    const url = `${API_BASE.replace(/\/+$/, "")}/api/views`;
 
-    const setSafely = (n) => {
-      if (typeof n === "number") setViewCount(n);
-    };
-
-    const url = `${API_BASE}/api/views`;
-
-    fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      // credentials: "include", // only if your server expects cookies
-    })
-      .then(async (r) => {
-        if (!r.ok) {
-          const t = await r.text().catch(() => "");
-          throw new Error(`POST ${url} -> ${r.status} ${r.statusText} ${t}`);
-        }
-        return r.json();
-      })
-      .then((data) => setSafely(data?.total ?? 0))
-      .catch(() => {
-        // Fallback: GET current if POST fails (still strict to the chosen base)
-        fetch(url)
-          .then(async (r) => {
-            if (!r.ok) {
-              const t = await r.text().catch(() => "");
-              throw new Error(`GET ${url} -> ${r.status} ${r.statusText} ${t}`);
-            }
-            return r.json();
-          })
-          .then((data) => setSafely(data?.total ?? 0))
-          .catch(() => setSafely(0));
+    hitViews(url)
+      .then((total) => setViewCount(total))
+      .catch((err) => {
+        console.error("[HeroSection] view counter failed:", err);
+        setViewCount(0);
       });
   }, []);
 
-  // ⌨️ Typing animation (unchanged)
+  // ⌨️ Typing animation
   useEffect(() => {
     const currentRole = roles[roleIndex];
     const typingSpeed = isDeleting ? 50 : 100;
