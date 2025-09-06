@@ -1,8 +1,0 @@
-[functions]
-  directory = "netlify/functions"
-
-[[redirects]]
-  from = "/api/views"
-  to = "/.netlify/functions/views"
-  status = 200
-
