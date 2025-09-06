@@ -5,7 +5,7 @@ import profilePic from "../assets/profile.jpg";
 const roles = ["Full-Stack Developer 🖥️", "Cloud Strategist ☁️", "Tech Enthusiast 🚀"];
 
 /** ====== CRA-only env helpers ====== */
-function getCRAEnv(key) {
+function craEnv(key) {
   return (typeof process !== "undefined" && process.env && process.env[key]) || undefined;
 }
 
@@ -16,25 +16,26 @@ function isLocalHost() {
 }
 
 function getApiBase() {
-  const local = getCRAEnv("REACT_APP_API_BASE_LOCAL") || "http://localhost:5000";
-  const prod  = getCRAEnv("REACT_APP_API_BASE_PROD"); // <-- must be set on Netlify
+  const local = craEnv("REACT_APP_API_BASE_LOCAL") || "http://localhost:5000";
+  const prod  = craEnv("REACT_APP_API_BASE_PROD");       // Netlify must provide this at build time
+  const fb    = craEnv("REACT_APP_API_BASE_FALLBACK");   // optional safety net
 
-  // If running on localhost, always use local; otherwise require prod (fallback to local if missing)
-  const base = isLocalHost() ? local : (prod || local);
+  // If on localhost, always use local. Otherwise try PROD, else FALLBACK, else local.
+  const base = isLocalHost() ? local : (prod || fb || local);
 
-  // One-time runtime debug
+  // One-time debug
   if (typeof window !== "undefined" && !window.__API_BASE_LOGGED__) {
-    if (process.env.NODE_ENV !== "production") {
+    // eslint-disable-next-line no-console
+    console.log("[HeroSection] API_BASE resolved:", base, {
+      local,
+      prod,
+      fallback: fb,
+      hostname: window.location.hostname,
+      NODE_ENV: process.env.NODE_ENV,
+    });
+    if (!isLocalHost() && !prod) {
       // eslint-disable-next-line no-console
-      console.log("[HeroSection] API_BASE resolved:", base, {
-        local,
-        prod,
-        hostname: window.location.hostname,
-        NODE_ENV: process.env.NODE_ENV,
-      });
-    } else if (!prod) {
-      // eslint-disable-next-line no-console
-      console.warn("[HeroSection] REACT_APP_API_BASE_PROD is missing; using local in prod:", base);
+      console.warn("[HeroSection] REACT_APP_API_BASE_PROD missing at build; using fallback/local.");
     }
     window.__API_BASE_LOGGED__ = true;
   }
@@ -58,60 +59,38 @@ const HeroSection = () => {
     hasIncremented.current = true;
 
     const setSafely = (n) => {
-      if (process.env.NODE_ENV !== "production") {
-        console.log("[HeroSection] setSafely:", n, "typeof:", typeof n);
-      }
       if (typeof n === "number") setViewCount(n);
     };
 
     const url = `${API_BASE}/api/views`;
 
-    if (process.env.NODE_ENV !== "production") {
-      console.log("[HeroSection] POST", url, "(increment)");
-    }
-
     fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // credentials: "include", // <-- only if your server needs cookies
+      // credentials: "include", // only if your server expects cookies
     })
       .then(async (r) => {
         if (!r.ok) {
-          const text = await r.text().catch(() => "");
-          throw new Error(`POST ${url} -> ${r.status} ${r.statusText} ${text}`);
+          const t = await r.text().catch(() => "");
+          throw new Error(`POST ${url} -> ${r.status} ${r.statusText} ${t}`);
         }
         return r.json();
       })
       .then((data) => setSafely(data?.total ?? 0))
-      .catch((err) => {
-        if (process.env.NODE_ENV !== "production") {
-          console.error("[HeroSection] POST /api/views failed:", err);
-          console.log("[HeroSection] GET", url, "(fallback)");
-        }
+      .catch(() => {
+        // Fallback: GET current if POST fails
         fetch(url)
           .then(async (r) => {
             if (!r.ok) {
-              const text = await r.text().catch(() => "");
-              throw new Error(`GET ${url} -> ${r.status} ${r.statusText} ${text}`);
+              const t = await r.text().catch(() => "");
+              throw new Error(`GET ${url} -> ${r.status} ${r.statusText} ${t}`);
             }
             return r.json();
           })
           .then((data) => setSafely(data?.total ?? 0))
-          .catch((err2) => {
-            if (process.env.NODE_ENV !== "production") {
-              console.error("[HeroSection] GET /api/views failed:", err2);
-            }
-            setSafely(0);
-          });
+          .catch(() => setSafely(0));
       });
   }, []);
-
-  // Debug: Track viewCount changes
-  useEffect(() => {
-    if (process.env.NODE_ENV !== "production") {
-      console.log("[HeroSection] viewCount changed:", viewCount);
-    }
-  }, [viewCount]);
 
   // ⌨️ Typing animation (unchanged)
   useEffect(() => {
