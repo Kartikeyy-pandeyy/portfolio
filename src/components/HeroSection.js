@@ -16,12 +16,22 @@ function isLocalHost() {
 }
 
 function getApiBase() {
+  // Check if we're in production build
+  const isProduction = process.env.NODE_ENV === 'production';
+  
   const local = craEnv("REACT_APP_API_BASE_LOCAL") || "http://localhost:5000";
-  const prod  = craEnv("REACT_APP_API_BASE_PROD");       // Netlify must provide this at build time
-  const fb    = craEnv("REACT_APP_API_BASE_FALLBACK");   // optional safety net
+  const prod = craEnv("REACT_APP_API_BASE_PROD") || "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app";
+  const fb = craEnv("REACT_APP_API_BASE_FALLBACK");
 
-  // If on localhost, always use local. Otherwise try PROD, else FALLBACK, else local.
-  const base = isLocalHost() ? local : (prod || fb || local);
+  // If on localhost, use local. If production build, use prod. Otherwise fallback logic.
+  let base;
+  if (isLocalHost()) {
+    base = local;
+  } else if (isProduction) {
+    base = prod;
+  } else {
+    base = prod || fb || local;
+  }
 
   // One-time debug
   if (typeof window !== "undefined" && !window.__API_BASE_LOGGED__) {
@@ -32,10 +42,12 @@ function getApiBase() {
       fallback: fb,
       hostname: window.location.hostname,
       NODE_ENV: process.env.NODE_ENV,
+      isProduction,
+      isLocalHost: isLocalHost(),
     });
-    if (!isLocalHost() && !prod) {
+    if (!isLocalHost() && isProduction && !craEnv("REACT_APP_API_BASE_PROD")) {
       // eslint-disable-next-line no-console
-      console.warn("[HeroSection] REACT_APP_API_BASE_PROD missing at build; using fallback/local.");
+      console.warn("[HeroSection] REACT_APP_API_BASE_PROD missing at build; using hardcoded fallback.");
     }
     window.__API_BASE_LOGGED__ = true;
   }
