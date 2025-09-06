@@ -8,19 +8,11 @@ const roles = ["Full-Stack Developer 🖥️", "Cloud Strategist ☁️", "Tech 
 function getEnv(key) {
   return (typeof process !== "undefined" && process.env && process.env[key]) || undefined;
 }
-
-/** Resolve API base strictly from REACT_APP_ENVIRONMENT */
 function resolveApiBaseStrict() {
-  const envMode = getEnv("REACT_APP_ENVIRONMENT"); // "local" | "prod"
+  const envMode = getEnv("REACT_APP_ENVIRONMENT") || "prod"; // default → prod
   const local = getEnv("REACT_APP_API_BASE_LOCAL");
-  const prod  = getEnv("REACT_APP_API_BASE_PROD");
+  const prod = getEnv("REACT_APP_API_BASE_PROD");
 
-  // Validate presence
-  if (!envMode) {
-    throw new Error(
-      "[HeroSection] REACT_APP_ENVIRONMENT is missing (expected 'local' or 'prod')."
-    );
-  }
   if (envMode !== "local" && envMode !== "prod") {
     throw new Error(
       `[HeroSection] REACT_APP_ENVIRONMENT must be 'local' or 'prod', got '${envMode}'.`
@@ -35,7 +27,6 @@ function resolveApiBaseStrict() {
 
   const base = envMode === "local" ? local : prod;
 
-  // One-time log to verify at runtime
   if (typeof window !== "undefined" && !window.__API_BASE_LOGGED__) {
     // eslint-disable-next-line no-console
     console.log("[HeroSection] API_BASE resolved (strict):", {
@@ -52,12 +43,10 @@ let API_BASE;
 try {
   API_BASE = resolveApiBaseStrict();
 } catch (e) {
-  // Log visibly and keep undefined to prevent accidental localhost calls
   // eslint-disable-next-line no-console
   console.error(e?.message || e);
   API_BASE = undefined;
 }
-
 const HeroSection = () => {
   const [viewCount, setViewCount] = useState(0);
   const [text, setText] = useState("");
