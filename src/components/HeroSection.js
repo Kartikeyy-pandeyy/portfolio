@@ -4,58 +4,59 @@ import profilePic from "../assets/profile.jpg";
 
 const roles = ["Full-Stack Developer 🖥️", "Cloud Strategist ☁️", "Tech Enthusiast 🚀"];
 
-/** ====== CRA-only env helpers ====== */
-function craEnv(key) {
+/** ====== CRA-only env helpers (STRICT, no fallbacks) ====== */
+function getEnv(key) {
   return (typeof process !== "undefined" && process.env && process.env[key]) || undefined;
 }
 
-function isLocalHost() {
-  if (typeof window === "undefined") return false;
-  const h = window.location.hostname;
-  return h === "localhost" || h === "127.0.0.1";
-}
+/** Resolve API base strictly from REACT_APP_ENVIRONMENT */
+function resolveApiBaseStrict() {
+  const envMode = getEnv("REACT_APP_ENVIRONMENT"); // "local" | "prod"
+  const local = getEnv("REACT_APP_API_BASE_LOCAL");
+  const prod  = getEnv("REACT_APP_API_BASE_PROD");
 
-function getApiBase() {
-  // Check if we're in production build
-  const isProduction = process.env.NODE_ENV === 'production';
-  
-  const local = craEnv("REACT_APP_API_BASE_LOCAL") || "http://localhost:5000";
-  const prod = craEnv("REACT_APP_API_BASE_PROD") || "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app";
-  const fb = craEnv("REACT_APP_API_BASE_FALLBACK");
-
-  // If on localhost, use local. If production build, use prod. Otherwise fallback logic.
-  let base;
-  if (isLocalHost()) {
-    base = local;
-  } else if (isProduction) {
-    base = prod;
-  } else {
-    base = prod || fb || local;
+  // Validate presence
+  if (!envMode) {
+    throw new Error(
+      "[HeroSection] REACT_APP_ENVIRONMENT is missing (expected 'local' or 'prod')."
+    );
+  }
+  if (envMode !== "local" && envMode !== "prod") {
+    throw new Error(
+      `[HeroSection] REACT_APP_ENVIRONMENT must be 'local' or 'prod', got '${envMode}'.`
+    );
+  }
+  if (envMode === "local" && !local) {
+    throw new Error("[HeroSection] REACT_APP_API_BASE_LOCAL is missing.");
+  }
+  if (envMode === "prod" && !prod) {
+    throw new Error("[HeroSection] REACT_APP_API_BASE_PROD is missing.");
   }
 
-  // One-time debug
+  const base = envMode === "local" ? local : prod;
+
+  // One-time log to verify at runtime
   if (typeof window !== "undefined" && !window.__API_BASE_LOGGED__) {
     // eslint-disable-next-line no-console
-    console.log("[HeroSection] API_BASE resolved:", base, {
-      local,
-      prod,
-      fallback: fb,
-      hostname: window.location.hostname,
-      NODE_ENV: process.env.NODE_ENV,
-      isProduction,
-      isLocalHost: isLocalHost(),
+    console.log("[HeroSection] API_BASE resolved (strict):", {
+      REACT_APP_ENVIRONMENT: envMode,
+      base,
     });
-    if (!isLocalHost() && isProduction && !craEnv("REACT_APP_API_BASE_PROD")) {
-      // eslint-disable-next-line no-console
-      console.warn("[HeroSection] REACT_APP_API_BASE_PROD missing at build; using hardcoded fallback.");
-    }
     window.__API_BASE_LOGGED__ = true;
   }
 
-  return base.replace(/\/+$/, "");
+  return String(base).replace(/\/+$/, "");
 }
 
-const API_BASE = getApiBase();
+let API_BASE;
+try {
+  API_BASE = resolveApiBaseStrict();
+} catch (e) {
+  // Log visibly and keep undefined to prevent accidental localhost calls
+  // eslint-disable-next-line no-console
+  console.error(e?.message || e);
+  API_BASE = undefined;
+}
 
 const HeroSection = () => {
   const [viewCount, setViewCount] = useState(0);
@@ -69,6 +70,11 @@ const HeroSection = () => {
   useEffect(() => {
     if (hasIncremented.current) return;
     hasIncremented.current = true;
+
+    if (!API_BASE) {
+      // Env misconfigured; do not attempt any network calls
+      return;
+    }
 
     const setSafely = (n) => {
       if (typeof n === "number") setViewCount(n);
@@ -90,7 +96,7 @@ const HeroSection = () => {
       })
       .then((data) => setSafely(data?.total ?? 0))
       .catch(() => {
-        // Fallback: GET current if POST fails
+        // Fallback: GET current if POST fails (still strict to the chosen base)
         fetch(url)
           .then(async (r) => {
             if (!r.ok) {
