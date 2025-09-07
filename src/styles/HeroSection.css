@@ -1,17 +1,19 @@
-/* HERO SECTION */
+/* HERO SECTION - Optimized for performance */
 .hero {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
   padding: 0 10%;
   background: linear-gradient(135deg, #0d0d1f 0%, #1a1a2e 100%);
   color: #eaeaee;
   position: relative;
   overflow: hidden;
+  will-change: scroll-position; /* Optimize for scroll */
 }
 
-/* HERO CONTAINER */
+/* HERO CONTAINER - Performance optimized */
 .hero-container {
   display: flex;
   align-items: center;
@@ -19,10 +21,12 @@
   width: 100%;
   max-width: 1200px;
   padding: 25px;
-  background: rgba(255, 255, 255, 0.05); /* Lighter for subtlety */
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Optimized shadow */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  will-change: transform; /* GPU acceleration hint */
+  transform: translateZ(0); /* Force GPU layer */
 }
 
 /* HERO CONTENT */
@@ -67,7 +71,9 @@
   min-height: 2.8rem;
   white-space: nowrap;
   overflow: hidden;
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.4); /* Reduced shadow */
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+  will-change: contents; /* Optimize for text changes */
+  contain: layout; /* Improve rendering performance */
 }
 
 /* BUTTONS */
@@ -131,9 +137,11 @@
   height: 100%;
   object-fit: cover;
   border-radius: 12px;
-  border: 3px solid rgba(255, 255, 255, 0.1); /* Slimmer border */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Optimized shadow */
-  transition: transform 0.2s ease; /* Faster transition */
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing */
+  will-change: transform; /* Optimize for transforms */
+  transform: translateZ(0); /* GPU acceleration */
 }
 
 .hero-image img:hover {

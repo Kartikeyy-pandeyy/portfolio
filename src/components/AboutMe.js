@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "../styles/AboutMe.css";
 import {
   FaGamepad,
@@ -44,40 +44,67 @@ const hobbies = [
   { name: "Worldview",    icon: <FaBookOpen className="icon curious" />,   desc: "Love listening, learning how the world works overall." },
 ];
 
+// Optimized motion variants with better performance
 const cardVariants = {
-  hidden: { opacity: 0, y: 15, scale: 0.98 },
+  hidden: { 
+    opacity: 0, 
+    y: 10, 
+    scale: 0.99,
+    transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] }
+  },
   visible: (i) => ({
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { delay: i * 0.04, duration: 0.175, ease: "easeOut" }
+    transition: { 
+      delay: i * 0.03, 
+      duration: 0.15, 
+      ease: [0.4, 0, 0.2, 1]
+    }
   }),
   hover: {
-    scale: 1.05,
-    y: -8,
+    scale: 1.04,
+    y: -6,
     zIndex: 10,
-    transition: { duration: 0.125, ease: "easeOut" }
+    transition: { 
+      duration: 0.1, 
+      ease: [0.4, 0, 0.2, 1],
+      type: "tween"
+    }
   }
 };
 
 const innerCardVariants = {
   hover: {
-    scale: 1.08,
-    transition: { duration: 0.125, ease: "easeOut" }
+    scale: 1.06,
+    transition: { 
+      duration: 0.1, 
+      ease: [0.4, 0, 0.2, 1],
+      type: "tween"
+    }
   }
 };
 
 const AboutMe = () => {
+  // Memoize particles for better performance
+  const particles = useMemo(() => 
+    Array.from({ length: 4 }, (_, i) => (
+      <span
+        key={i}
+        className="particle"
+        style={{ 
+          "--direction-x": Math.random() * 2 - 1, 
+          "--direction-y": Math.random() * 2 - 1,
+          "--delay": `${Math.random() * 2}s`
+        }}
+      />
+    )), []
+  );
+
   return (
     <section className="about-me">
       <div className="about-particles">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <span
-            key={i}
-            className="particle"
-            style={{ "--direction-x": Math.random() * 2 - 1, "--direction-y": Math.random() * 2 - 1 }}
-          />
-        ))}
+        {particles}
       </div>
       <div className="about-content">
         <motion.p

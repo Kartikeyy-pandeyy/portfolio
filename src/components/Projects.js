@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import "../styles/Projects.css";
 import { FaBookOpen, FaGithub, FaRocket } from "react-icons/fa";
@@ -134,6 +134,43 @@ const researchData = [
 const Projects = () => {
   const [activeTab, setActiveTab] = useState("Projects");
 
+  // Memoize tab change handler
+  const handleTabChange = useCallback((tab) => {
+    setActiveTab(tab);
+  }, []);
+
+  // Memoize current data based on active tab
+  // (Removed unused currentData variable)
+
+  // Optimized animation variants
+  const containerVariants = useMemo(() => ({
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.04,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    }
+  }), []);
+
+  const itemVariants = useMemo(() => ({
+    hidden: { 
+      opacity: 0, 
+      y: 12,
+      scale: 0.98
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.2,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    }
+  }), []);
+
   return (
     <section className="projects-research">
       <motion.h2
@@ -164,29 +201,37 @@ const Projects = () => {
           <motion.button
             key={tab}
             className={activeTab === tab ? "active" : ""}
-            onClick={() => setActiveTab(tab)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
+            onClick={() => handleTabChange(tab)}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
           >
             {tab}
           </motion.button>
         ))}
       </motion.div>
 
-      <div className="content">
+      <motion.div 
+        className="content"
+        key={activeTab} // Force re-render on tab change
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
         {activeTab === "Projects" ? (
           <div className="projects-grid">
-            {projectsData.map((project) => (
+            {projectsData.map((project, index) => (
               <motion.div
                 key={project.id}
                 className="project-card"
-                whileHover={{ scale: 1.05 }}
+                variants={itemVariants}
+                whileHover={{ 
+                  scale: 1.03, 
+                  y: -4,
+                  transition: { duration: 0.15, ease: [0.4, 0, 0.2, 1] }
+                }}
                 whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.25, delay: project.id * 0.05 }}
+                viewport={{ once: true, margin: "-50px" }}
               >
                 <h3>{project.title}</h3>
                 <p><strong>{project.timeline}</strong></p>
@@ -225,16 +270,18 @@ const Projects = () => {
           </div>
         ) : (
           <div className="research-grid">
-            {researchData.map((paper) => (
+            {researchData.map((paper, index) => (
               <motion.div
                 key={paper.id}
                 className="research-card"
-                whileHover={{ scale: 1.05 }}
+                variants={itemVariants}
+                whileHover={{ 
+                  scale: 1.03, 
+                  y: -4,
+                  transition: { duration: 0.15, ease: [0.4, 0, 0.2, 1] }
+                }}
                 whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.25, delay: paper.id * 0.05 }}
+                viewport={{ once: true, margin: "-50px" }}
               >
                 <h3>{paper.title}</h3>
                 <p><FaBookOpen /> {paper.conference}</p>
@@ -251,7 +298,7 @@ const Projects = () => {
             ))}
           </div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

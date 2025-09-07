@@ -1,12 +1,15 @@
-/* PROJECTS & RESEARCH SECTION */
+/* PROJECTS & RESEARCH SECTION - Performance Optimized */
 .projects-research {
   padding: clamp(1rem, 3vw, 4rem);
   background: linear-gradient(145deg, #0a0a1a, #1a1a2e 50%, #0f0f23);
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport for mobile */
   color: #EAEAEA;
   text-align: center;
   position: relative;
   overflow: hidden;
+  will-change: scroll-position;
+  contain: layout;
 }
 
 /* Header Styling */
@@ -43,7 +46,9 @@
   background: rgba(255, 255, 255, 0.05);
   color: #00FFFF;
   cursor: pointer;
-  transition: all 0.2s ease-out;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, background;
+  transform: translateZ(0);
 }
 
 .tabs button:hover {
@@ -73,7 +78,7 @@
   }
 }
 
-/* Card Styling */
+/* Card Styling - Performance Optimized */
 .project-card, .research-card {
   background: rgba(20, 20, 40, 0.9);
   padding: clamp(0.8rem, 1.2rem, 1.5rem);
@@ -81,7 +86,10 @@
   border: 1px solid rgba(0, 255, 255, 0.2);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   text-align: left;
-  transition: transform 0.2s ease-out;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease;
+  will-change: transform;
+  transform: translateZ(0);
+  contain: layout style;
 }
 
 .project-card:hover, .research-card:hover {

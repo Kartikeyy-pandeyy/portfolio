@@ -1,10 +1,13 @@
-/* EXPERIENCE & EDUCATION SECTION */
+/* EXPERIENCE & EDUCATION SECTION - Performance Optimized */
 .experience-education {
   padding: 4rem 10%;
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height */
   position: relative;
   overflow: hidden;
   z-index: 1;
+  will-change: scroll-position;
+  contain: layout;
 }
 
 /* Particles */
@@ -24,6 +27,9 @@
   border-radius: 50%;
   box-shadow: 0 0 4px rgba(0, 255, 255, 0.2);
   animation: twinkle 2s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+  transform: translateZ(0); /* GPU acceleration */
 }
 
 .particle:nth-child(odd) {
@@ -58,7 +64,9 @@
   box-shadow: 0 2px 8px rgba(0, 255, 255, 0.1);
   position: relative;
   width: 70%;
-  transition: box-shadow 0.2s ease-out;
+  transition: box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: box-shadow;
+  contain: layout style;
 }
 
 .vertical-timeline-element-content:hover {
@@ -136,7 +144,9 @@
   justify-content: center;
   font-size: 1.6rem;
   border-radius: 50%;
-  transition: transform 0.2s ease-out;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .vertical-timeline-element-icon:hover {

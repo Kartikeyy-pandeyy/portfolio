@@ -42,6 +42,9 @@ body {
   border-radius: 50%;
   box-shadow: 0 0 3px rgba(0, 255, 255, 0.2);
   animation: twinkle 5s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+  transform: translateZ(0); /* GPU acceleration */
 }
 
 .particle:nth-child(odd) {
@@ -125,13 +128,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(40, 40, 60, 0.7)); /* Subtle gradient */
-  border-radius: 16px; /* Softer corners */
+  background: linear-gradient(135deg, rgba(20, 20, 40, 0.9), rgba(40, 40, 60, 0.7));
+  border-radius: 16px;
   border: 1px solid rgba(0, 255, 255, 0.2);
   padding: 0.8rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
   overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0); /* GPU acceleration */
+  contain: layout; /* Improve rendering */
 }
 
 .card:hover {

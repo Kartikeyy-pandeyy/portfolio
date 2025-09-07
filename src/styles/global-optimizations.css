@@ -1,0 +1,264 @@
+/* ===============================================
+   GLOBAL PERFORMANCE & RESPONSIVENESS OPTIMIZATIONS
+   =============================================== */
+
+/* CSS Variables for consistent responsive breakpoints */
+:root {
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1440px;
+  
+  /* Animation timing functions */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Common durations */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+}
+
+/* Global optimizations */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none; /* Prevent bouncing */
+  touch-action: manipulation; /* Improve touch performance */
+}
+
+/* Performance optimizations for all elements */
+* {
+  box-sizing: border-box;
+}
+
+/* Optimize images and media */
+img,
+video,
+picture,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Remove default button styles for better customization */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Focus visible for better accessibility */
+*:focus-visible {
+  outline: 2px solid #00FFFF;
+  outline-offset: 2px;
+}
+
+/* GPU acceleration for transformed elements */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Container query support for modern browsers */
+@supports (container-type: inline-size) {
+  .container {
+    container-type: inline-size;
+  }
+}
+
+/* ===============================================
+   RESPONSIVE UTILITIES
+   =============================================== */
+
+/* Fluid typography utilities */
+.text-fluid-xs {
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+}
+
+.text-fluid-sm {
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+}
+
+.text-fluid-base {
+  font-size: clamp(1rem, 3vw, 1.125rem);
+}
+
+.text-fluid-lg {
+  font-size: clamp(1.125rem, 3.5vw, 1.25rem);
+}
+
+.text-fluid-xl {
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+}
+
+.text-fluid-2xl {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.text-fluid-3xl {
+  font-size: clamp(2rem, 6vw, 3rem);
+}
+
+/* Responsive spacing utilities */
+.space-fluid-xs {
+  margin: clamp(0.25rem, 1vw, 0.5rem);
+}
+
+.space-fluid-sm {
+  margin: clamp(0.5rem, 2vw, 1rem);
+}
+
+.space-fluid-md {
+  margin: clamp(1rem, 3vw, 1.5rem);
+}
+
+.space-fluid-lg {
+  margin: clamp(1.5rem, 4vw, 2rem);
+}
+
+.space-fluid-xl {
+  margin: clamp(2rem, 5vw, 3rem);
+}
+
+/* ===============================================
+   RESPONSIVE GRID UTILITIES
+   =============================================== */
+
+.responsive-grid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.responsive-grid--2col {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+.responsive-grid--3col {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+
+@media (min-width: 1200px) {
+  .responsive-grid--2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .responsive-grid--3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===============================================
+   ANIMATION OPTIMIZATIONS
+   =============================================== */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* ===============================================
+   MOBILE-SPECIFIC OPTIMIZATIONS
+   =============================================== */
+
+@media (max-width: 768px) {
+  /* Optimize tap targets for mobile */
+  button,
+  a,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve readability on mobile */
+  body {
+    line-height: 1.6;
+  }
+  
+  /* Optimize scroll performance on mobile */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ===============================================
+   HIGH-DPI DISPLAY OPTIMIZATIONS
+   =============================================== */
+
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+  /* Enhanced shadows for high-DPI displays */
+  .enhanced-shadow {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Crisp borders */
+  .crisp-border {
+    border-width: 0.5px;
+  }
+}
+
+/* ===============================================
+   PRINT OPTIMIZATIONS
+   =============================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  
+  img {
+    max-width: 100% !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}

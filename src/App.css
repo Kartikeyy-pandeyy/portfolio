@@ -1,10 +1,18 @@
+/* App Container - Performance Optimized */
 .App {
   text-align: center;
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height */
+  will-change: scroll-position;
+  contain: layout;
 }
 
+/* Optimized Logo */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0); /* GPU acceleration */
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,26 +21,44 @@
   }
 }
 
+/* Header with better performance */
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: clamp(16px, 4vw, 32px); /* Responsive and performant */
   color: white;
+  contain: layout;
 }
 
 .App-link {
   color: #61dafb;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.App-link:hover {
+  color: #21b8d9;
+}
+
+/* Optimized animation with GPU acceleration */
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg) translateZ(0);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(360deg) translateZ(0);
+  }
+}
+
+/* Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+  .App-logo,
+  .App-link {
+    animation: none !important;
+    transition: none !important;
   }
 }

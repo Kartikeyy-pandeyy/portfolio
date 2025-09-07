@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import "../styles/HeroSection.css";
 import profilePic from "../assets/profile.jpg";
 
@@ -49,53 +49,62 @@ const HeroSection = () => {
       });
   }, []);
 
-  // 🎯 Animate count when viewCount changes
+  // 🎯 Optimized count animation with requestAnimationFrame
   useEffect(() => {
     if (viewCount <= 0) return;
     
-    const duration = 2000; // 2 seconds
-    const steps = Math.min(100, viewCount); // Max 100 steps for performance
-    const increment = viewCount / steps;
-    const interval = duration / steps;
+    const duration = 1500; // Reduced to 1.5 seconds for snappier UX
+    const startTime = Date.now();
+    const startCount = 0;
     
-    let currentStep = 0;
-    const timer = setInterval(() => {
-      currentStep++;
-      if (currentStep >= steps) {
-        setAnimatedCount(viewCount);
-        clearInterval(timer);
+    const animateCount = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Use easeOutQuart for smooth deceleration
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(startCount + (viewCount - startCount) * easeOutQuart);
+      
+      setAnimatedCount(currentCount);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animateCount);
       } else {
-        setAnimatedCount(Math.floor(increment * currentStep));
+        setAnimatedCount(viewCount);
       }
-    }, interval);
+    };
     
-    return () => clearInterval(timer);
+    requestAnimationFrame(animateCount);
   }, [viewCount]);
 
-  // ⌨️ Typing animation
+  // ⌨️ Optimized typing animation with useCallback
+  const currentRole = useMemo(() => roles[roleIndex], [roleIndex]);
+  
+  const typeText = useCallback(() => {
+    const typingSpeed = isDeleting ? 40 : 80; // Slightly faster for better UX
+    const pauseBeforeDelete = 800; // Reduced pause
+
+    setText(prevText => 
+      isDeleting
+        ? currentRole.substring(0, charIndex - 1)
+        : currentRole.substring(0, charIndex + 1)
+    );
+    
+    setCharIndex(prev => isDeleting ? prev - 1 : prev + 1);
+
+    if (!isDeleting && charIndex === currentRole.length) {
+      setTimeout(() => setIsDeleting(true), pauseBeforeDelete);
+    } else if (isDeleting && charIndex === 0) {
+      setIsDeleting(false);
+      setRoleIndex(prev => (prev + 1) % roles.length);
+    }
+  }, [charIndex, isDeleting, roleIndex, currentRole]);
+
   useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const typingSpeed = isDeleting ? 50 : 100;
-    const pauseBeforeDelete = 1000;
-
-    const timeout = setTimeout(() => {
-      setText(
-        isDeleting
-          ? currentRole.substring(0, charIndex - 1)
-          : currentRole.substring(0, charIndex + 1)
-      );
-      setCharIndex((prev) => (isDeleting ? prev - 1 : prev + 1));
-
-      if (!isDeleting && charIndex === currentRole.length) {
-        setTimeout(() => setIsDeleting(true), pauseBeforeDelete);
-      } else if (isDeleting && charIndex === 0) {
-        setIsDeleting(false);
-        setRoleIndex((prev) => (prev + 1) % roles.length);
-      }
-    }, typingSpeed);
-
+    const typingSpeed = isDeleting ? 40 : 80;
+    const timeout = setTimeout(typeText, typingSpeed);
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, roleIndex]);
+  }, [typeText, isDeleting]);
 
   return (
     <section className="hero" id="hero">

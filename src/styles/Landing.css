@@ -1,12 +1,89 @@
+/* ===============================================
+   LANDING PAGE OPTIMIZATIONS
+   =============================================== */
+
 .landing-container {
-    width: 100vw;
-    height: 100vh;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: black;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  position: relative;
+  background: linear-gradient(145deg, #0a0a1a 0%, #1a1a2e 50%, #0f0f23 100%);
+}
+
+.section-wrapper {
+  position: relative;
+  width: 100%;
+  contain: layout;
+  scroll-margin-top: 70px; /* Account for fixed header */
+}
+
+/* Optimize main content area */
+main {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Intersection observer optimization for sections */
+.section-wrapper {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.section-wrapper[data-loading="true"] {
+  opacity: 0.7;
+  transform: translateY(10px);
+}
+
+/* Loading states for better UX */
+.section-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: #00FFFF;
+  font-size: 1rem;
+  position: relative;
+}
+
+.section-loader::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #00FFFF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive optimizations */
+@media (max-width: 768px) {
+  .section-wrapper {
+    scroll-margin-top: 60px; /* Adjust for smaller mobile header */
   }
-  /* Hide scrollbar but keep scrolling enabled */
+}
+
+@media (max-width: 480px) {
+  .section-wrapper {
+    scroll-margin-top: 50px;
+  }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .section-wrapper,
+  .section-loader::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Hide scrollbar but keep scrolling enabled */
