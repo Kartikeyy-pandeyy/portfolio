@@ -1,38 +1,47 @@
 import React from "react";
 import "../styles/AboutMe.css";
-import { FaReact, FaGamepad, FaMusic, FaGlobe, FaRobot, FaLaptopCode, FaJava, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaCamera, FaCloud, FaEye, FaCode } from "react-icons/fa";
-import { SiMongodb, SiPostman,  SiAmazonec2, SiAmazons3, SiAwslambda, SiAmazoniam, SiAwsamplify, SiAmazonapigateway, SiNetlify, SiRender } from "react-icons/si";
+import {
+  FaGamepad,
+  FaMusic,
+  FaGlobe,
+  FaCamera,
+  FaJava,
+  FaCode,
+  FaMobileAlt,
+  FaBookOpen,
+} from "react-icons/fa";
+import {
+  SiMongodb,
+  SiMysql,
+  SiAmazonwebservices,
+  SiGooglecloud,
+  SiDocker,
+  SiKubernetes,
+  SiJenkins,
+  SiHelm,
+} from "react-icons/si";
 import { motion } from "framer-motion";
 
 const techStack = [
-  { name: "Java", icon: <FaJava className="icon java" />, desc: "Core language for DSA and OOPs." },
-  { name: "HTML", icon: <FaHtml5 className="icon html" />, desc: "Foundation for structuring responsive and semantic web pages." },
-  { name: "CSS", icon: <FaCss3Alt className="icon css" />, desc: "Expertise in crafting responsive and visually appealing designs." },
-  { name: "JavaScript", icon: <FaJs className="icon js" />, desc: "Dynamic scripting for interactive and functional web applications." },
-  { name: "React", icon: <FaReact className="icon react" />, desc: "Built reusable components for scalable and interactive UIs." },
-  { name: "MongoDB", icon: <SiMongodb className="icon mongo" />, desc: "NoSQL database for flexible and scalable data storage." },
-  { name: "REST API", icon: <FaCode className="icon rest" />, desc: "Designed projects for seamless backend-frontend communication." },
-  { name: "Postman", icon: <SiPostman className="icon postman" />, desc: "Streamlined API testing and debugging for robust integrations." },
-  { name: "SQL", icon: <FaDatabase className="icon sql" />, desc: "Managed relational databases with optimized query performance." },
-  { name: "EC2", icon: <SiAmazonec2 className="icon ec2" />, desc: "Hosted scalable backends with auto-scaling and load balancing." },
-  { name: "S3", icon: <SiAmazons3 className="icon s3" />, desc: "Stored static assets securely for efficient content delivery." },
-  { name: "Lambda", icon: <SiAwslambda className="icon lambda" />, desc: "Implemented serverless functions for cost-effective processing." },
-  { name: "IAM", icon: <SiAmazoniam className="icon iam" />, desc: "Secured AWS resources with role-based access control policies." },
-  { name: "Amplify", icon: <SiAwsamplify className="icon amplify" />, desc: "Simplified frontend hosting with integrated CI/CD pipelines." },
-  { name: "API Gateway", icon: <SiAmazonapigateway className="icon apigateway" />, desc: "Managed scalable APIs for AWS-integrated project workflows." },
-  { name: "Axios", icon: <FaCloud className="icon axios" />, desc: "Facilitated secure HTTP requests for API-driven applications." },
-  { name: "Rekognition", icon: <FaEye className="icon rekognition" />, desc: "Enabled facial recognition for enhanced security." },
-  { name: "Netlify", icon: <SiNetlify className="icon netlify" />, desc: "Deployed frontends with CI/CD for rapid iteration cycles." },
-  { name: "Render.com", icon: <SiRender className="icon render" />, desc: "Hosted backends with free-tier scalability and ease." },
+  { name: "Java",       icon: <FaJava className="icon java" />,          desc: "Core language for DSA, OOP, and backend service design." },
+  { name: "MongoDB",    icon: <SiMongodb className="icon mongo" />,      desc: "NoSQL document store for flexible and scalable data." },
+  { name: "MySQL",      icon: <SiMysql className="icon mysql" />,        desc: "Relational database with tuned indexes and queries." },
+  { name: "REST API",   icon: <FaCode className="icon rest" />,          desc: "Clean endpoints with auth, versioning, and testing." },
+  { name: "AWS",        icon: <SiAmazonwebservices className="icon aws" />,      desc: "Cloud primitives for compute, storage, and security." },
+  { name: "GCP",        icon: <SiGooglecloud className="icon gcp" />,    desc: "Managed services for scalable, cost-aware workloads." },
+  { name: "Docker",     icon: <SiDocker className="icon docker" />,      desc: "Containerized builds with layered, reproducible images." },
+  { name: "Kubernetes", icon: <SiKubernetes className="icon k8s" />,     desc: "Declarative deploys, services, and autoscaling on k8s." },
+  { name: "Jenkins",    icon: <SiJenkins className="icon jenkins" />,    desc: "CI/CD pipelines with secrets, agents, and caching." },
+  { name: "Helm",       icon: <SiHelm className="icon helm" />,          desc: "Charts and values to templatize Kubernetes releases." },
 ];
 
 const hobbies = [
-  { name: "Gaming", icon: <FaGamepad className="icon gaming" />, desc: "Enjoy strategy and FPS games for tactical challenges." },
-  { name: "Music", icon: <FaMusic className="icon music" />, desc: "Explore Indian music and diverse genres passionately." },
-  { name: "Traveling", icon: <FaLaptopCode className="icon traveling" />, desc: "Seek inspiration from mountains and cultural experiences." },
-  { name: "Coding", icon: <FaRobot className="icon coding" />, desc: "Build innovative software solutions with enthusiasm." },
-  { name: "AI & ML", icon: <FaCamera className="icon aiml" />, desc: "Dive into generative AI and its applications." },
-  { name: "Photography", icon: <FaGlobe className="icon photography" />, desc: "Love capturing stunning landscapes." },
+  { name: "Music",        icon: <FaMusic className="icon music" />,        desc: "Explore Indian music and diverse genres passionately." },
+  { name: "Gaming",       icon: <FaGamepad className="icon gaming" />,     desc: "Enjoy strategy and FPS games for tactical challenges." },
+  { name: "Traveling",    icon: <FaGlobe className="icon traveling" />,    desc: "Seek inspiration from mountains and cultural experiences." },
+  { name: "Photography",  icon: <FaCamera className="icon photography" />, desc: "Love capturing vibrant vistas and candid moments." },
+  { name: "Tech & Phones",icon: <FaMobileAlt className="icon tech" />,     desc: "I read about smartphones, chips, and gadget ecosystems." },
+  { name: "Worldview",    icon: <FaBookOpen className="icon curious" />,   desc: "Love listening, learning how the world works overall." },
 ];
 
 const cardVariants = {
@@ -41,20 +50,20 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { delay: i * 0.04, duration: 0.175, ease: "easeOut" } // 2x faster: delay 0.08 -> 0.04, duration 0.35 -> 0.175
+    transition: { delay: i * 0.04, duration: 0.175, ease: "easeOut" }
   }),
   hover: {
     scale: 1.05,
     y: -8,
     zIndex: 10,
-    transition: { duration: 0.125, ease: "easeOut" } // 2x faster: duration 0.25 -> 0.125
+    transition: { duration: 0.125, ease: "easeOut" }
   }
 };
 
 const innerCardVariants = {
   hover: {
     scale: 1.08,
-    transition: { duration: 0.125, ease: "easeOut" } // 2x faster: duration 0.25 -> 0.125
+    transition: { duration: 0.125, ease: "easeOut" }
   }
 };
 
@@ -75,7 +84,7 @@ const AboutMe = () => {
           className="about-bio"
           initial={{ opacity: 0, y: -15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25, ease: "easeOut" }} // 2x faster: duration 0.5 -> 0.25
+          transition={{ duration: 0.25, ease: "easeOut" }}
           viewport={{ once: true }}
         >
           Turning coffee into code, dreams into deployments, and bugs into 'features.' Passionate about cloud, AI, and full-stack magic!
@@ -94,10 +103,7 @@ const AboutMe = () => {
               variants={cardVariants}
               viewport={{ once: true }}
             >
-              <motion.div
-                className="inner-card"
-                variants={innerCardVariants}
-              >
+              <motion.div className="inner-card" variants={innerCardVariants}>
                 {tech.icon}
               </motion.div>
               <div className="card-content">
@@ -121,10 +127,7 @@ const AboutMe = () => {
               variants={cardVariants}
               viewport={{ once: true }}
             >
-              <motion.div
-                className="inner-card"
-                variants={innerCardVariants}
-              >
+              <motion.div className="inner-card" variants={innerCardVariants}>
                 {hobby.icon}
               </motion.div>
               <div className="card-content">

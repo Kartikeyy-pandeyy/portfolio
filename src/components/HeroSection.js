@@ -5,8 +5,8 @@ import profilePic from "../assets/profile.jpg";
 // 🔴 Replace this with your backend URL
 const API_BASE = "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app"; 
 
-const roles = ["Full-Stack Developer 🖥️", "Cloud Strategist ☁️", "Tech Enthusiast 🚀"];
-
+// only one role now
+const roles = ["DevOps Engineer 🖥"];
 async function hitViews(url) {
   // First try POST (increment)
   let r = await fetch(url, {
@@ -27,6 +27,7 @@ async function hitViews(url) {
 
 const HeroSection = () => {
   const [viewCount, setViewCount] = useState(0);
+  const [animatedCount, setAnimatedCount] = useState(0);
   const [text, setText] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -47,6 +48,29 @@ const HeroSection = () => {
         setViewCount(0);
       });
   }, []);
+
+  // 🎯 Animate count when viewCount changes
+  useEffect(() => {
+    if (viewCount <= 0) return;
+    
+    const duration = 2000; // 2 seconds
+    const steps = Math.min(100, viewCount); // Max 100 steps for performance
+    const increment = viewCount / steps;
+    const interval = duration / steps;
+    
+    let currentStep = 0;
+    const timer = setInterval(() => {
+      currentStep++;
+      if (currentStep >= steps) {
+        setAnimatedCount(viewCount);
+        clearInterval(timer);
+      } else {
+        setAnimatedCount(Math.floor(increment * currentStep));
+      }
+    }, interval);
+    
+    return () => clearInterval(timer);
+  }, [viewCount]);
 
   // ⌨️ Typing animation
   useEffect(() => {
@@ -84,7 +108,7 @@ const HeroSection = () => {
 
           <div className="hero-buttons">
             <a
-              href="https://drive.google.com/file/d/1lVgd3Cl_LIk0x23lflgeBK6rzWg8ZWaU/view?usp=sharing"
+              href="https://drive.google.com/file/d/1iWpLXLvLDtefO4mxrmpAm3M6sIxhqIO6/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="btn"
@@ -95,7 +119,7 @@ const HeroSection = () => {
 
           <div className="hero-stats">
             <p>
-              👀 Views: <span>{viewCount}</span>
+              👀 Views: <span>{animatedCount}</span>
             </p>
           </div>
         </div>

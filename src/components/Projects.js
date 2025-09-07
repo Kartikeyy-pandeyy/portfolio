@@ -1,41 +1,73 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "../styles/Projects.css";
-import { FaBookOpen, FaGithub } from "react-icons/fa";
+import { FaBookOpen, FaGithub, FaRocket } from "react-icons/fa";
 
 const projectsData = [
-  {
+   {
     id: 1,
-    title: "UPSCPath: AI-Powered Study Platform",
-    category: "AI/EdTech",
-    timeline: "March 2025 - Present",
-    techStack: ["React.js", "Node.js", "MongoDB", "Hugging Face", "pdf.js", "AWS S3", "Railway", "Netlify"],
+    title: "GitShowcaseAPI",
+    category: "Web / API",
+    timeline: "Aug 2025 - Present",
+    techStack: ["AWS", "HTML", "REST API", "Github", "CSS"],
     description: [
-      "Built an AI-powered study platform for UPSC aspirants using Hugging Face for text summarization with 90% accuracy.",
-      "Integrated Google OAuth for secure login and role-based access control.",
-      "Designed a custom PDF viewer via pdf.js, hosting 20+ eBooks through AWS S3.",
-      "Deployed using Railway and Netlify, ensuring sub-300ms API responses."
+      "Built a REST API that aggregates GitHub data to generate showcase-ready profiles.",
+      "Implements clean endpoints for repos, languages, and pinned projects.",
+      "Adds caching and pagination for fast responses and scalable queries.",
+      "Containerized with Docker for reproducible local and cloud deploys."
     ],
-    githubLink: "https://github.com/Kartikeyy-pandeyy/UPSCpath.git",
-    liveLink: "https://upscpath.netlify.app/"
+    githubLink: "https://github.com/Kartikeyy-pandeyy/GitShowcaseAPI",
+    liveLink: "https://d3tbtv7bxs3vbw.cloudfront.net/",
   },
   {
     id: 2,
+    title: "API Monitor",
+    category: "DevTools / Observability",
+    timeline: "Aug 2025 - Present",
+    techStack: ["Jenkins", "AWS", "Axios", "S3", "HTML", "CSS", "Docker"],
+    description: [
+      "Monitors endpoint uptime/latency with scheduled health checks.",
+      "Persists historical results for trend analysis and quick triage.",
+      "Supports configurable targets and notification hooks.",
+      "Dockerized for easy deployment to any environment."
+    ],
+    githubLink: "https://github.com/Kartikeyy-pandeyy/api-monitor",
+    liveLink: "https://apimonitor.netlify.app/",
+  },
+  {
+  id: 3,
+  title: "UPSCPath",
+  category: "AI/EdTech",
+  timeline: "March 2025 - Present",
+  techStack: ["React.js", "Node.js", "MongoDB", "Hugging Face", "AWS S3"],
+  description: [
+    "AI-powered study platform for UPSC aspirants with Hugging Face summarization (~90% accuracy).",
+    "Google OAuth for secure login with access control.",
+    "Custom PDF viewer hosting eBooks through S3.",
+    "Deployed on Railway & Netlify with sub-300ms API responses."
+  ],
+  githubLink: "https://github.com/Kartikeyy-pandeyy/UPSCpath.git",
+  liveLink: "https://upscpath.netlify.app/"
+}
+,
+  {
+    id: 4,
     title: "SafeChat",
     category: "Web",
     timeline: "March 2025 - Present",
-    techStack: ["React.js", "CSS", "Axios", "AWS (IAM, Rekognition, S3)", "Netlify", "Render.com"],
+    techStack: ["React.js","Node.js", "CSS", "Rekognition"],
     description: [
       "Built a privacy-focused chat app with React.js and custom CSS for 100% responsiveness.",
       "Added facial authentication via AWS Rekognition, cutting unauthorized access by 95%.",
-      "Optimized components, reducing load times by 40%.",
-      "Deployed on Netlify and Render.com with AWS S3 for 99.8% uptime."
+      "Optimized components, reducing load times.",
+      "Deployed on Netlify and Render.com with AWS S3."
     ],
     githubLink: "https://github.com/Kartikeyy-pandeyy/safe-chat",
+    liveLink: "https://safechatapp.netlify.app/"
   },
   {
-    id: 3,
-    title: "Kartikey Care - OPD Ticket Booking",
+    id: 5,
+    title: "Kartikey Care",
     category: "Web",
     timeline: "Feb 2025 - Present",
     techStack: ["React.js", "CSS", "Node.js", "MongoDB"],
@@ -46,9 +78,10 @@ const projectsData = [
       "Exploring AWS CloudFront for sub-millisecond response times."
     ],
     githubLink: "https://github.com/Kartikeyy-pandeyy/kartikeycare",
+    liveLink: "https://kartikeycare.vercel.app/"
   },
   {
-    id: 4,
+    id: 6,
     title: "Microservices Calculator",
     category: "Cloud",
     timeline: "Jan 2025 - Feb 2025",
@@ -60,9 +93,10 @@ const projectsData = [
       "Deployed on AWS S3 & CloudFront for 99.9% uptime."
     ],
     githubLink: "https://github.com/Kartikeyy-pandeyy/frontend-calculator",
+    liveLink: "https://heythereareyouokay.netlify.app/calculator"
   },
   {
-    id: 5,
+    id: 7,
     title: "Landslide Prediction System",
     category: "AI",
     timeline: "Aug 2024 - Oct 2024",
@@ -74,6 +108,7 @@ const projectsData = [
       "Designed a mobile-responsive UI."
     ],
     githubLink: "https://github.com/Kartikeyy-pandeyy/landslide-alert-system",
+    liveLink: "https://heythereareyouokay.netlify.app/landslideprediction"
   },
 ];
 
@@ -167,14 +202,24 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-                <a
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="github-button"
-                >
-                  <FaGithub /> GitHub
-                </a>
+                <div className="project-links">
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="github-button"
+                  >
+                    <FaGithub /> GitHub
+                  </a>
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="live-button"
+                  >
+                    <FaRocket /> Go Live
+                  </a>
+                </div>
               </motion.div>
             ))}
           </div>

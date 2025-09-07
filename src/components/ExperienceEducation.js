@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/ExperienceEducation.css";
-import { FaSchool, FaUniversity, FaBaby, FaGraduationCap } from "react-icons/fa";
+import { FaSchool, FaUniversity, FaBaby, FaGraduationCap, FaServer,  } from "react-icons/fa";
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import { motion } from "framer-motion";
@@ -35,6 +35,12 @@ const timelineData = [
     title: "Undergraduate Studies – Bennett University",
     description: "Enrolled in Bennett University to pursue a B.Tech in Computer Science Engineering with a specialization in Cloud Computing.",
     icon: <FaUniversity />,
+  },
+  {
+    date: "2025",
+    title: "SDE DevOps Intern – Hike",
+    description: "Joined Hike as an SDE DevOps Intern, contributing to cloud-native deployments, CI/CD pipelines, Kubernetes orchestration, and automation practices.",
+    icon: <FaServer />, // you can swap this for another icon if you'd like (e.g., FaLaptopCode)
   },
 ];
 

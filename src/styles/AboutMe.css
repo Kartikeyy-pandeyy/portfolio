@@ -165,11 +165,13 @@ body {
   font-size: clamp(1.4rem, 1.8rem, 2rem);
   margin: 0;
   filter: drop-shadow(0 0 2px currentColor); /* Reduced shadow for performance */
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  opacity: 0.7; /* Make icons transparent */
 }
 
 .card:hover .icon {
   transform: scale(1.1);
+  opacity: 1; /* Full opacity on hover */
 }
 
 .hobby-card .icon {
