@@ -2,13 +2,10 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import "../styles/HeroSection.css";
 import profilePic from "../assets/profile.jpg";
 
-// 🔴 Replace this with your backend URL
-const API_BASE = "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app"; 
+const API_BASE = "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app";  //bhai door rho isse.PILIZ.
 
-// only one role now
 const roles = ["DevOps Engineer 🖥"];
 async function hitViews(url) {
-  // First try POST (increment)
   let r = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -18,7 +15,6 @@ async function hitViews(url) {
     return data?.total ?? 0;
   }
 
-  // Fallback: GET (just read current total)
   r = await fetch(url);
   if (!r.ok) throw new Error(`GET ${url} -> ${r.status}`);
   const data = await r.json();
@@ -34,7 +30,6 @@ const HeroSection = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const triedOnce = useRef(false);
 
-  // 👀 Increment visitor count once on mount
   useEffect(() => {
     if (triedOnce.current) return;
     triedOnce.current = true;
@@ -49,11 +44,10 @@ const HeroSection = () => {
       });
   }, []);
 
-  // 🎯 Optimized count animation with requestAnimationFrame
   useEffect(() => {
     if (viewCount <= 0) return;
     
-    const duration = 1500; // Reduced to 1.5 seconds for snappier UX
+    const duration = 1500; 
     const startTime = Date.now();
     const startCount = 0;
     
@@ -117,7 +111,7 @@ const HeroSection = () => {
 
           <div className="hero-buttons">
             <a
-              href="https://drive.google.com/file/d/1iWpLXLvLDtefO4mxrmpAm3M6sIxhqIO6/view?usp=sharing"
+              href="https://drive.google.com/file/d/1qD54e2JXCRXCpDJNc1v_UnBFIIfF0ZIx/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="btn"
