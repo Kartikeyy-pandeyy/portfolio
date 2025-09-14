@@ -2,103 +2,110 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import "../styles/HeroSection.css";
 import profilePic from "../assets/profile.jpg";
 
-const API_BASE = "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app";  //bhai door rho isse.PILIZ.
+const API_BASE = "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app";
 
 const roles = ["DevOps Engineer 🖥"];
-async function hitViews(url) {
-  let r = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-  });
-  if (r.ok) {
-    const data = await r.json();
-    return data?.total ?? 0;
-  }
 
-  r = await fetch(url);
-  if (!r.ok) throw new Error(`GET ${url} -> ${r.status}`);
-  const data = await r.json();
-  return data?.total ?? 0;
-}
+const fetchViewCount = async (url) => {
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      return data?.total ?? 0;
+    }
+
+    const getResponse = await fetch(url);
+    if (!getResponse.ok) {
+      throw new Error(`Failed to fetch views: ${getResponse.status}`);
+    }
+    
+    const data = await getResponse.json();
+    return data?.total ?? 0;
+  } catch (error) {
+    console.error("Error fetching view count:", error);
+    return 0;
+  }
+};
 
 const HeroSection = () => {
   const [viewCount, setViewCount] = useState(0);
   const [animatedCount, setAnimatedCount] = useState(0);
-  const [text, setText] = useState("");
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const triedOnce = useRef(false);
+  const hasInitialized = useRef(false);
+
+  const apiUrl = useMemo(() => `${API_BASE.replace(/\/+$/, "")}/api/views`, []);
 
   useEffect(() => {
-    if (triedOnce.current) return;
-    triedOnce.current = true;
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
 
-    const url = `${API_BASE.replace(/\/+$/, "")}/api/views`;
+    fetchViewCount(apiUrl).then(setViewCount);
+  }, [apiUrl]);
 
-    hitViews(url)
-      .then((total) => setViewCount(total))
-      .catch((err) => {
-        console.error("[HeroSection] view counter failed:", err);
-        setViewCount(0);
-      });
-  }, []);
-
-  useEffect(() => {
+  const animateViewCount = useCallback(() => {
     if (viewCount <= 0) return;
     
-    const duration = 1500; 
+    const duration = 1500;
     const startTime = Date.now();
-    const startCount = 0;
     
-    const animateCount = () => {
+    const animate = () => {
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      
-      // Use easeOutQuart for smooth deceleration
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(startCount + (viewCount - startCount) * easeOutQuart);
+      const currentCount = Math.floor(viewCount * easeOutQuart);
       
       setAnimatedCount(currentCount);
       
       if (progress < 1) {
-        requestAnimationFrame(animateCount);
+        requestAnimationFrame(animate);
       } else {
         setAnimatedCount(viewCount);
       }
     };
     
-    requestAnimationFrame(animateCount);
+    requestAnimationFrame(animate);
   }, [viewCount]);
 
-  // ⌨️ Optimized typing animation with useCallback
-  const currentRole = useMemo(() => roles[roleIndex], [roleIndex]);
-  
-  const typeText = useCallback(() => {
-    const typingSpeed = isDeleting ? 40 : 80; // Slightly faster for better UX
-    const pauseBeforeDelete = 800; // Reduced pause
+  useEffect(() => {
+    animateViewCount();
+  }, [animateViewCount]);
 
-    setText(prevText => 
-      isDeleting
-        ? currentRole.substring(0, charIndex - 1)
-        : currentRole.substring(0, charIndex + 1)
-    );
-    
-    setCharIndex(prev => isDeleting ? prev - 1 : prev + 1);
-
-    if (!isDeleting && charIndex === currentRole.length) {
-      setTimeout(() => setIsDeleting(true), pauseBeforeDelete);
-    } else if (isDeleting && charIndex === 0) {
-      setIsDeleting(false);
-      setRoleIndex(prev => (prev + 1) % roles.length);
-    }
-  }, [charIndex, isDeleting, roleIndex, currentRole]);
+  const currentRole = useMemo(() => roles[currentRoleIndex] || "", [currentRoleIndex]);
 
   useEffect(() => {
-    const typingSpeed = isDeleting ? 40 : 80;
-    const timeout = setTimeout(typeText, typingSpeed);
+    const typeEffect = () => {
+      const pauseBeforeDelete = 2000;
+
+      if (!isDeleting && currentCharIndex <= currentRole.length) {
+        setDisplayText(currentRole.substring(0, currentCharIndex));
+        setCurrentCharIndex(prev => prev + 1);
+        
+        if (currentCharIndex === currentRole.length) {
+          setTimeout(() => setIsDeleting(true), pauseBeforeDelete);
+          return;
+        }
+      } else if (isDeleting && currentCharIndex >= 0) {
+        setDisplayText(currentRole.substring(0, currentCharIndex));
+        setCurrentCharIndex(prev => prev - 1);
+        
+        if (currentCharIndex === 0) {
+          setIsDeleting(false);
+          setCurrentRoleIndex(prev => (prev + 1) % roles.length);
+        }
+      }
+    };
+
+    const typingSpeed = isDeleting ? 50 : 100;
+    const timeout = setTimeout(typeEffect, typingSpeed);
     return () => clearTimeout(timeout);
-  }, [typeText, isDeleting]);
+  }, [currentCharIndex, isDeleting, currentRole, currentRoleIndex]);
 
   return (
     <section className="hero" id="hero">
@@ -107,7 +114,7 @@ const HeroSection = () => {
           <h1>
             Hi there, I’m <span>Kartikey Pandey</span>
           </h1>
-          <p className="animated-text">{text}</p>
+          <p className="animated-text">{displayText}</p>
 
           <div className="hero-buttons">
             <a
@@ -128,7 +135,13 @@ const HeroSection = () => {
         </div>
 
         <div className="hero-image">
-          <img src={profilePic} alt="Kartikey Pandey" loading="lazy" />
+          <img 
+            src={profilePic} 
+            alt="Kartikey Pandey - DevOps Engineer" 
+            loading="lazy"
+            width="400"
+            height="400"
+          />
         </div>
       </div>
     </section>
