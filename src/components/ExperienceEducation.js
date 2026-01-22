@@ -7,41 +7,18 @@ import { motion } from "framer-motion";
 
 const timelineData = [
   {
-    date: "2003",
-    title: "Birth",
-    description: "The beginning of my journey.",
-    icon: <FaBaby />,
-  },
-  {
-    date: "2007",
-    title: "Early Education – St. Joseph's School, Gorakhpur",
-    description: "Commenced my academic journey at St. Joseph's School, where I studied until the 5th standard.",
-    icon: <FaSchool />,
-  },
-  {
-    date: "2014",
-    title: "Secondary Education – GN National Public School",
-    description: "Transitioned to GN National Public School for higher studies, completing my education up to the 10th standard.",
-    icon: <FaSchool />,
-  },
-  {
-    date: "2019",
-    title: "Senior Secondary Education – Academic Global School",
-    description: "Pursued my 11th and 12th standard at Academic Global School, focusing on foundational subjects for my future academic path.",
-    icon: <FaGraduationCap />,
-  },
-  {
-    date: "2022",
-    title: "Undergraduate Studies – Bennett University",
-    description: "Enrolled in Bennett University to pursue a B.Tech in Computer Science Engineering with a specialization in Cloud Computing.",
-    icon: <FaUniversity />,
-  },
-  {
     date: "2025",
-    title: "SDE DevOps Intern – Hike",
+    title: "DevOps Intern – Hike",
     description: "Joined Hike as an SDE DevOps Intern, contributing to cloud-native deployments, CI/CD pipelines, Kubernetes orchestration, and automation practices.",
     icon: <FaServer />, // you can swap this for another icon if you'd like (e.g., FaLaptopCode)
   },
+  {
+    date: "2025",
+    title: "DevOps Intern – Temple",
+    description: "Working on AWS + DevOps infrastructure automation using Pulumi, CI/CD, monitoring and cost optimization.",
+    icon: <FaServer />, // you can swap this for another icon if you'd like (e.g., FaLaptopCode)
+  },
+
 ];
 
 const ExperienceEducation = () => {

@@ -118,7 +118,7 @@ const HeroSection = () => {
 
           <div className="hero-buttons">
             <a
-              href="https://drive.google.com/file/d/1qD54e2JXCRXCpDJNc1v_UnBFIIfF0ZIx/view?usp=sharing"
+              href="https://drive.google.com/drive/folders/1Uy-CNQhP0zSX_PYlr2-90YTE9hwT3xHG?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="btn"
