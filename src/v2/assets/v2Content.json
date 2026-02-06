@@ -1,0 +1,55 @@
+{
+  "identity": {
+    "name": "Kartikey Pandey",
+    "introPrefix": "Hi, I'm ",
+    "introSuffix": "",
+    "opening": "I’ve been pretty curious lately, spending most of my time trying to understand how systems behave under pressure — whether they’re technical systems, institutions, or people."},
+  "values": {
+    "text": "I care about reliability — not just in machines, but in decisions, policies, and human behavior. Good systems reduce chaos. Bad systems outsource suffering."},
+  "learning": {
+  "intro": "How I try to understand things:",
+  "points": [
+    "sitting with a problem long enough to see where it breaks",
+    "breaking things down when they feel unclear",
+    "paying attention to how behavior changes under constraints",
+    "revising my understanding as I notice new patterns"
+  ]
+}
+,
+  "exploration": {
+    "intro": "Right now, I am exploring:",
+    "points": [
+      "public administration and governance",
+      "how decisions are made under constraints"
+    ]
+  },
+  "philosophy": {
+    "text": "I don’t think progress comes from speed alone. It comes from feedback loops, clear incentives, and being willing to redesign things when they don’t work. In code, organizations, or policy, I’m drawn to systems that serve people rather than trap them."},
+  "ambition": {
+    "text": "I am ambitious, but not in a hurry. I care more about building depth than collecting labels."
+  },
+  "closing": {
+    "text": "If you’re interested in systems, learning, long-term thinking, and understanding how people think and behave, we’ll probably get along."
+  },
+  "links": {
+    "items": [
+      {
+        "label": "Email",
+        "href": "mailto:kartikeyy.pandeyy@gmail.com",
+        "external": false
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/kartikeyypandeyy/",
+        "external": true
+      }
+    ]
+  },
+  "motion": {
+    "timingProfile": "balanced"
+  },
+  "footerNote": "This page is a sketch of who I am (error margin unknown).",
+  "views": {
+    "count": "0000"
+  }
+}

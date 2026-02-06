@@ -1,0 +1,44 @@
+timing:
+  profile: balanced
+  contentSpeedMultiplier: 0.56
+  sectionPauseMultiplier: 0.85
+
+title:
+  moveDurationMs: 1250
+  moveEase: "cubic-bezier(0.16, 1, 0.3, 1)"
+  topFontSize: "clamp(1.78rem, 4.5vw, 2.85rem)"
+  topFontSizeScrolled: "clamp(1.52rem, 3.6vw, 2.25rem)"
+  topOffset: "clamp(0.72rem, 2.4vw, 1.3rem)"
+  topOffsetScrolled: "clamp(0.56rem, 1.8vw, 1rem)"
+  mobileTopFontSize: "clamp(1.65rem, 6.6vw, 2.35rem)"
+  mobileTopFontSizeScrolled: "clamp(1.44rem, 5.7vw, 2.05rem)"
+  mobileTopOffset: "0.64rem"
+  mobileTopOffsetScrolled: "0.52rem"
+
+strip:
+  height: "clamp(4.2rem, 8.2vw, 5.5rem)"
+  heightScrolled: "clamp(3.35rem, 6.1vw, 4.35rem)"
+  heightMobile: "clamp(3.35rem, 10.8vw, 4.2rem)"
+  heightMobileScrolled: "clamp(2.95rem, 9.8vw, 3.7rem)"
+  contractDurationMs: 900
+  contractEase: "cubic-bezier(0.16, 1, 0.3, 1)"
+  background: "linear-gradient(180deg, rgba(247, 245, 239, 0.73) 0%, rgba(247, 245, 239, 0.45) 100%)"
+  backgroundScrolled: "linear-gradient(180deg, rgba(247, 245, 239, 0.84) 0%, rgba(247, 245, 239, 0.62) 100%)"
+  blurPx: 14
+  saturatePercent: 132
+  borderColor: "rgba(31, 31, 28, 0.09)"
+  shadowScrolled: "0 12px 28px rgba(31, 31, 28, 0.12)"
+
+layout:
+  contentStartOffset: "clamp(4.9rem, 8.3vw, 6.5rem)"
+  contentStartOffsetMobile: "clamp(2.15rem, 6.2vw, 2.9rem)"
+
+theme:
+  backgroundBase: "#f8f6f1"
+  backgroundAccentA: "rgba(219, 208, 183, 0.22)"
+  backgroundAccentB: "rgba(198, 216, 232, 0.17)"
+  text: "#1c1c19"
+  muted: "rgba(28, 28, 25, 0.64)"
+  link: "#2e445d"
+  linkSoft: "rgba(46, 68, 93, 0.34)"
+  grainOpacity: 0.11

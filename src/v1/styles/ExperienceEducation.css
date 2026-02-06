@@ -1,13 +1,19 @@
 /* EXPERIENCE & EDUCATION SECTION - Performance Optimized */
 .experience-education {
-  padding: 4rem 10%;
-  min-height: 100vh;
-  min-height: 100dvh; /* Dynamic viewport height */
+  padding: clamp(1.75rem, 3.5vw, 3rem) 10%;
+  min-height: auto;
   position: relative;
   overflow: hidden;
   z-index: 1;
   will-change: scroll-position;
   contain: layout;
+}
+
+/* Tighten the default timeline block spacing from library styles */
+.vertical-timeline {
+  margin: 0 auto;
+  padding: 0.4rem 0 0.6rem;
+  max-width: 1180px;
 }
 
 /* Particles */
@@ -53,7 +59,11 @@
 
 /* Timeline Elements */
 .vertical-timeline-element {
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.vertical-timeline-element:last-child {
+  margin-bottom: 0;
 }
 
 /* Content */
@@ -155,7 +165,8 @@
 
 /* Responsiveness */
 @media screen and (max-width: 1200px) {
-  .experience-education { padding: 3rem 8%; }
+  .experience-education { padding: clamp(1.5rem, 3vw, 2.5rem) 8%; }
+  .vertical-timeline { padding: 0.35rem 0 0.5rem; }
   .vertical-timeline-element-content { width: 65%; }
   .vertical-timeline-element--left .vertical-timeline-element-content,
   .vertical-timeline-element--right .vertical-timeline-element-content { margin-left: 10%; }
@@ -165,19 +176,21 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .experience-education { padding: 2.5rem 6%; }
+  .experience-education { padding: clamp(1.35rem, 2.6vw, 2rem) 6%; }
+  .vertical-timeline { padding: 0.3rem 0 0.45rem; }
   .vertical-timeline-element-content { width: 60%; }
   .vertical-timeline-element-date { font-size: 0.95rem; padding: 0.25rem 0.5rem; }
 }
 
 @media screen and (max-width: 768px) {
-  .experience-education { padding: 2rem 4%; }
+  .experience-education { padding: 1.25rem 4% 1.1rem; }
+  .vertical-timeline { padding: 0.2rem 0 0.35rem; }
   .vertical-timeline::before {
     width: 2px;
     left: 20px;
   }
   .vertical-timeline-element {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     padding-left: 40px;
   }
   .vertical-timeline-element-content {
@@ -223,13 +236,14 @@
 }
 
 @media screen and (max-width: 480px) {
-  .experience-education { padding: 1.5rem 3%; }
+  .experience-education { padding: 0.95rem 3% 0.85rem; }
+  .vertical-timeline { padding: 0.1rem 0 0.25rem; }
   .vertical-timeline::before {
     width: 1.5px;
     left: 15px;
   }
   .vertical-timeline-element {
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.85rem;
     padding-left: 30px;
   }
   .vertical-timeline-element-content {

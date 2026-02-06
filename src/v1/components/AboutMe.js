@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import "../styles/AboutMe.css";
+import portfolioData from "../assets/v1Content.json";
 import {
   FaGamepad,
   FaMusic,
@@ -22,27 +23,33 @@ import {
 } from "react-icons/si";
 import { motion } from "framer-motion";
 
-const techStack = [
-  { name: "Java",       icon: <FaJava className="icon java" />,          desc: "Core language for DSA, OOP, and backend service design." },
-  { name: "MongoDB",    icon: <SiMongodb className="icon mongo" />,      desc: "NoSQL document store for flexible and scalable data." },
-  { name: "MySQL",      icon: <SiMysql className="icon mysql" />,        desc: "Relational database with tuned indexes and queries." },
-  { name: "REST API",   icon: <FaCode className="icon rest" />,          desc: "Clean endpoints with auth, versioning, and testing." },
-  { name: "AWS",        icon: <SiAmazonwebservices className="icon aws" />,      desc: "Cloud primitives for compute, storage, and security." },
-  { name: "GCP",        icon: <SiGooglecloud className="icon gcp" />,    desc: "Managed services for scalable, cost-aware workloads." },
-  { name: "Docker",     icon: <SiDocker className="icon docker" />,      desc: "Containerized builds with layered, reproducible images." },
-  { name: "Kubernetes", icon: <SiKubernetes className="icon k8s" />,     desc: "Declarative deploys, services, and autoscaling on k8s." },
-  { name: "Jenkins",    icon: <SiJenkins className="icon jenkins" />,    desc: "CI/CD pipelines with secrets, agents, and caching." },
-  { name: "Helm",       icon: <SiHelm className="icon helm" />,          desc: "Charts and values to templatize Kubernetes releases." },
-];
+const techIconMap = {
+  java: FaJava,
+  mongodb: SiMongodb,
+  mysql: SiMysql,
+  code: FaCode,
+  aws: SiAmazonwebservices,
+  gcp: SiGooglecloud,
+  docker: SiDocker,
+  kubernetes: SiKubernetes,
+  jenkins: SiJenkins,
+  helm: SiHelm,
+};
 
-const hobbies = [
-  { name: "Music",        icon: <FaMusic className="icon music" />,        desc: "Explore Indian music and diverse genres passionately." },
-  { name: "Gaming",       icon: <FaGamepad className="icon gaming" />,     desc: "Enjoy strategy and FPS games for tactical challenges." },
-  { name: "Traveling",    icon: <FaGlobe className="icon traveling" />,    desc: "Seek inspiration from mountains and cultural experiences." },
-  { name: "Photography",  icon: <FaCamera className="icon photography" />, desc: "Love capturing vibrant vistas and candid moments." },
-  { name: "Tech & Phones",icon: <FaMobileAlt className="icon tech" />,     desc: "I read about smartphones, chips, and gadget ecosystems." },
-  { name: "Worldview",    icon: <FaBookOpen className="icon curious" />,   desc: "Love listening, learning how the world works overall." },
-];
+const hobbyIconMap = {
+  music: FaMusic,
+  gaming: FaGamepad,
+  traveling: FaGlobe,
+  photography: FaCamera,
+  mobile: FaMobileAlt,
+  book: FaBookOpen,
+};
+
+const renderIcon = (iconMap, iconKey, iconClass) => {
+  const Icon = iconMap[iconKey];
+  if (!Icon) return null;
+  return <Icon className={`icon ${iconClass || ""}`.trim()} />;
+};
 
 // Optimized motion variants with better performance
 const cardVariants = {
@@ -86,6 +93,8 @@ const innerCardVariants = {
 };
 
 const AboutMe = () => {
+  const { about } = portfolioData;
+
   // Memoize particles for better performance
   const particles = useMemo(() => 
     Array.from({ length: 4 }, (_, i) => (
@@ -114,14 +123,14 @@ const AboutMe = () => {
           transition={{ duration: 0.25, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          Turning coffee into code, dreams into deployments, and bugs into 'features.' Passionate about cloud, AI, and full-stack magic!
+          {about.bio}
         </motion.p>
 
-        <h3 className="section-title">Tools That Shape My Code</h3>
+        <h3 className="section-title">{about.techTitle}</h3>
         <div className="tech-stack">
-          {techStack.map((tech, index) => (
+          {about.techStack.map((tech, index) => (
             <motion.div
-              key={index}
+              key={`${tech.name}-${index}`}
               className="card tech-card"
               custom={index}
               initial="hidden"
@@ -131,7 +140,7 @@ const AboutMe = () => {
               viewport={{ once: true }}
             >
               <motion.div className="inner-card" variants={innerCardVariants}>
-                {tech.icon}
+                {renderIcon(techIconMap, tech.iconKey, tech.iconClass)}
               </motion.div>
               <div className="card-content">
                 <h4>{tech.name}</h4>
@@ -141,11 +150,11 @@ const AboutMe = () => {
           ))}
         </div>
 
-        <h3 className="section-title">Things I Love Doing</h3>
+        <h3 className="section-title">{about.hobbiesTitle}</h3>
         <div className="hobby-container">
-          {hobbies.map((hobby, index) => (
+          {about.hobbies.map((hobby, index) => (
             <motion.div
-              key={index}
+              key={`${hobby.name}-${index}`}
               className="card hobby-card"
               custom={index}
               initial="hidden"
@@ -155,7 +164,7 @@ const AboutMe = () => {
               viewport={{ once: true }}
             >
               <motion.div className="inner-card" variants={innerCardVariants}>
-                {hobby.icon}
+                {renderIcon(hobbyIconMap, hobby.iconKey, hobby.iconClass)}
               </motion.div>
               <div className="card-content">
                 <h4>{hobby.name}</h4>

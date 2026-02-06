@@ -1,0 +1,391 @@
+{
+  "profile": {
+    "name": "Kartikey Pandey",
+    "heroGreetingPrefix": "Hi there, I'm",
+    "heroRoles": [
+      "DevOps Engineer"
+    ],
+    "resumeUrl": "https://drive.google.com/drive/folders/1Uy-CNQhP0zSX_PYlr2-90YTE9hwT3xHG?usp=sharing",
+    "profileImageAlt": "Kartikey Pandey - DevOps Engineer",
+    "viewApiBaseUrl": "https://jittery-nichole-kartikeyypandeyy-983ab902.koyeb.app",
+    "resumeButtonText": "Resume",
+    "viewLabel": "Views",
+    "navItems": [
+      {
+        "label": "About Me",
+        "id": "hero",
+        "iconKey": "user"
+      },
+      {
+        "label": "Skills",
+        "id": "about-me",
+        "iconKey": "tools"
+      },
+      {
+        "label": "Projects",
+        "id": "projects",
+        "iconKey": "project"
+      },
+      {
+        "label": "Contact",
+        "id": "contact",
+        "iconKey": "envelope"
+      }
+    ],
+    "footerName": "Kartikey Pandey"
+  },
+  "about": {
+    "bio": "Turning coffee into code, dreams into deployments, and bugs into features. Passionate about cloud, AI, and full-stack magic!",
+    "techTitle": "Tools That Shape My Code",
+    "hobbiesTitle": "Things I Love Doing",
+    "techStack": [
+      {
+        "name": "Java",
+        "iconKey": "java",
+        "iconClass": "java",
+        "desc": "Core language for DSA, OOP, and backend service design."
+      },
+      {
+        "name": "MongoDB",
+        "iconKey": "mongodb",
+        "iconClass": "mongo",
+        "desc": "NoSQL document store for flexible and scalable data."
+      },
+      {
+        "name": "MySQL",
+        "iconKey": "mysql",
+        "iconClass": "mysql",
+        "desc": "Relational database with tuned indexes and queries."
+      },
+      {
+        "name": "REST API",
+        "iconKey": "code",
+        "iconClass": "rest",
+        "desc": "Clean endpoints with auth, versioning, and testing."
+      },
+      {
+        "name": "AWS",
+        "iconKey": "aws",
+        "iconClass": "aws",
+        "desc": "Cloud primitives for compute, storage, and security."
+      },
+      {
+        "name": "GCP",
+        "iconKey": "gcp",
+        "iconClass": "gcp",
+        "desc": "Managed services for scalable, cost-aware workloads."
+      },
+      {
+        "name": "Docker",
+        "iconKey": "docker",
+        "iconClass": "docker",
+        "desc": "Containerized builds with layered, reproducible images."
+      },
+      {
+        "name": "Kubernetes",
+        "iconKey": "kubernetes",
+        "iconClass": "k8s",
+        "desc": "Declarative deploys, services, and autoscaling on k8s."
+      },
+      {
+        "name": "Jenkins",
+        "iconKey": "jenkins",
+        "iconClass": "jenkins",
+        "desc": "CI/CD pipelines with secrets, agents, and caching."
+      },
+      {
+        "name": "Helm",
+        "iconKey": "helm",
+        "iconClass": "helm",
+        "desc": "Charts and values to templatize Kubernetes releases."
+      }
+    ],
+    "hobbies": [
+      {
+        "name": "Music",
+        "iconKey": "music",
+        "iconClass": "music",
+        "desc": "Explore Indian music and diverse genres passionately."
+      },
+      {
+        "name": "Gaming",
+        "iconKey": "gaming",
+        "iconClass": "gaming",
+        "desc": "Enjoy strategy and FPS games for tactical challenges."
+      },
+      {
+        "name": "Traveling",
+        "iconKey": "traveling",
+        "iconClass": "traveling",
+        "desc": "Seek inspiration from mountains and cultural experiences."
+      },
+      {
+        "name": "Photography",
+        "iconKey": "photography",
+        "iconClass": "photography",
+        "desc": "Love capturing vibrant vistas and candid moments."
+      },
+      {
+        "name": "Tech and Phones",
+        "iconKey": "mobile",
+        "iconClass": "tech",
+        "desc": "I read about smartphones, chips, and gadget ecosystems."
+      },
+      {
+        "name": "Worldview",
+        "iconKey": "book",
+        "iconClass": "curious",
+        "desc": "Love listening and learning how the world works overall."
+      }
+    ]
+  },
+  "experienceEducation": {
+    "expandedSuffix": " - More details could be added here.",
+    "timeline": [
+      {
+        "date": "2025",
+        "title": "DevOps Intern - Hike",
+        "description": "Joined Hike as an SDE DevOps Intern, contributing to cloud-native deployments, CI/CD pipelines, Kubernetes orchestration, and automation practices.",
+        "iconKey": "server"
+      },
+      {
+        "date": "2025",
+        "title": "DevOps Intern - Temple",
+        "description": "Working on AWS and DevOps infrastructure automation using Pulumi, CI/CD, monitoring and cost optimization.",
+        "iconKey": "server"
+      }
+    ]
+  },
+  "projectsResearch": {
+    "title": "Projects and Research",
+    "subtitle": "Explore my best projects and research publications.",
+    "tabs": [
+      "Projects",
+      "Research"
+    ],
+    "githubButtonText": "GitHub",
+    "liveButtonText": "Go Live",
+    "projects": [
+      {
+        "id": 1,
+        "title": "GitShowcaseAPI",
+        "category": "Web / API",
+        "timeline": "Aug 2025 - Present",
+        "techStack": [
+          "AWS",
+          "HTML",
+          "REST API",
+          "Github",
+          "CSS"
+        ],
+        "description": [
+          "Built a REST API that aggregates GitHub data to generate showcase-ready profiles.",
+          "Implements clean endpoints for repos, languages, and pinned projects.",
+          "Adds caching and pagination for fast responses and scalable queries.",
+          "Containerized with Docker for reproducible local and cloud deploys."
+        ],
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/GitShowcaseAPI",
+        "liveLink": "https://d3tbtv7bxs3vbw.cloudfront.net/"
+      },
+      {
+        "id": 2,
+        "title": "API Monitor",
+        "category": "DevTools / Observability",
+        "timeline": "Aug 2025 - Present",
+        "techStack": [
+          "Jenkins",
+          "AWS",
+          "Axios",
+          "S3",
+          "HTML",
+          "CSS",
+          "Docker"
+        ],
+        "description": [
+          "Monitors endpoint uptime and latency with scheduled health checks.",
+          "Persists historical results for trend analysis and quick triage.",
+          "Supports configurable targets and notification hooks.",
+          "Dockerized for easy deployment to any environment."
+        ],
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/api-monitor",
+        "liveLink": "https://apimonitor.netlify.app/"
+      },
+      {
+        "id": 3,
+        "title": "UPSCPath",
+        "category": "AI/EdTech",
+        "timeline": "March 2025 - Present",
+        "techStack": [
+          "React.js",
+          "Node.js",
+          "MongoDB",
+          "Hugging Face",
+          "AWS S3"
+        ],
+        "description": [
+          "AI-powered study platform for UPSC aspirants with Hugging Face summarization (~90% accuracy).",
+          "Google OAuth for secure login with access control.",
+          "Custom PDF viewer hosting eBooks through S3.",
+          "Deployed on Railway and Netlify with sub-300ms API responses."
+        ],
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/UPSCpath.git",
+        "liveLink": "https://upscpath.netlify.app/"
+      },
+      {
+        "id": 4,
+        "title": "SafeChat",
+        "category": "Web",
+        "timeline": "March 2025 - Present",
+        "techStack": [
+          "React.js",
+          "Node.js",
+          "CSS",
+          "Rekognition"
+        ],
+        "description": [
+          "Built a privacy-focused chat app with React.js and custom CSS for 100% responsiveness.",
+          "Added facial authentication via AWS Rekognition, cutting unauthorized access by 95%.",
+          "Optimized components, reducing load times.",
+          "Deployed on Netlify and Render.com with AWS S3."
+        ],
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/safe-chat",
+        "liveLink": "https://safechatapp.netlify.app/"
+      },
+      {
+        "id": 5,
+        "title": "Kartikey Care",
+        "category": "Web",
+        "timeline": "Feb 2025 - Present",
+        "techStack": [
+          "React.js",
+          "CSS",
+          "Node.js",
+          "MongoDB"
+        ],
+        "description": [
+          "Designed a responsive UI with React.js and CSS, achieving 95+ Lighthouse scores.",
+          "Developed a booking system with real-time updates, improving UX by 40%.",
+          "Integrated qrcode.js for O(1) QR generation.",
+          "Exploring AWS CloudFront for sub-millisecond response times."
+        ],
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/kartikeycare",
+        "liveLink": "https://kartikeycare.vercel.app/"
+      },
+      {
+        "id": 6,
+        "title": "Microservices Calculator",
+        "category": "Cloud",
+        "timeline": "Jan 2025 - Feb 2025",
+        "techStack": [
+          "React.js",
+          "AWS CloudFront",
+          "Railway"
+        ],
+        "description": [
+          "Built an interactive calculator UI with React.js and Material UI.",
+          "Integrated serverless microservices, reducing backend load by 60%.",
+          "Optimized rendering with code-splitting, achieving sub-1s load times.",
+          "Deployed on AWS S3 and CloudFront for 99.9% uptime."
+        ],
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/frontend-calculator",
+        "liveLink": "https://heythereareyouokay.netlify.app/calculator"
+      },
+      {
+        "id": 7,
+        "title": "Landslide Prediction System",
+        "category": "AI",
+        "timeline": "Aug 2024 - Oct 2024",
+        "techStack": [
+          "Flask",
+          "React.js",
+          "Python",
+          "AWS Lambda",
+          "EC2",
+          "SNS"
+        ],
+        "description": [
+          "Developed a landslide prediction dashboard with real-time visualization.",
+          "Achieved 86.93% accuracy using Random Forest with Optuna tuning.",
+          "Integrated AWS SNS for instant alerts, reducing response time by 45%.",
+          "Designed a mobile-responsive UI."
+        ],
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/landslide-alert-system",
+        "liveLink": "https://heythereareyouokay.netlify.app/landslideprediction"
+      }
+    ],
+    "research": [
+      {
+        "id": 1,
+        "title": "AI-Driven Predictive Maintenance for Railways Ecosystem (RES)",
+        "conference": "ICRIC-07, DoSCI 2025, INDIAcom-2025 (Accepted)",
+        "description": "Explores AI and edge computing for railway maintenance, using differential privacy and model pruning for secure, efficient deployment.",
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/AI-Driven-Predictive-Maintenance"
+      },
+      {
+        "id": 2,
+        "title": "Performance Analysis of Docker Containers and VMs",
+        "conference": "NGISE 2025 (Accepted)",
+        "description": "Compares Docker containers and VMs, highlighting containers' performance for cloud-native apps and VMs' isolation for heavy workloads.",
+        "githubLink": "https://github.com/Kartikeyy-pandeyy/performance-analysis"
+      }
+    ]
+  },
+  "githubStats": {
+    "username": "Kartikeyy-pandeyy",
+    "title": "GitHub Stats",
+    "latestCommitsTitle": "Latest Commits",
+    "recentActivityTitle": "Recent Activity",
+    "emptyCommitsMessage": "No recent commits found.",
+    "emptyActivityMessage": "No recent activity found.",
+    "inLabel": "in",
+    "byLabel": "by",
+    "justNowLabel": "Just now"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Let's launch something cosmic together!",
+    "formspreeEndpoint": "https://formspree.io/f/mnnpnqkp",
+    "emailValidationError": "Invalid email",
+    "sendingStatus": "Sending...",
+    "successStatus": "Sent!",
+    "errorStatus": "Error!",
+    "namePlaceholder": "Your Name",
+    "emailPlaceholder": "Your Email",
+    "messagePlaceholder": "Your Message",
+    "submitButtonText": "Send Message",
+    "emailButtonText": "Drop a note",
+    "emailButtonHref": "mailto:kartikeyy.pandeyy@gmail.com?subject=Let's Connect!&body=Hi Kartikey, I'd love to discuss...",
+    "socialLinks": [
+      {
+        "iconKey": "github",
+        "url": "https://github.com/Kartikeyy-pandeyy",
+        "label": "GitHub"
+      },
+      {
+        "iconKey": "linkedin",
+        "url": "https://linkedin.com/in/kartikeyypandeyy",
+        "label": "LinkedIn"
+      },
+      {
+        "iconKey": "instagram",
+        "url": "https://instagram.com/kartikeyy.pandeyy",
+        "label": "Instagram"
+      },
+      {
+        "iconKey": "telegram",
+        "url": "https://t.me/kartikeyypandeyy",
+        "label": "Telegram"
+      },
+      {
+        "iconKey": "email",
+        "url": "mailto:kartikeyy.pandeyy@gmail.com",
+        "label": "Email"
+      }
+    ]
+  },
+  "comingSoon": {
+    "messagePrefix": "I'll be here soon. Meanwhile, feel free to explore my",
+    "linkedInUrl": "https://www.linkedin.com/in/kartikey-pandey-5788aa252/",
+    "linkedInLabel": "LinkedIn"
+  }
+}
