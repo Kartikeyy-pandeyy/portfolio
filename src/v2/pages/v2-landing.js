@@ -4,10 +4,36 @@ import "../styles/v2-landing.css";
 import QuietBlock from "../components/QuietBlock";
 import TypewriterText from "../components/TypewriterText";
 import content from "../assets/v2Content.json";
+import v1Content from "../../v1/assets/v1Content.json";
 import yamlConfigUrl from "../config/v2-config.yaml";
 import { deepMerge, parseSimpleYaml } from "../config/parseSimpleYaml";
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const fetchViewCount = async (url) => {
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data?.total ?? 0;
+    }
+
+    const getResponse = await fetch(url);
+    if (!getResponse.ok) {
+      throw new Error(`Failed to fetch views: ${getResponse.status}`);
+    }
+
+    const data = await getResponse.json();
+    return data?.total ?? 0;
+  } catch (error) {
+    console.error("Error fetching view count:", error);
+    return 0;
+  }
+};
 
 const TIMING_PRESETS = {
   cinematic: {
@@ -141,11 +167,16 @@ const V2Landing = () => {
   const fullName = content.identity.name || "Kartikey Pandey";
   const introPrefix = content.identity.introPrefix || "Hi, ";
   const introSuffix = content.identity.introSuffix || "";
+  const defaultViewCount = Number.parseInt(content.views?.count, 10) || 0;
   const firstName = useMemo(() => fullName.split(" ")[0], [fullName]);
   const surnamePart = useMemo(
     () => fullName.slice(firstName.length),
     [firstName, fullName]
   );
+  const viewApiUrl = useMemo(() => {
+    const baseUrl = v1Content.profile?.viewApiBaseUrl?.replace(/\/+$/, "") ?? "";
+    return baseUrl ? `${baseUrl}/api/views` : "";
+  }, []);
   const introText = useMemo(
     () => `${introPrefix}${firstName}${introSuffix}`,
     [firstName, introPrefix, introSuffix]
@@ -218,8 +249,11 @@ const V2Landing = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isStripVisible, setIsStripVisible] = useState(false);
   const [isConfigReady, setIsConfigReady] = useState(false);
+  const [viewCount, setViewCount] = useState(defaultViewCount);
+  const [animatedViewCount, setAnimatedViewCount] = useState(0);
   const stepTimeoutsRef = useRef([]);
   const introHasStartedRef = useRef(false);
+  const hasLoadedViewsRef = useRef(false);
 
   const advanceStep = useCallback((expectedStep) => {
     const timeoutId = setTimeout(() => {
@@ -257,6 +291,45 @@ const V2Landing = () => {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (hasLoadedViewsRef.current) return;
+    hasLoadedViewsRef.current = true;
+
+    if (!viewApiUrl) return;
+    fetchViewCount(viewApiUrl).then(setViewCount);
+  }, [viewApiUrl]);
+
+  const animateViewCount = useCallback(() => {
+    if (viewCount <= 0) {
+      setAnimatedViewCount(0);
+      return;
+    }
+
+    const duration = 1500;
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(viewCount * easeOutQuart);
+
+      setAnimatedViewCount(currentCount);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setAnimatedViewCount(viewCount);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [viewCount]);
+
+  useEffect(() => {
+    animateViewCount();
+  }, [animateViewCount]);
 
   useEffect(() => {
     return () => {
@@ -561,7 +634,7 @@ const V2Landing = () => {
 
           <div className={`v2-views ${contentStep >= steps.done ? "is-visible" : ""}`} aria-label="View count">
             <FaEye className="v2-views-icon" />
-            <span>{content.views.count}</span>
+            <span>{animatedViewCount}</span>
           </div>
         </div>
       </div>
