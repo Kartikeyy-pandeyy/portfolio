@@ -2,14 +2,30 @@ import React, {
   useState,
   useEffect,
   useRef,
-  useCallback,
   useMemo,
 } from "react";
 import "../styles/HeroSection.css";
 import profilePic from "../assets/profile.jpg";
 import portfolioData from "../assets/v1Content.json";
 
-const fetchViewCount = async (url) => {
+const VIEW_POLL_INTERVAL_MS = 5000;
+
+const fetchCurrentViewCount = async (url) => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch views: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data?.total ?? 0;
+  } catch (error) {
+    console.error("Error fetching current view count:", error);
+    return 0;
+  }
+};
+
+const incrementAndFetchViewCount = async (url) => {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -21,16 +37,10 @@ const fetchViewCount = async (url) => {
       return data?.total ?? 0;
     }
 
-    const getResponse = await fetch(url);
-    if (!getResponse.ok) {
-      throw new Error(`Failed to fetch views: ${getResponse.status}`);
-    }
-
-    const data = await getResponse.json();
-    return data?.total ?? 0;
+    return fetchCurrentViewCount(url);
   } catch (error) {
-    console.error("Error fetching view count:", error);
-    return 0;
+    console.error("Error incrementing view count:", error);
+    return fetchCurrentViewCount(url);
   }
 };
 
@@ -44,6 +54,7 @@ const HeroSection = () => {
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const hasInitialized = useRef(false);
+  const hasAnimatedInitialViewsRef = useRef(false);
 
   const apiUrl = useMemo(
     () => `${profile.viewApiBaseUrl.replace(/\/+$/, "")}/api/views`,
@@ -54,36 +65,52 @@ const HeroSection = () => {
     if (hasInitialized.current) return;
     hasInitialized.current = true;
 
-    fetchViewCount(apiUrl).then(setViewCount);
+    incrementAndFetchViewCount(apiUrl).then(setViewCount);
   }, [apiUrl]);
 
-  const animateViewCount = useCallback(() => {
-    if (viewCount <= 0) return;
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchCurrentViewCount(apiUrl).then(setViewCount);
+    }, VIEW_POLL_INTERVAL_MS);
 
-    const duration = 1500;
-    const startTime = Date.now();
-
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(viewCount * easeOutQuart);
-
-      setAnimatedCount(currentCount);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setAnimatedCount(viewCount);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [viewCount]);
+    return () => clearInterval(intervalId);
+  }, [apiUrl]);
 
   useEffect(() => {
-    animateViewCount();
-  }, [animateViewCount]);
+    if (!hasAnimatedInitialViewsRef.current && viewCount > 0) {
+      hasAnimatedInitialViewsRef.current = true;
+
+      const duration = 1500;
+      const startTime = Date.now();
+      let rafId;
+
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentCount = Math.floor(viewCount * easeOutQuart);
+
+        setAnimatedCount(currentCount);
+
+        if (progress < 1) {
+          rafId = requestAnimationFrame(animate);
+        } else {
+          setAnimatedCount(viewCount);
+        }
+      };
+
+      rafId = requestAnimationFrame(animate);
+      return () => cancelAnimationFrame(rafId);
+    }
+
+    if (hasAnimatedInitialViewsRef.current) {
+      setAnimatedCount(viewCount);
+    } else {
+      setAnimatedCount(0);
+    }
+
+    return undefined;
+  }, [viewCount]);
 
   const currentRole = useMemo(
     () => roles[currentRoleIndex] || "",

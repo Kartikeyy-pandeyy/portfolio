@@ -10,7 +10,24 @@ import { deepMerge, parseSimpleYaml } from "../config/parseSimpleYaml";
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const fetchViewCount = async (url) => {
+const VIEW_POLL_INTERVAL_MS = 5000;
+
+const fetchCurrentViewCount = async (url) => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch views: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data?.total ?? 0;
+  } catch (error) {
+    console.error("Error fetching current view count:", error);
+    return 0;
+  }
+};
+
+const incrementAndFetchViewCount = async (url) => {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -22,16 +39,10 @@ const fetchViewCount = async (url) => {
       return data?.total ?? 0;
     }
 
-    const getResponse = await fetch(url);
-    if (!getResponse.ok) {
-      throw new Error(`Failed to fetch views: ${getResponse.status}`);
-    }
-
-    const data = await getResponse.json();
-    return data?.total ?? 0;
+    return fetchCurrentViewCount(url);
   } catch (error) {
-    console.error("Error fetching view count:", error);
-    return 0;
+    console.error("Error incrementing view count:", error);
+    return fetchCurrentViewCount(url);
   }
 };
 
@@ -254,6 +265,7 @@ const V2Landing = () => {
   const stepTimeoutsRef = useRef([]);
   const introHasStartedRef = useRef(false);
   const hasLoadedViewsRef = useRef(false);
+  const hasAnimatedViewsRef = useRef(false);
 
   const advanceStep = useCallback((expectedStep) => {
     const timeoutId = setTimeout(() => {
@@ -297,17 +309,41 @@ const V2Landing = () => {
     hasLoadedViewsRef.current = true;
 
     if (!viewApiUrl) return;
-    fetchViewCount(viewApiUrl).then(setViewCount);
+    incrementAndFetchViewCount(viewApiUrl).then(setViewCount);
   }, [viewApiUrl]);
 
-  const animateViewCount = useCallback(() => {
+  useEffect(() => {
+    if (!viewApiUrl) return undefined;
+
+    const intervalId = setInterval(() => {
+      fetchCurrentViewCount(viewApiUrl).then(setViewCount);
+    }, VIEW_POLL_INTERVAL_MS);
+
+    return () => clearInterval(intervalId);
+  }, [viewApiUrl]);
+
+  useEffect(() => {
+    const isViewsVisible = contentStep >= steps.done;
+    if (!isViewsVisible) {
+      hasAnimatedViewsRef.current = false;
+      setAnimatedViewCount(0);
+      return undefined;
+    }
+
+    if (hasAnimatedViewsRef.current) {
+      setAnimatedViewCount(viewCount);
+      return undefined;
+    }
+    hasAnimatedViewsRef.current = true;
+
     if (viewCount <= 0) {
       setAnimatedViewCount(0);
-      return;
+      return undefined;
     }
 
     const duration = 1500;
     const startTime = Date.now();
+    let rafId;
 
     const animate = () => {
       const elapsed = Date.now() - startTime;
@@ -318,18 +354,15 @@ const V2Landing = () => {
       setAnimatedViewCount(currentCount);
 
       if (progress < 1) {
-        requestAnimationFrame(animate);
+        rafId = requestAnimationFrame(animate);
       } else {
         setAnimatedViewCount(viewCount);
       }
     };
 
-    requestAnimationFrame(animate);
-  }, [viewCount]);
-
-  useEffect(() => {
-    animateViewCount();
-  }, [animateViewCount]);
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, [contentStep, steps.done, viewCount]);
 
   useEffect(() => {
     return () => {
